@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Página inicial Valer</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/uikit.min.css" />
+    <script src="https://kit.fontawesome.com/596c3beb95.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/uikit@3.2.2/dist/js/uikit.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/uikit@3.2.2/dist/js/uikit-icons.min.js"></script>
+</head>
+
+<body>
+    <div id="login" class="fundo-modal">
+        <div class="conteudo-modal">
+            <a class="fechar" href="#">X</a>
+            <div class="cadastro-modal">
+                <img src="" alt="">
+                <form action="">
+                    <input type="text" placeholder="Insira seu nome e sobrenome">
+                    <input type="text" placeholder="Insira seu email">
+                    <input type="text" placeholder="insira seu CPF ou CNPJ">
+                </form>
+            </div>
+
+            <div class="login-modal">
+                <img src="" alt="">
+                <form action="">
+                    <input type="text" placeholder="Insira seu nome e sobrenome">
+                    <input type="text" placeholder="Insira seu email">
+                    <input type="text" placeholder="insira seu CPF ou CNPJ">
+                </form>
+            </div>
+
+            <div class="cover-cadastro">
+                <button class="btn-login">
+                    login
+                </button>
+            </div>
+
+        </div>
+
+    </div>
+    <header uk-sticky>
+        <div class="background-laranja">
+            <nav class="container">
+                <div class="barra-desktop container">
+                    <nav class="barra-cima">
+                        <a href="index.html"><img class="logo-valer" src="img/valler_logo_novo.png"
+                                alt="Logo da Valer - Clicar para Voltar para a página inicial"></a>
+                        <button class="categorias ">Categorias <i class="fas fa-bars"></i></button>
+                        <div uk-dropdown>
+                            <ul class="uk-nav uk-dropdown-nav">
+                                <li><a href="#">Bebidas</a></li>
+                                <li><a href="#">Hortifruti</a></li>
+                                <li><a href="#">Açougue</a></li>
+                                <li><a href="#">Grãos</a></li>
+                                <li><a href="#">Higiene</a></li>
+                            </ul>
+                        </div>
+                        <nav class="uk-navbar-container uk-navbar">
+                            <div class="uk-navbar-left container">
+
+                                <div class="uk-navbar-item">
+                                    <form class="uk-search uk-search-navbar">
+                                        <span uk-search-icon></span>
+                                        <input class="uk-search-input" type="search" placeholder="O que procura ?">
+                                    </form>
+                                </div>
+
+                            </div>
+                        </nav>
+                        <a href="#"><i class="fas fa-map-marker-alt"></i> Santa Cecilia, São Paulo - SP</a>
+                    </nav>
+                </div>
+            </nav>
+        </div>
+
+        <div class="background-branco">
+            <div class="barra-desktop container">
+
+                <ul class="uk-subnav uk-subnav-pill" uk-margin>
+                    <li><a href="index.html">Destaques</a></li>
+                    <li class="uk-active"><a href="gerenciamento de produtos.html">Vender</a></li>
+                    <li><a href="#">Como funciona?</a></li>
+                    <li><a href="#">Buscar outros mercados</a></li>
+                    <li class="laranja-valler"><a class="laranja-valler" href="#login"><span
+                    uk-icon="sign-in"></span>&nbsp;</span>Entrar/Cadastrar</a></li>
+                </ul>
+
+            </div>
+        </div>
+
+    </header>
+
+
+    <main>
+        
+        <div class="search-cat">
+            <div class="barra_pesquisa-mobile">
+                <i class="fas fa-search"></i>
+                <label for="pesquisa-produtos-cadastrados">
+                    <input type="search" id="pesquisa-produtos-cadastrados" name=""
+                        placeholder=" Buscar por # ou Título">
+                </label>
+            </div>
+            <a href="#"><i class="fas fa-bars"></i>categorias</a>
+        </div>
+
+        <div class="cads container">
+            <a class="cad" href="AdicionarProduto.html">
+                Cadastrar Produto
+                <div class="icon-cad">
+                    <i class="fas fa-hamburger"></i>
+                    +
+                </div>
+            </a>
+            <a class="cad" href="AdicionarProduto.html">
+                Cadastrar Categoria
+                <div class="icon-cad">
+                    <i class="fas fa-bars"></i>
+                    +
+                </div>
+            </a>
+        </div> 
+        
+        <section class="container sessao-produtos">
+            <a class="card-item">
+
+                <div class="header-card">
+                    <span class="uk-label uk-label-success .uk-position-right">Vence em 30 dias</span>
+                    <img src="img/produtos/Suco-de-Uva-Maguary-Selecao-Tinto-15l.png" alt="">
+                    <div class="avaliacao">
+                        <span class="fa fa-star checked"></span>
+                        <span class="fa fa-star checked"></span>
+                        <span class="fa fa-star checked"></span>
+                        <span class="fa fa-star unchecked"></span>
+                        <span class="fa fa-star unchecked"></span>
+                    </div>
+                </div>
+
+                <div class="main-card">
+                    <p>Suco de Uva Maguary Seleção Tinto500ML</p>
+                    <p class="preco">R$2,43 <span class="local"> - Mercado Sol</span></p>
+                </div>
+            
+                <div class="footer-card">
+                    <button class="uk-button uk-button-primary uk-width-1-1 uk-margin-small-bottom">Adicionar a Reserva&nbsp;&nbsp;<span uk-icon="tag"></span></button>
+                </div>
+
+            </a>
+
+            <!--  -->
+            <a class="card-item">
+
+                <div class="header-card">
+                    <span class="uk-label uk-label-success .uk-position-right">Vence em 30 dias</span>
+                    <img src="img/produtos/9320814968862.jpg    " alt="">
+                    <div class="avaliacao">
+                        <span class="fa fa-star checked"></span>
+                        <span class="fa fa-star checked"></span>
+                        <span class="fa fa-star checked"></span>
+                        <span class="fa fa-star unchecked"></span>
+                        <span class="fa fa-star unchecked"></span>
+                    </div>
+                </div>
+
+                <div class="main-card">
+                    <p>Suco de Maracuja Maguary Seleção Tinto 1L</p>
+                    <p class="preco">R$2,43<span class="local"> - Mercado Extra</span></p>
+                </div>
+
+                <div class="footer-card">
+                    <button class="uk-button uk-button-primary uk-width-1-1 uk-margin-small-bottom">Adicionar a Reserva&nbsp;&nbsp;<span uk-icon="tag"></span></button>
+                </div>
+
+            </a>
+
+            <a class="card-item">
+
+                <div class="header-card">
+                    <span class="uk-label uk-label-warning .uk-position-right">Vence em 15 dias</span>
+                    <img src="img/produtos/9476860608542.jpg" alt="">
+                    <div class="avaliacao">
+                        <span class="fa fa-star checked"></span>
+                        <span class="fa fa-star checked"></span>
+                        <span class="fa fa-star checked"></span>
+                        <span class="fa fa-star unchecked"></span>
+                        <span class="fa fa-star unchecked"></span>
+                    </div>
+                </div>
+
+                <div class="main-card">
+                    <p>Arroz Branco Camil 5kg</p>
+                    <p class="preco">R$4,43<span class="local"> - Mercado Dia</span></p>
+                </div>
+
+                <div class="footer-card">
+                    <button class="uk-button uk-button-primary uk-width-1-1 uk-margin-small-bottom">Adicionar a Reserva&nbsp;&nbsp;<span uk-icon="tag"></span></button>
+                </div>
+
+            </a>
+
+            <a class="card-item">
+
+                <div class="header-card">
+                    <span class="uk-label uk-label-danger .uk-position-right">Vence em 7 dias</span>
+                    <img src="img/produtos/Feijao-Preto-Super-Maximo-1kg.png" alt="">
+                    <div class="avaliacao">
+                        <span class="fa fa-star checked"></span>
+                        <span class="fa fa-star checked"></span>
+                        <span class="fa fa-star checked"></span>
+                        <span class="fa fa-star checked"></span>
+                        <span class="fa fa-star unchecked"></span>
+                    </div>
+                </div>
+
+                <div class="main-card">
+                    <p>Feijão Preto Sabor Máximo - 1kg</p>
+                    <p class="preco">R$2,43<span class="local"> - Mercado Extra</span></p>
+                </div>
+
+                <div class="footer-card">
+                    <button class="uk-button uk-button-primary uk-width-1-1 uk-margin-small-bottom">Adicionar a Reserva&nbsp;&nbsp;<span uk-icon="tag"></span></button>
+                </div>
+
+            </a>
+        </section>
+    </main>
+</body>
+
+</html>

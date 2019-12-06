@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Página inicial Valer</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/uikit.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="https://kit.fontawesome.com/596c3beb95.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/uikit@3.2.2/dist/js/uikit.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/uikit@3.2.2/dist/js/uikit-icons.min.js"></script>
+
+</head>
+<body>
+
+    <header uk-sticky>
+        <div class="background-laranja">
+            <nav class="container">
+                <div class="barra-desktop container">
+                    <nav class="barra-cima">
+                        <a href="index.html"><img class="logo-valer" src="img/valler_logo_novo.png"
+                                alt="Logo da Valer - Clicar para Voltar para a página inicial"></a>
+                        <button class="categorias ">Categorias <i class="fas fa-bars"></i></button>
+                        <div uk-dropdown>
+                            <ul class="uk-nav uk-dropdown-nav">
+                                <li><a href="#">Bebidas</a></li>
+                                <li><a href="#">Hortifruti</a></li>
+                                <li><a href="#">Açougue</a></li>
+                                <li><a href="#">Grãos</a></li>
+                                <li><a href="#">Higiene</a></li>
+                            </ul>
+                        </div>
+                        <nav class="uk-navbar-container uk-navbar">
+                            <div class="uk-navbar-left container">
+
+                                <div class="uk-navbar-item">
+                                    <form class="uk-search uk-search-navbar">
+                                        <span uk-search-icon></span>
+                                        <input class="uk-search-input" type="search" placeholder="O que procura ?">
+                                    </form>
+                                </div>
+
+                            </div>
+                        </nav>
+                        <a href="#"><i class="fas fa-map-marker-alt"></i> Santa Cecilia, São Paulo - SP</a>
+                    </nav>
+                </div>
+            </nav>
+        </div>
+
+        <div class="background-branco">
+            <div class="barra-desktop container">
+
+                <ul class="uk-subnav uk-subnav-pill" uk-margin>
+                    <li class="uk-active"><a href="index.html">Destaques</a></li>
+                    <li><a href="gerenciamento de produtos.html">Vender</a></li>
+                    <li><a href="#">Como funciona?</a></li>
+                    <li><a href="#">Buscar outros mercados</a></li>
+                    <li class="laranja-valler"><a class="laranja-valler" href="#login"><span
+                                uk-icon="sign-in"></span>&nbsp;</span>Entrar/Cadastrar</a></li>
+                </ul>
+
+            </div>
+        </div>
+
+    </header>
+
+    <main>
+        <div class="container">
+            <h1 class="titulo_add_produto">Adicionar Produto</h1>
+            <div class="card_add_produto">
+
+                <form class="form_add_produto">
+                    <label>
+                        <p>Nome Do Produto</p>
+                        <input type="text" name="add_nome" id="add_nomeid" placeholder="Digite o nome do produto">
+                    </label>
+                    <label>
+                        <p>Imagem do Produto</p>
+                        <input class="img_add" type="image" id="add_imgid">
+                    </label>
+                </form>
+
+                <form class="form_add_produto" oninput="x.value=parseInt(a.value)">
+                    <label>
+                        <p>Data de Validade</p>
+                        <input type="date" name="add_data" id="add_dataid">
+                    </label>
+                    <label>
+                        <p>Preço</p>
+                        <input type="number"  placeholder="Valor do produto">
+                    </label>
+                    <label>
+                        <p>Desconto</p>
+                        <input type="range" value="0" name="a" id="a">
+                        <output name="x" for="a"></output>
+                    </label>
+                </form>
+
+                <form class="form_add_produto">
+                    <label>
+                        <p>Quantidade</p>
+                        <input type="number" name="add_quantidade" id="add_quantidadeid"
+                            placeholder="Quantidade em estoque">
+                    </label>
+                    <label>
+                        <p>Doação ?</p>
+                        <div class="doacao">
+                            <input type="radio" name="doacao">Sim
+                            <input type="radio" name="doacao">Não
+                        </div>
+                    </label>
+                    <label>
+                        <p>Descrição</p>
+                        <input type="text" name="add_descricao" id="add_descricaoid"
+                            placeholder="Digite algumas informções sobre o produto!">
+                    </label>
+                    <button type="submit" onclick="alert('Você acabou de finalizar o cadastro !')"><a
+                            href="gerenciamento de produtos.html">Adicionar</a></button>
+                </form>
+
+            </div>
+        </div>
+    </main>
+</body>
+
+</html>
