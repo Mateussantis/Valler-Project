@@ -102,8 +102,8 @@ namespace backend.Controllers
         }
 
         //  
+        // [Authorize (Roles = "ADM")]
         [HttpDelete("{id}")]
-        [Authorize (Roles = "ADM")]
         public async Task<ActionResult<Reserva>> Delete(int id){
              var Reserva = await _repositorio.BuscarPorID(id);
 

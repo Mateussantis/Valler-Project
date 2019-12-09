@@ -3,6 +3,7 @@ import Header from '../../components/Header/header';
 import { api, apiOfertaPut } from '../../services/api';
 import { MDBContainer, MDBBtn, MDBModal, MDBModalBody, MDBModalHeader, MDBModalFooter, MDBInput, MDBAlert } from 'mdbreact';
 import { Button, Modal } from 'react-bootstrap';
+import Footer from '../../components/Footer/Footer';
 // import MaterialTable from 'material-table';
 
 export default class gerenciamento_produtos extends Component {
@@ -55,17 +56,23 @@ export default class gerenciamento_produtos extends Component {
                 imagem: React.createRef()
             },
 
+            postReserva: {
+                idOferta: "",
+                idUsuario: "",
+                quantidadeReserva: "",
+                cronometro: "",
+                statusReserva: ""
+            },
+
             modal: false,
             modal2: false,
             modal3: false,
-
             modalProduto: false,
             modalOferta: false,
+            modalReserva: false,
             show: false,
 
-
         }
-
     }
 
     //#endregion
@@ -122,6 +129,12 @@ export default class gerenciamento_produtos extends Component {
     toggle = () => {
         this.setState({
             modal: !this.state.modal
+        });
+    }
+
+    toggleReserva = () => {
+        this.setState({
+            modalReserva: !this.state.modalReserva
         });
     }
 
@@ -235,14 +248,14 @@ export default class gerenciamento_produtos extends Component {
         Oferta.set('titulo', this.state.putSetStateOferta.titulo);
         Oferta.set('dataOferta', this.state.putSetStateOferta.dataOferta);
         Oferta.set('dataVencimento', this.state.putSetStateOferta.dataVencimento);
-        Oferta.set('preco', this.state.putSetStateOferta.preco);
+        Oferta.set('preco', this.state.putSetStateOferta.preco);    
         Oferta.set('quantidade', this.state.putSetStateOferta.quantidade);
-        Oferta.set('imagem', this.state.putSetStateOferta.imagem.current.files[0], this.state.putSetStateOferta.imagem);
-        Oferta.set('imagem', this.state.putSetStateOferta.imagem.name);
+        Oferta.set('imagems', this.state.putSetStateOferta.imagem.current.files[0], this.state.putSetStateOferta.imagem.value);
+        Oferta.set('imagem', this.state.putSetStateOferta.imagem.value);    
 
         console.log("aaa", Oferta)
 
-        apiOfertaPut.put('/Oferta/' + this.state.putSetStateOferta.idOferta, Oferta)   
+        apiOfertaPut.put('Oferta/' + this.state.putSetStateOferta.idOferta, Oferta)   
             .then(res => console.log("Sucesso"))
             .catch(error => {
                 console.log("Erro: ", error);
@@ -384,6 +397,53 @@ export default class gerenciamento_produtos extends Component {
     //#endregion
 
 
+    //#region  Reserva
+
+
+    cadastrarReservar = (c) => {
+        c.preventDefault();
+
+        if(this.state.postReserva.statusReserva === "0") {  
+            this.state.postReserva.statusReserva = false
+        }
+        else {
+            this.state.postReserva.statusReserva = true
+        }
+
+        api.post('/reserva', this.state.postReserva)
+            .then(response => {
+                console.log(response);
+            })
+            .catch(error => {
+                console.log(error);
+                this.setState({ erroMsg: "Não foi possível cadastrar essa Reserva" });
+            })
+        setTimeout(() => {
+            this.listaAtualizada();
+        }, 1200);
+    }
+
+    abrirModalReserva    = (id) => {
+
+        this.toggleReserva();
+        console.log("Post", this.state.postReserva);
+
+    }
+
+    postSetStateReserva = (input) => {
+
+        this.setState({
+            postReserva: {
+                ...this.state.postReserva,
+                [input.target.name]: input.target.value
+            }
+        })
+
+    }
+
+    //#endregion
+
+
 
     render() {
         return (
@@ -471,12 +531,12 @@ export default class gerenciamento_produtos extends Component {
                                             </div>
 
                                             <div class="main-card">
-                                                <p>{Oferta.titulo}</p>
-                                                <p class="preco">R$ {Oferta.preco}<span class="local">{}</span></p>
+                                                <p>{Oferta.titulo} - Quantidade: {Oferta.quantidade}</p>
+                                                <p class="preco">R$ {Oferta.preco}  ---  <span class="local">{Oferta.idProdutoNavigation.idUsuarioNavigation.nomeRazaoSocial}</span></p>
                                             </div>
 
                                             <div class="footer-card">
-                                                <button class="uk-button uk-button-primary uk-width-1-1 uk-margin-small-bottom">Adicionar a Reserva&nbsp;&nbsp;<span uk-icon="tag"></span>
+                                                <button class="uk-button uk-button-primary uk-width-1-1 uk-margin-small-bottom" onClick={() => this.abrirModalReserva(Oferta.idOferta)}>Adicionar a Reserva&nbsp;&nbsp;<span uk-icon="tag"></span>
                                                 </button>
                                                 <button class="uk-button uk-button-primary uk-width-1-1 uk-margin-small-bottom" onClick={() => this.abrirModalOferta2(Oferta)}>Aleterar
                                                 </button>
@@ -661,11 +721,39 @@ export default class gerenciamento_produtos extends Component {
                             </Modal.Footer>
                         </Modal>
 
+                        <MDBContainer>
+
+                            <form onSubmit={this.cadastrarReservar}>
+                                <MDBModal isOpen={this.state.modalReserva} toggle={this.toggleReserva}>
+                                    <div>
+                                        <MDBModalHeader toggle={this.toggleReserva}>Cadastrar - {this.state.postReserva.idUsuario}</MDBModalHeader>
+                                        <MDBModalBody>
+
+                                            <MDBInput type="numeric" label="Oferta" name="idOferta" value={this.state.postReserva.idOferta} onChange={this.postSetStateReserva.bind(this)} />
+                                            <MDBInput type="numeric" label="Usuario" name="idUsuario" value={this.state.postReserva.idUsuario} onChange={this.postSetStateReserva.bind(this)} />
+                                            <MDBInput type="numeric" label="Quantidade" name="quantidadeReserva" value={this.state.postReserva.quantidadeReserva} onChange={this.postSetStateReserva.bind(this)} />
+                                            <MDBInput type="numeric" label="Cronometro" name="cronometro" value={this.state.postReserva.cronometro} onChange={this.postSetStateReserva.bind(this)} />
+                                            <MDBInput type="numeric" label="Status Reserva" name="statusReserva" value={this.state.postReserva.statusReserva} onChange={this.postSetStateReserva.bind(this)} />
+                    
+                                        </MDBModalBody>
+                                        <MDBModalFooter>
+                                            <MDBBtn color="secondary" onClick={this.toggleReserva}>Fechar</MDBBtn>
+
+                                            <MDBBtn color="primary" type="submit">Salvar</MDBBtn>
+                                        </MDBModalFooter>
+                                    </div>
+                                </MDBModal>
+                            </form>
+
+                        </MDBContainer>
+
 
 
                     </section>
                 </main>
             </div>
+
+            // <Footer/>
 
 
 
