@@ -33,7 +33,7 @@ namespace backend.Repositories
                         IdCategoria = p.IdCategoria,
                         IdUsuario = p.IdUsuario,
                         NomeProduto = p.NomeProduto,
-                        IdUsuarioNavigation = p.IdUsuarioNavigation,
+                        // IdUsuarioNavigation = p.IdUsuarioNavigation,
 
                         // IdUsuarioNavigation = new Usuario()
                         // {
@@ -43,10 +43,10 @@ namespace backend.Repositories
                         //     Telefone = p.IdUsuarioNavigation.Telefone,
                         // },
 
-                        IdCategoriaNavigation = new Categoria() {
-                            IdCategoria = p.IdCategoriaNavigation.IdCategoria,
-                            Categoria1 = p.IdCategoriaNavigation.Categoria1,
-                        }
+                        // IdCategoriaNavigation = new Categoria() {
+                        //     IdCategoria = p.IdCategoriaNavigation.IdCategoria,
+                        //     Categoria1 = p.IdCategoriaNavigation.Categoria1,
+                        // }
 
 
                     }
@@ -77,8 +77,8 @@ namespace backend.Repositories
                         IdUsuario = p.IdUsuario,
                         NomeProduto = p.NomeProduto,
                         Descricao = p.Descricao,
-                        IdCategoriaNavigation = p.IdCategoriaNavigation,
-                        IdUsuarioNavigation = p.IdUsuarioNavigation,
+                        // IdCategoriaNavigation = p.IdCategoriaNavigation,
+                        // IdUsuarioNavigation = p.IdUsuarioNavigation,
 
                         // IdUsuarioNavigation = new Usuario(){
                         //     IdUsuario = p.IdUsuarioNavigation.IdUsuario,

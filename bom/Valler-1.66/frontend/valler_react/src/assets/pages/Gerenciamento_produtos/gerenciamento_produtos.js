@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import Header from '../../components/Header/header';
-import api from '../../services/api';
+import { api, apiOfertaPut } from '../../services/api';
 import { MDBContainer, MDBBtn, MDBModal, MDBModalBody, MDBModalHeader, MDBModalFooter, MDBInput, MDBAlert } from 'mdbreact';
 import { Button, Modal } from 'react-bootstrap';
 // import MaterialTable from 'material-table';
@@ -238,22 +238,30 @@ export default class gerenciamento_produtos extends Component {
         Oferta.set('preco', this.state.putSetStateOferta.preco);
         Oferta.set('quantidade', this.state.putSetStateOferta.quantidade);
         Oferta.set('imagem', this.state.putSetStateOferta.imagem.current.files[0], this.state.putSetStateOferta.imagem);
-        Oferta.set('imagem',  this.state.putSetStateOferta.imagem.value);
+        Oferta.set('imagem', this.state.putSetStateOferta.imagem.name);
 
-        console.log("Aqui", this.state.putSetStateOferta.imagem);
-        // console.log(this.state.putSetStateOferta.imagem.current.value)
-        console.log(e)
+        console.log("aaa", Oferta)
 
-        fetch('http://localhost:5000/api/Oferta/' + Oferta.idOferta, Oferta, {
-            method: "PUT",
-            body: Oferta,
-        })
-            .then(response => response.json())
-            .then(response => {
-                console.log(response);
-                this.listaOfertaAtualizada();
+        apiOfertaPut.put('/Oferta/' + this.state.putSetStateOferta.idOferta, Oferta)   
+            .then(res => console.log("Sucesso"))
+            .catch(error => {
+                console.log("Erro: ", error);
             })
-            .catch(error => console.log('Não foi possível cadastrar:' + error))
+
+        this.toggle3();
+        setTimeout(() => {
+            this.listaOfertaAtualizada();
+        }, 1500);
+
+        // fetch('http://localhost:5000/api/Oferta/' + this.state.putSetStateOferta.idOferta, Oferta, {
+        //     method: "PUT",
+        //     body: Oferta,
+        // })
+        // .then(response => response.json())
+        //     .then(response => {
+        //         console.log("resposta", response);
+        //     })
+        //     .catch(error => console.log('Não foi possível cadastrar:' + error))
     }
 
     //#endregion
@@ -464,7 +472,7 @@ export default class gerenciamento_produtos extends Component {
 
                                             <div class="main-card">
                                                 <p>{Oferta.titulo}</p>
-                                                <p class="preco">R$ {Oferta.preco}<span class="local">{Oferta.idProdutoNavigation.idUsuarioNavigation.nomeRazaoSocial}</span></p>
+                                                <p class="preco">R$ {Oferta.preco}<span class="local">{}</span></p>
                                             </div>
 
                                             <div class="footer-card">
@@ -630,11 +638,11 @@ export default class gerenciamento_produtos extends Component {
                                         onChange={this.cadastrarSetProduto.bind(this)} />
                                 </Modal.Body>
                                 <Modal.Footer>
-                                    <Button type="submit" onClick={this.abrirModalProduto}>
-                                        Cadastrar Produto
-                                    </Button>
                                     <Button onClick={this.abrirModalProduto}>
                                         Fechar
+                                    </Button>
+                                    <Button type="submit" onClick={this.abrirModalProduto}>
+                                        Cadastrar Produto
                                     </Button>
                                 </Modal.Footer>
                             </form>

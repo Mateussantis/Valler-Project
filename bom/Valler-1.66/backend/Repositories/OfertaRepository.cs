@@ -14,7 +14,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace backend.Repositories {
     public class OfertaRepository : IOferta {
-        public async Task<Oferta> Alterar (Oferta oferta) {
+        public async Task<Oferta> Alterar ([FromForm]Oferta oferta) {
             using (VallerContext _contexto = new VallerContext ()) {
                 _contexto.Entry (oferta).State = EntityState.Modified;
                 await _contexto.SaveChangesAsync ();
@@ -34,21 +34,22 @@ namespace backend.Repositories {
                             Preco = o.Preco,
                             Quantidade = o.Quantidade,
                             Titulo = o.Titulo,
+                            // IdProdutoNavigation = o.IdProdutoNavigation
 
-                            IdProdutoNavigation = new Produto () {
-                                IdProduto = o.IdProdutoNavigation.IdProduto,
-                                    Descricao = o.IdProdutoNavigation.Descricao,
-                                    IdCategoria = o.IdProdutoNavigation.IdCategoria,
-                                    IdUsuario = o.IdProdutoNavigation.IdUsuario,
-                                    NomeProduto = o.IdProdutoNavigation.NomeProduto,
+                            // IdProdutoNavigation = new Produto () {
+                            //     IdProduto = o.IdProdutoNavigation.IdProduto,
+                            //         Descricao = o.IdProdutoNavigation.Descricao,
+                            //         IdCategoria = o.IdProdutoNavigation.IdCategoria,
+                            //         IdUsuario = o.IdProdutoNavigation.IdUsuario,
+                            //         NomeProduto = o.IdProdutoNavigation.NomeProduto,
 
-                                    IdUsuarioNavigation = new Usuario () {
-                                        IdUsuario = o.IdProdutoNavigation.IdUsuarioNavigation.IdUsuario,
-                                            NomeRazaoSocial = o.IdProdutoNavigation.IdUsuarioNavigation.NomeRazaoSocial,
-                                            Endereco = o.IdProdutoNavigation.IdUsuarioNavigation.Endereco,
-                                            Telefone = o.IdProdutoNavigation.IdUsuarioNavigation.Telefone
-                                    }
-                            }
+                            //         IdUsuarioNavigation = new Usuario () {
+                            //             IdUsuario = o.IdProdutoNavigation.IdUsuarioNavigation.IdUsuario,
+                            //                 NomeRazaoSocial = o.IdProdutoNavigation.IdUsuarioNavigation.NomeRazaoSocial,
+                            //                 Endereco = o.IdProdutoNavigation.IdUsuarioNavigation.Endereco,
+                            //                 Telefone = o.IdProdutoNavigation.IdUsuarioNavigation.Telefone
+                            //         }
+                            // }
                     }
 
                 ).FirstOrDefaultAsync (o => o.IdOferta == id);
@@ -76,21 +77,22 @@ namespace backend.Repositories {
                             Preco = o.Preco,
                             Quantidade = o.Quantidade,
                             Imagem = o.Imagem,
-                            
-                            IdProdutoNavigation = new Produto () {
-                                IdProduto = o.IdProdutoNavigation.IdProduto,
-                                    Descricao = o.IdProdutoNavigation.Descricao,
-                                    IdCategoria = o.IdProdutoNavigation.IdCategoria,
-                                    IdUsuario = o.IdProdutoNavigation.IdUsuario,
-                                    NomeProduto = o.IdProdutoNavigation.NomeProduto,
+                            // IdProdutoNavigation = o.IdProdutoNavigation
 
-                                    IdUsuarioNavigation = new Usuario () {
-                                        IdUsuario = o.IdProdutoNavigation.IdUsuarioNavigation.IdUsuario,
-                                            NomeRazaoSocial = o.IdProdutoNavigation.IdUsuarioNavigation.NomeRazaoSocial,
-                                            Endereco = o.IdProdutoNavigation.IdUsuarioNavigation.Endereco,
-                                            Telefone = o.IdProdutoNavigation.IdUsuarioNavigation.Telefone
-                    }
-                    }
+                    //         IdProdutoNavigation = new Produto () {
+                    //             IdProduto = o.IdProdutoNavigation.IdProduto,
+                    //                 Descricao = o.IdProdutoNavigation.Descricao,
+                    //                 IdCategoria = o.IdProdutoNavigation.IdCategoria,
+                    //                 IdUsuario = o.IdProdutoNavigation.IdUsuario,
+                    //                 NomeProduto = o.IdProdutoNavigation.NomeProduto,
+
+                    //                 IdUsuarioNavigation = new Usuario () {
+                    //                     IdUsuario = o.IdProdutoNavigation.IdUsuarioNavigation.IdUsuario,
+                    //                         NomeRazaoSocial = o.IdProdutoNavigation.IdUsuarioNavigation.NomeRazaoSocial,
+                    //                         Endereco = o.IdProdutoNavigation.IdUsuarioNavigation.Endereco,
+                    //                         Telefone = o.IdProdutoNavigation.IdUsuarioNavigation.Telefone
+                    // }
+                    // }
                     }
                 ).ToListAsync ();
             }
