@@ -6,117 +6,125 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
-namespace backend.Controllers
-{
+namespace backend.Controllers {
     //  definimos nossa rota do controller e dizemos que e um controller de api
-    [Route("api/[controller]")]
+    [Route ("api/[controller]")]
     [ApiController]
     // [Authorize]
-    public class ReservaController : ControllerBase
-    {
+    public class ReservaController : ControllerBase {
 
-       ReservaRepository _repositorio = new ReservaRepository();
+        ReservaRepository _repositorio = new ReservaRepository ();
 
-       // GET:  api/Reserva
-       [HttpGet]
-       public async Task<ActionResult<List<Reserva>>> Get()
-       {
-            var Reservas = await _repositorio.Listar();
+        // GET:  api/Reserva
+        [HttpGet]
+        public async Task<ActionResult<List<Reserva>>> Get () {
+            var Reservas = await _repositorio.Listar ();
 
-            if (Reservas == null){
-                return NotFound(new {
+            if (Reservas == null) {
+                return NotFound (new {
                     mensagem = "Nenhuma Reserva foi encontrada!"
                 });
             }
 
             return Reservas;
-       }
-         // GET:  api/Reserva/2
-       [HttpGet("{id}")]
-       public async Task<ActionResult<Reserva>> Get(int id)
-       {
+        }
+        // GET:  api/Reserva/2
+        [HttpGet ("{id}")]
+        public async Task<ActionResult<Reserva>> Get (int id) {
 
             //findfasync = procurar algo especifico     
-            var Reserva = await _repositorio.BuscarPorID(id);
+            var Reserva = await _repositorio.BuscarPorID (id);
 
-            if (Reserva == null){
-                return NotFound(new {
+            if (Reserva == null) {
+                return NotFound (new {
                     mensagem = "Nenhuma Reserva foi encontrada!"
                 });
             }
 
             return Reserva;
-       }
-        // post api/Reserva
-        
-        [HttpPost]
-        public async Task<ActionResult<Reserva>> post (Reserva Reserva){
+        }
 
-            try{
+        // post api/Reserva
+
+        [HttpPost]
+        public async Task<ActionResult<Reserva>> post (Reserva Reserva) {
+
+            try {
                 // tratamos contra ataques de sql injection 
-                await _repositorio.Salvar(Reserva);
-            }
-            catch(DbUpdateConcurrencyException)
-            {
+                await _repositorio.Salvar (Reserva);
+            } catch (DbUpdateConcurrencyException) {
                 throw;
             }
 
-         return Reserva;
+            return Reserva;
         }
 
-        
-        [HttpPut("{id}")]
+        [HttpPut ("{id}")]
         [Authorize (Roles = "ADM")]
-        public async Task<ActionResult> Put(int id, Reserva Reserva){
+        public async Task<ActionResult> Put (int id, Reserva Reserva) {
             // se o id do objeto nao existir 
             // ele retorna
-            
-            if(id != Reserva.IdReserva){
-                return BadRequest(new {
+
+            if (id != Reserva.IdReserva) {
+                return BadRequest (new {
                     mensagem = "Nenhuma Reserva foi encontrada!"
                 });
             }
 
-            try{
-                await _repositorio.Alterar(Reserva);   
-            }
-            catch(DbUpdateConcurrencyException)
-            {
+            try {
+                await _repositorio.Alterar (Reserva);
+            } catch (DbUpdateConcurrencyException) {
 
                 // verificamos se o objeto inserido realmente existe no banco
-                var Reserva_valido = await _repositorio.BuscarPorID(id);
+                var Reserva_valido = await _repositorio.BuscarPorID (id);
 
-                if(Reserva_valido == null){
-                    return NotFound(new {
-                    mensagem = "Nenhuma Reserva foi encontrada!"
-                });
-                }else{
+                if (Reserva_valido == null) {
+                    return NotFound (new {
+                        mensagem = "Nenhuma Reserva foi encontrada!"
+                    });
+                } else {
                     throw;
                 }
-                 
+
             }
             // nocontent = retornar 204 ,sem nada
-             return NoContent();
-                
-                
+            return NoContent ();
+
         }
 
         //  
         // [Authorize (Roles = "ADM")]
-        [HttpDelete("{id}")]
-        public async Task<ActionResult<Reserva>> Delete(int id){
-             var Reserva = await _repositorio.BuscarPorID(id);
+        [HttpDelete ("{id}")]
+        public async Task<ActionResult<Reserva>> Delete (int id) {
+            var Reserva = await _repositorio.BuscarPorID (id);
 
-             if(Reserva == null){
-                return NotFound(new {
+            if (Reserva == null) {
+                return NotFound (new {
                     mensagem = "Nenhuma Reserva foi encontrada!"
                 });
 
-        }
-        await _repositorio.Excluir(Reserva);
+            }
+            await _repositorio.Excluir (Reserva);
 
-        return Reserva;
+            return Reserva;
 
         }
+
+
+        [HttpGet ("a/{idUsuario}")]
+        public async Task<ActionResult<Reserva>> GetOnlyId (int idUsuario) {
+
+            //findfasync = procurar algo especifico     
+            var Reserva = await _repositorio.BuscarPorID (idUsuario);
+
+            if (Reserva == null) {
+                return NotFound (new {
+                    mensagem = "Nenhuma Reserva foi encontrada!"
+                });
+            }
+
+            return Reserva;
+        }
+
     }
 }

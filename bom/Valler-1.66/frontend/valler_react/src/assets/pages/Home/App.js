@@ -297,7 +297,7 @@ export default class App extends Component {
                     <a key={Oferta.idOferta} class="card-item">
 
                       <div class="header-card">
-                        <span class="uk-label uk-label-success .uk-position-right">Vencimento <br></br>{Oferta.dataVencimento}</span>
+                        <span class="uk-label uk-label-success .uk-position-right">Vencimento<br></br>{Oferta.dataVencimento}</span>
                         <img src={"http://localhost:5000/Images/" + Oferta.imagem} alt="" />
                         <div class="avaliacao">
                           <span class="fa fa-star checked"></span>
@@ -328,7 +328,7 @@ export default class App extends Component {
               <form onSubmit={this.cadastrarReservar}>
                 <MDBModal isOpen={this.state.modalReserva} toggle={this.toggleReserva}>
                   <div>
-                    <MDBModalHeader toggle={this.toggleReserva}>Cadastrar - {this.state.postReserva.idUsuario}</MDBModalHeader>
+                    <MDBModalHeader toggle={this.toggleReserva}>Reservar - {this.state.postReserva.idUsuario}</MDBModalHeader>
                     <MDBModalBody>
 
                       <MDBInput type="numeric" label="Oferta" name="idOferta" value={this.state.postReserva.idOferta} onChange={this.postSetStateReserva.bind(this)} />

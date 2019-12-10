@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Header from '../../components/Header/header';
 import { api } from '../../services/api';
+import { parseJwt } from '../../services/auth';
 
 export default class Reserva extends Component {
 
@@ -9,12 +10,13 @@ export default class Reserva extends Component {
     super();
 
     this.state = {
-      listarReservaFinalizada: []
+      listarReserva: [],
+      idUsuario: parseJwt().idUsuario
     }
   }
 
   componentDidMount() {
-    this.getReserva_finalizada();
+    this.getReserva();
   }
 
   //DELETE -- Reserva_finalizada
@@ -27,7 +29,7 @@ export default class Reserva extends Component {
        if( response.status === 200){
            console.log('Item deletado')
            setTimeout( () => {
-               this.getReserva_finalizada()
+               this.getReserva()
            },1500)
           }
         }).catch (error => {
@@ -38,11 +40,11 @@ export default class Reserva extends Component {
 
 
   // GET -- Reserva_finalizada
-  getReserva_finalizada = () => {
-    api.get('Reserva')
+  getReserva = () => {
+    api.get('Reserva/a/'+parseJwt().idUsuario)
       .then(response => {
         if (response.status === 200) {
-          this.setState({ listarReservaFinalizada: response.data })
+          this.setState({ listarReserva: response.data })
         }
       })
   }
@@ -57,12 +59,12 @@ export default class Reserva extends Component {
 
           <tbody id="tabela-corpo-lista">
             {
-              this.state.listarReservaFinalizada.map(
+              this.state.listarReserva.map(
                 function (e) {
                   return (
 
                     <tr key={e.idReserva}>
-                      
+                      <br/>
                       <td>{e.idReserva} | </td>
                       <td>{e.idOfertaNavigation.titulo} | </td>
                       <td>{e.idUsuarioNavigation.nomeRazaoSocial} | </td>

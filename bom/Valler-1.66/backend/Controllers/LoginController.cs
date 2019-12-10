@@ -57,7 +57,8 @@ namespace BackEnd.Controllers {
                 new Claim (ClaimTypes.Role, userInfo.IdTipoUsuarioNavigation.Tipo.ToString ()),
                 new Claim ("Role", userInfo.IdTipoUsuarioNavigation.Tipo.ToString ()),
                 new Claim (JwtRegisteredClaimNames.Jti, Guid.NewGuid ().ToString ()),
-                new Claim ("permissao", userInfo.IdTipoUsuarioNavigation.Tipo.ToString ())
+                new Claim ("permissao", userInfo.IdTipoUsuarioNavigation.Tipo.ToString ()),
+                new Claim ("idUsuario", userInfo.IdUsuario.ToString())
             };
 
             // Configuramos nosso Token e seu tempo de vida
