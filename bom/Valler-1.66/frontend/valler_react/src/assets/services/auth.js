@@ -1,5 +1,8 @@
 // Define a constante usuarioAutenticado
 // que verifica se há um token no localStorage
+
+
+
 export const usuarioAutenticado = () => localStorage.getItem('usuario-valler') !== null
 
 // Define a constante parseJwt

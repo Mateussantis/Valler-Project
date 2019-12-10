@@ -63,13 +63,12 @@ export default class Reserva extends Component {
 
                     <tr key={e.idReserva}>
                       
-                      <td>{e.idReserva} --- </td>
-                      <td>{e.idOfertaNavigation.titulo} --- </td>
-                      <td>{e.idUsuarioNavigation.nomeRazaoSocial} --- </td>
-                      <td>{e.idUsuario}  ---  </td>
-                      <td>{e.quantidade_reserva}  ---  </td>
-                      <td>{e.cronometro}  ---  </td>
-                      <td>{e.status_reserva}  ---  </td>
+                      <td>{e.idReserva} | </td>
+                      <td>{e.idOfertaNavigation.titulo} | </td>
+                      <td>{e.idUsuarioNavigation.nomeRazaoSocial} | </td>
+                      <td>{e.quantidade_reserva} | </td>
+                      <td>{e.cronometro}  |  </td>
+                      <td>{e.status_reserva}  --  </td>
                       <td>
                       <button onClick={() => this.deletarReserva(e.idReserva)}>Deletar</button>
                       </td>
