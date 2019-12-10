@@ -34,8 +34,8 @@ const Rotas = (
     <Router>
         <div>
             <Switch>
-                <Route exact path="/" component={App}/>
-                <Route path="/reserva" component={Reserva}/>
+                <Route exact path="/" component={App} />
+                <Route path="/reserva" component={Reserva} />
                 <PermissaoAdm path="/geren_p" component={geren_p}/>
             </Switch>
         </div>

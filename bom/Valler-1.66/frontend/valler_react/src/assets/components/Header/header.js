@@ -6,8 +6,9 @@ import { MDBContainer, MDBBtn, MDBModal, MDBModalBody, MDBModalHeader, MDBModalF
 
 export default class Header extends Component {
 
-    constructor() {
-        super();
+    constructor(props) {
+
+        super(props);
         this.state = {
 
 
@@ -25,6 +26,10 @@ export default class Header extends Component {
 
 
         }
+    }
+
+    componentDidMount(){
+        console.log(this.props)
     }
 
     atualizaEstado = (event) => {
@@ -77,9 +82,11 @@ export default class Header extends Component {
 
                     console.log(parseJwt().Role)
 
+                    console.log(this.props)
+
                     if(parseJwt().Role === "ADM") {
                         console.log("Até aqui funciona")
-                        this.props.history.push('https://youtu.be/ybGOT4d2Hs8');
+                        this.props.history.push('/geren_p');
                         
                     }else {
                         console.log("Ele consegue fazer a verificação da Role")
@@ -200,7 +207,7 @@ export default class Header extends Component {
                                     <li><a href="gerenciamento de produtos.html">Vender</a></li>
                                     <li><a href="#">Como funciona?</a></li>
                                     <li><a href="#">Buscar outros mercados</a></li>
-                                    <li className="laranja-valler"><a className="laranja-valler" onClick={this.abrirModalLogin} href="#login" ><span
+                                    <li className="laranja-valler"><a className="laranja-valler" onClick={this.abrirModalLogin} ><span
                                         uk-icon="sign-in"></span>&nbsp;Entrar/Cadastrar</a></li>
                                 </ul>
 

@@ -421,6 +421,7 @@ export default class gerenciamento_produtos extends Component {
         setTimeout(() => {
             this.listaAtualizada();
         }, 1200);
+        this.toggleReserva();
     }
 
     abrirModalReserva    = (id) => {
