@@ -265,16 +265,6 @@ export default class gerenciamento_produtos extends Component {
         setTimeout(() => {
             this.listaOfertaAtualizada();
         }, 1500);
-
-        // fetch('http://localhost:5000/api/Oferta/' + this.state.putSetStateOferta.idOferta, Oferta, {
-        //     method: "PUT",
-        //     body: Oferta,
-        // })
-        // .then(response => response.json())
-        //     .then(response => {
-        //         console.log("resposta", response);
-        //     })
-        //     .catch(error => console.log('Não foi possível cadastrar:' + error))
     }
 
     //#endregion
@@ -512,7 +502,6 @@ export default class gerenciamento_produtos extends Component {
 
 
                     <section class="container sessao-produtos">
-
                         {
                             this.state.listarOferta.map(
                                 function (Oferta) {

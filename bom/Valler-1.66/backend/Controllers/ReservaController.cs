@@ -112,10 +112,10 @@ namespace backend.Controllers {
 
 
         [HttpGet ("a/{idUsuario}")]
-        public async Task<ActionResult<Reserva>> GetOnlyId (int idUsuario) {
+        public async Task<ActionResult<List<Reserva>>> ListarOnlyId (int idUsuario) {
 
             //findfasync = procurar algo especifico     
-            var Reserva = await _repositorio.BuscarPorID (idUsuario);
+            var Reserva = await _repositorio.ListarOnlyId(idUsuario);
 
             if (Reserva == null) {
                 return NotFound (new {

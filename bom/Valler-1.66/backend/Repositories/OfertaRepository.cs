@@ -109,5 +109,39 @@ namespace backend.Repositories {
                 return oferta;
             }
         }
+
+        public async Task<List<Oferta>> ListarOnlyId (int IdUsuario) {
+            using (VallerContext _context = new VallerContext ()) {
+                return await _context.Oferta.Select (
+                    o => new Oferta () {
+                        IdOferta = o.IdOferta,
+                            IdProduto = o.IdProduto,
+                            Titulo = o.Titulo,
+                            DataVencimento = o.DataVencimento,
+                            DataOferta = o.DataOferta,
+                            Preco = o.Preco,
+                            Quantidade = o.Quantidade,
+                            Imagem = o.Imagem,
+
+                            IdProdutoNavigation = new Produto () {
+                                IdProduto = o.IdProdutoNavigation.IdProduto,
+                                    Descricao = o.IdProdutoNavigation.Descricao,
+                                    IdCategoria = o.IdProdutoNavigation.IdCategoria,
+                                    IdUsuario = o.IdProdutoNavigation.IdUsuario,
+                                    NomeProduto = o.IdProdutoNavigation.NomeProduto,
+
+                                    IdUsuarioNavigation = new Usuario () {
+                                        IdUsuario = o.IdProdutoNavigation.IdUsuarioNavigation.IdUsuario,
+                                            NomeRazaoSocial = o.IdProdutoNavigation.IdUsuarioNavigation.NomeRazaoSocial,
+                                            Endereco = o.IdProdutoNavigation.IdUsuarioNavigation.Endereco,
+                                            Telefone = o.IdProdutoNavigation.IdUsuarioNavigation.Telefone,
+                                            Documento = o.IdProdutoNavigation.IdUsuarioNavigation.Documento,
+                                    }
+                            }
+                    }
+
+                ).Where (o => o.IdProdutoNavigation.IdUsuario == IdUsuario).ToListAsync ();
+            }
+        }
     }
 }

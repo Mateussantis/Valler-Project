@@ -6,9 +6,7 @@ import { parseJwt } from '../../services/auth';
 export default class Reserva extends Component {
 
   constructor() {
-
     super();
-
     this.state = {
       listarReserva: [],
       idUsuario: parseJwt().idUsuario
@@ -19,7 +17,7 @@ export default class Reserva extends Component {
     this.getReserva();
   }
 
-  //DELETE -- Reserva_finalizada
+  //DELETE -- Reserva
   
   deletarReserva = (id) =>  {
     console.log(id);
