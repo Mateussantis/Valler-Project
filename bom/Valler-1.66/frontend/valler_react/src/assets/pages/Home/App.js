@@ -12,9 +12,7 @@ export default class App extends Component {
 
   constructor() {
     super();
-
     this.state = {
-
       listarProduto: [],
       listarOferta: [],
       puxaCategorias: [],
@@ -261,6 +259,9 @@ export default class App extends Component {
   abrirModalReserva = (id) => {
 
     this.toggleReserva();
+    this.setState(
+      {}
+    );
     console.log("Post", this.state.postReserva);
 
   }

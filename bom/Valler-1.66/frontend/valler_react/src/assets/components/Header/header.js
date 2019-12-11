@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { usuarioAutenticado, parseJwt } from '../../services/auth';
 import { api } from '../../services/api';
 import { Button, Modal } from 'react-bootstrap';
-import { Link , withRouter} from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
 import { MDBContainer, MDBBtn, MDBModal, MDBModalBody, MDBModalHeader, MDBModalFooter, MDBInput, MDBAlert } from 'mdbreact';
 
 class Header extends Component {
@@ -109,7 +109,10 @@ class Header extends Component {
 
                         this.props.history.push('/geren_p');
 
-                    } else {
+                    }if(parseJwt().Role === "Fornecedor") {
+                        this.props.history.push("/geren_p");
+
+                    } else{
 
                         this.props.history.push('/');
                     }
@@ -131,7 +134,7 @@ class Header extends Component {
 
 
 
-    
+
     logout = () => {
 
         localStorage.removeItem("usuario-valler");
@@ -140,7 +143,7 @@ class Header extends Component {
     }
 
     render() {
-        
+
         return (
             <div>
 
@@ -202,10 +205,10 @@ class Header extends Component {
                                 value={this.state.postUsuario.IdTipoUsuario}
                                 onChange={this.postSetState}
                             >
-                                <option value ="2">Quero Apenas comprar</option>
-                                <option value ="3">Quero Vender!</option>
-                                
-    
+                                <option value="2">Quero Apenas comprar</option>
+                                <option value="3">Quero Vender!</option>
+
+
                             </select>
 
                             <MDBInput
@@ -304,16 +307,16 @@ class Header extends Component {
                                         </div>
 
                                         <nav className="uk-navbar-container uk-navbar">
-                                            <div className="uk-navbar-left container">
 
+                                            <div className="uk-navbar-left container">
                                                 <div className="uk-navbar-item">
                                                     <form className="uk-search uk-search-navbar">
                                                         <span uk-search-icon></span>
                                                         <input className="uk-search-input" type="search" placeholder="O que procura ?" />
                                                     </form>
                                                 </div>
-
                                             </div>
+
                                         </nav>
 
                                         <a href="#"><i className="fas fa-map-marker-alt"></i> Santa Cecilia, São Paulo - SP</a>
@@ -327,22 +330,43 @@ class Header extends Component {
 
                                 <ul className="uk-subnav uk-subnav-pill" uk-margin>
                                     <li className="uk-active"><Link to="/" href>Destaques</Link></li>
-                                    <li><Link to="/geren_p" href="gerenciamento de produtos.html">Vender</Link></li>
+                                    <li>
+                                        {usuarioAutenticado() && parseJwt().Role === "ADM" ? (
+                                            <>
+                                                <Link to="/geren_p" href="gerenciamento de produtos.html">Gerenciar Produtos/Ofertas</Link>
+                                            </>
+                                        ) : (
+                                                usuarioAutenticado() && parseJwt.Role === "Fornecedor" ? (
+                                                    <>
+
+                                                        <Link to="/geren_p" href="gerenciamento de produtos.html">Gerenciar Produtos/Ofertas</Link>
+
+                                                    </>
+                                                ) : (
+                                                        <React.Fragment>
+                                                            <a href="#home" className="laranja-valler" onClick={this.abrirModalLogin}>Vender </a>
+                                                        </React.Fragment>
+                                                    )
+                                        
+                                        )}
+                                    </li>
+
+
                                     <li><a href="#">Como funciona?</a></li>
                                     <li><a href="#">Buscar outros mercados</a></li>
                                     <li className="laranja-valler">
                                         {usuarioAutenticado() && parseJwt().Role === "ADM" ? (
                                             <>
-                                             <a href="#home" className="laranja-valler" onClick={this.logout}>Sair<span
-                                                uk-icon="sign-out"></span>&nbsp;</a>
+                                                <a href="#home" className="laranja-valler" onClick={this.logout}>Sair<span
+                                                    uk-icon="sign-out"></span> </a>
                                             </>
-                                        ): (
-                                            <React.Fragment>
-                                                <a href="#home" className="laranja-valler" onClick={this.abrirModalLogin}>Entrar/Cadastrar<span
-                                                uk-icon="sign-out"></span>&nbsp;</a>
-                                            </React.Fragment>
-                                        )
-                                    }
+                                        ) : (
+                                                <React.Fragment>
+                                                    <a href="#home" className="laranja-valler" onClick={this.abrirModalLogin}>Entrar/Cadastrar<span
+                                                        uk-icon="sign-out"></span> </a>
+                                                </React.Fragment>
+                                            )
+                                        }
                                     </li>
                                 </ul>
 

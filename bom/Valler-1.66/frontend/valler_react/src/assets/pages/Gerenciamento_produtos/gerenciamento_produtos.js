@@ -4,6 +4,7 @@ import { api, apiOfertaPut } from '../../services/api';
 import { MDBContainer, MDBBtn, MDBModal, MDBModalBody, MDBModalHeader, MDBModalFooter, MDBInput, MDBAlert } from 'mdbreact';
 import { Button, Modal } from 'react-bootstrap';
 import Footer from '../../components/Footer/Footer';
+import { parseJwt } from '../../services/auth';
 // import MaterialTable from 'material-table';
 
 export default class gerenciamento_produtos extends Component {
@@ -37,6 +38,7 @@ export default class gerenciamento_produtos extends Component {
 
             postSetStateOferta: {
                 idProduto: "",
+                idUsuario: parseJwt().idUsuario,
                 titulo: "",
                 dataOferta: "",
                 dataVencimento: "",
@@ -164,6 +166,7 @@ export default class gerenciamento_produtos extends Component {
         let Oferta = new FormData();
 
         Oferta.set('idProduto', this.state.postSetStateOferta.idProduto);
+        Oferta.set('idUsuario', this.state.postSetStateOferta.idUsuario);
         Oferta.set('titulo', this.state.postSetStateOferta.titulo);
         Oferta.set('dataOferta', this.state.postSetStateOferta.dataOferta);
         Oferta.set('dataVencimento', this.state.postSetStateOferta.dataVencimento);
@@ -210,7 +213,7 @@ export default class gerenciamento_produtos extends Component {
 
 
     listaOfertaAtualizada = () => {
-        fetch("http://localhost:5000/api/Oferta")
+        fetch("http://localhost:5000/api/Oferta/a/"+parseJwt().idUsuario)
             .then(response => response.json())
             .then(data => this.setState({ listarOferta: data })
                 , console.log(this.listarOferta));
@@ -593,6 +596,7 @@ export default class gerenciamento_produtos extends Component {
                                             </select>
 
                                             <MDBInput label="Produtos" name="titulo" value={this.state.postSetStateOferta.titulo} onChange={this.postSetStateOferta.bind(this)} />
+                                            <MDBInput label="Usuario" type="numeric" name="idUsuario" value={this.state.postSetStateOferta.idUsuario} />
                                             <MDBInput type="datetime-local" label="Data Oferta" name="dataOferta" value={this.state.postSetStateOferta.dataOferta} onChange={this.postSetStateOferta.bind(this)} />
                                             <MDBInput type="datetime-local" label="Data Vencimento" name="dataVencimento" value={this.state.postSetStateOferta.dataVencimento} onChange={this.postSetStateOferta.bind(this)} />
                                             <MDBInput type="numeric" label="Preço" name="preco" value={this.state.postSetStateOferta.preco} onChange={this.postSetStateOferta.bind(this)} />
@@ -716,7 +720,7 @@ export default class gerenciamento_produtos extends Component {
                             <form onSubmit={this.cadastrarReservar}>
                                 <MDBModal isOpen={this.state.modalReserva} toggle={this.toggleReserva}>
                                     <div>
-                                        <MDBModalHeader toggle={this.toggleReserva}>Cadastrar - {this.state.postReserva.idUsuario}</MDBModalHeader>
+                                        <MDBModalHeader toggle={this.toggleReserva}>Reservar - {this.state.postReserva.idUsuario}</MDBModalHeader>
                                         <MDBModalBody>
 
                                             <MDBInput type="numeric" label="Oferta" name="idOferta" value={this.state.postReserva.idOferta} onChange={this.postSetStateReserva.bind(this)} />

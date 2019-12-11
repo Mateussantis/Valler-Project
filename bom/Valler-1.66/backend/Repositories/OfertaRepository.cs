@@ -71,13 +71,15 @@ namespace backend.Repositories {
                     o => new Oferta () {
                         IdOferta = o.IdOferta,
                             IdProduto = o.IdProduto,
+                            IdUsuario = o.IdUsuario,
                             Titulo = o.Titulo,
                             DataVencimento = o.DataVencimento,
                             DataOferta = o.DataOferta,
                             Preco = o.Preco,
                             Quantidade = o.Quantidade,
                             Imagem = o.Imagem,
-                            // IdProdutoNavigation = o.IdProdutoNavigation
+                            
+
 
                             IdProdutoNavigation = new Produto () {
                                 IdProduto = o.IdProdutoNavigation.IdProduto,
@@ -112,7 +114,7 @@ namespace backend.Repositories {
 
         public async Task<List<Oferta>> ListarOnlyId (int IdUsuario) {
             using (VallerContext _context = new VallerContext ()) {
-                return await _context.Oferta.Select (
+                return await _context.Oferta.Select(
                     o => new Oferta () {
                         IdOferta = o.IdOferta,
                             IdProduto = o.IdProduto,
@@ -122,6 +124,7 @@ namespace backend.Repositories {
                             Preco = o.Preco,
                             Quantidade = o.Quantidade,
                             Imagem = o.Imagem,
+                            IdUsuario = o.IdUsuario,
 
                             IdProdutoNavigation = new Produto () {
                                 IdProduto = o.IdProdutoNavigation.IdProduto,
@@ -139,8 +142,7 @@ namespace backend.Repositories {
                                     }
                             }
                     }
-
-                ).Where (o => o.IdProdutoNavigation.IdUsuario == IdUsuario).ToListAsync ();
+                ).Where(o => o.IdUsuario == IdUsuario).ToListAsync();
             }
         }
     }
