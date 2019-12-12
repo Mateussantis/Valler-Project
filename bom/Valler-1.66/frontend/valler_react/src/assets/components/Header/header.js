@@ -41,9 +41,16 @@ class Header extends Component {
             modalLogin: false,
             show: false,
 
+            termo: ""
+
 
 
         }
+    }
+
+
+    buscaSetState = (input) =>{
+        this.setState({ termo: input.target.value })
     }
 
 
@@ -329,7 +336,7 @@ class Header extends Component {
                                                 <div className="uk-navbar-item">
                                                     <form className="uk-search uk-search-navbar">
                                                         <span uk-search-icon></span>
-                                                        <input className="uk-search-input" type="search" placeholder="O que procura ?" />
+                                                        <input className="uk-search-input" type="search" placeholder="O que procura ?" value={this.state.termo} onChange={(e) => this.buscaSetState(e)} />
                                                     </form>
                                                 </div>
                                             </div>

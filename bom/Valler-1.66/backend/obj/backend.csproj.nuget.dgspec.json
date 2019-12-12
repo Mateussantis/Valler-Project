@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\fic\\Desktop\\ProjetoOriginalValler\\Kakaka\\bom\\Valler-1.66\\backend\\backend.csproj": {}
+    "C:\\Users\\fic\\Desktop\\Valler 1.69\\Valler-Project\\bom\\Valler-1.66\\backend\\backend.csproj": {}
   },
   "projects": {
-    "C:\\Users\\fic\\Desktop\\ProjetoOriginalValler\\Kakaka\\bom\\Valler-1.66\\backend\\backend.csproj": {
+    "C:\\Users\\fic\\Desktop\\Valler 1.69\\Valler-Project\\bom\\Valler-1.66\\backend\\backend.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\fic\\Desktop\\ProjetoOriginalValler\\Kakaka\\bom\\Valler-1.66\\backend\\backend.csproj",
+        "projectUniqueName": "C:\\Users\\fic\\Desktop\\Valler 1.69\\Valler-Project\\bom\\Valler-1.66\\backend\\backend.csproj",
         "projectName": "backend",
-        "projectPath": "C:\\Users\\fic\\Desktop\\ProjetoOriginalValler\\Kakaka\\bom\\Valler-1.66\\backend\\backend.csproj",
+        "projectPath": "C:\\Users\\fic\\Desktop\\Valler 1.69\\Valler-Project\\bom\\Valler-1.66\\backend\\backend.csproj",
         "packagesPath": "C:\\Users\\fic\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\fic\\Desktop\\ProjetoOriginalValler\\Kakaka\\bom\\Valler-1.66\\backend\\obj\\",
+        "outputPath": "C:\\Users\\fic\\Desktop\\Valler 1.69\\Valler-Project\\bom\\Valler-1.66\\backend\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Microsoft\\Xamarin\\NuGet\\",
