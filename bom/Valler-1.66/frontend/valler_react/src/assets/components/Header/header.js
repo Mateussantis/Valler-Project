@@ -4,6 +4,8 @@ import { api } from '../../services/api';
 import { Button, Modal } from 'react-bootstrap';
 import { Link, withRouter } from 'react-router-dom';
 import { MDBContainer, MDBBtn, MDBModal, MDBModalBody, MDBModalHeader, MDBModalFooter, MDBInput, MDBAlert } from 'mdbreact';
+import {logoValler} from '../../img/valler_logo_novo.png';
+import '../../css/style.css'
 
 class Header extends Component {
 
@@ -293,10 +295,10 @@ class Header extends Component {
                             <nav className="container">
                                 <div className="barra-desktop container">
                                     <nav className="barra-cima">
-                                        <a href="index.html"><img className="logo-valer" src="img/valler_logo_novo.png"
-                                            alt="Logo da Valer - Clicar para Voltar para a página inicial" /></a>
-                                        <button className="categoria s ">Categorias <i className="fas fa-bars"></i></button>
-                                        <div uk-dropdown>
+                                        <a href="/"><img src={logoValler} className="logo-valer"
+                                            alt="Logo da Valer - Clicar para Voltar para a página inicial"/></a>
+                                        {/* <button className="categoria s ">Categorias <i className="fas fa-bars"></i></button> */}
+                                        {/* <div uk-dropdown>
                                             <ul className="uk-nav uk-dropdown-nav">
                                                 <li><a href="#">Bebidas</a></li>
                                                 <li><a href="#">Hortifruti</a></li>
@@ -304,7 +306,7 @@ class Header extends Component {
                                                 <li><a href="#">Grãos</a></li>
                                                 <li><a href="#">Higiene</a></li>
                                             </ul>
-                                        </div>
+                                        </div> */}
 
                                         <nav className="uk-navbar-container uk-navbar">
 
