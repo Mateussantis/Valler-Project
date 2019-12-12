@@ -4,7 +4,8 @@ import { api, apiOfertaPut } from '../../services/api';
 import { MDBContainer, MDBBtn, MDBModal, MDBModalBody, MDBModalHeader, MDBModalFooter, MDBInput, MDBAlert } from 'mdbreact';
 import { Button, Modal } from 'react-bootstrap';
 import Footer from '../../components/Footer/Footer';
-import { parseJwt } from '../../services/auth';
+import { parseJwt, usuarioAutenticado } from '../../services/auth';
+import { isDate } from 'util';
 // import MaterialTable from 'material-table';
 
 export default class gerenciamento_produtos extends Component {
@@ -14,6 +15,11 @@ export default class gerenciamento_produtos extends Component {
 
     constructor() {
         super();
+        let token = "";
+        if (usuarioAutenticado()) {
+            token = parseJwt().idUsuario;
+        }
+
         this.state = {
 
             listarProduto: [],
@@ -23,7 +29,7 @@ export default class gerenciamento_produtos extends Component {
 
             postProduto: {
                 idCategoria: "",
-                idUsuario: "",
+                idUsuario: token,
                 nomeProduto: "",
                 descricao: "",
             },
@@ -38,7 +44,7 @@ export default class gerenciamento_produtos extends Component {
 
             postSetStateOferta: {
                 idProduto: "",
-                idUsuario: parseJwt().idUsuario,
+                idUsuario: token,
                 titulo: "",
                 dataOferta: "",
                 dataVencimento: "",
@@ -213,7 +219,7 @@ export default class gerenciamento_produtos extends Component {
 
 
     listaOfertaAtualizada = () => {
-        fetch("http://localhost:5000/api/Oferta/a/"+parseJwt().idUsuario)
+        fetch("http://localhost:5000/api/Oferta/a/" + parseJwt().idUsuario)
             .then(response => response.json())
             .then(data => this.setState({ listarOferta: data })
                 , console.log(this.listarOferta));
@@ -231,6 +237,7 @@ export default class gerenciamento_produtos extends Component {
 
 
     abrirModalOferta = (Oferta) => {
+        console.log(this.state.postSetStateOferta.dataOferta);
         this.toggle2();
     }
 
@@ -251,14 +258,14 @@ export default class gerenciamento_produtos extends Component {
         Oferta.set('titulo', this.state.putSetStateOferta.titulo);
         Oferta.set('dataOferta', this.state.putSetStateOferta.dataOferta);
         Oferta.set('dataVencimento', this.state.putSetStateOferta.dataVencimento);
-        Oferta.set('preco', this.state.putSetStateOferta.preco);    
+        Oferta.set('preco', this.state.putSetStateOferta.preco);
         Oferta.set('quantidade', this.state.putSetStateOferta.quantidade);
         Oferta.set('imagems', this.state.putSetStateOferta.imagem.current.files[0], this.state.putSetStateOferta.imagem.value);
-        Oferta.set('imagem', this.state.putSetStateOferta.imagem.value);    
+        Oferta.set('imagem', this.state.putSetStateOferta.imagem.value);
 
         console.log("aaa", Oferta)
 
-        apiOfertaPut.put('Oferta/' + this.state.putSetStateOferta.idOferta, Oferta)   
+        apiOfertaPut.put('Oferta/' + this.state.putSetStateOferta.idOferta, Oferta)
             .then(res => console.log("Sucesso"))
             .catch(error => {
                 console.log("Erro: ", error);
@@ -276,7 +283,7 @@ export default class gerenciamento_produtos extends Component {
     //#region Produtos
 
     listaAtualizada = () => {
-        fetch("http://localhost:5000/api/Produto")
+        fetch("http://localhost:5000/api/Produto/a/" + parseJwt().idUsuario)
             .then(response => response.json())
             .then(data => this.setState({ listarProduto: data })
                 , console.log(this.listarProdutos));
@@ -396,7 +403,7 @@ export default class gerenciamento_produtos extends Component {
     cadastrarReservar = (c) => {
         c.preventDefault();
 
-        if(this.state.postReserva.statusReserva === "0") {  
+        if (this.state.postReserva.statusReserva === "0") {
             this.state.postReserva.statusReserva = false
         }
         else {
@@ -417,7 +424,7 @@ export default class gerenciamento_produtos extends Component {
         this.toggleReserva();
     }
 
-    abrirModalReserva    = (id) => {
+    abrirModalReserva = (id) => {
 
         this.toggleReserva();
         console.log("Post", this.state.postReserva);
@@ -529,8 +536,6 @@ export default class gerenciamento_produtos extends Component {
                                             </div>
 
                                             <div class="footer-card">
-                                                <button class="uk-button uk-button-primary uk-width-1-1 uk-margin-small-bottom" onClick={() => this.abrirModalReserva(Oferta.idOferta)}>Adicionar a Reserva&nbsp;&nbsp;<span uk-icon="tag"></span>
-                                                </button>
                                                 <button class="uk-button uk-button-primary uk-width-1-1 uk-margin-small-bottom" onClick={() => this.abrirModalOferta2(Oferta)}>Aleterar
                                                 </button>
                                                 <button class="uk-button uk-button-primary uk-width-1-1 uk-margin-small-bottom" onClick={() => this.deleteOferta(Oferta.idOferta)}>Deletar
@@ -584,6 +589,7 @@ export default class gerenciamento_produtos extends Component {
                                         <MDBModalBody>
 
                                             <select onChange={this.postSetStateOferta.bind(this)} value={this.state.postSetStateOferta.idProduto} name="idProduto">
+                                                <option>Escolha o produto</option>
                                                 {
                                                     this.state.listarProduto.map(function (o) {
                                                         return (
@@ -596,7 +602,6 @@ export default class gerenciamento_produtos extends Component {
                                             </select>
 
                                             <MDBInput label="Produtos" name="titulo" value={this.state.postSetStateOferta.titulo} onChange={this.postSetStateOferta.bind(this)} />
-                                            <MDBInput label="Usuario" type="numeric" name="idUsuario" value={this.state.postSetStateOferta.idUsuario} />
                                             <MDBInput type="datetime-local" label="Data Oferta" name="dataOferta" value={this.state.postSetStateOferta.dataOferta} onChange={this.postSetStateOferta.bind(this)} />
                                             <MDBInput type="datetime-local" label="Data Vencimento" name="dataVencimento" value={this.state.postSetStateOferta.dataVencimento} onChange={this.postSetStateOferta.bind(this)} />
                                             <MDBInput type="numeric" label="Preço" name="preco" value={this.state.postSetStateOferta.preco} onChange={this.postSetStateOferta.bind(this)} />
@@ -728,7 +733,7 @@ export default class gerenciamento_produtos extends Component {
                                             <MDBInput type="numeric" label="Quantidade" name="quantidadeReserva" value={this.state.postReserva.quantidadeReserva} onChange={this.postSetStateReserva.bind(this)} />
                                             <MDBInput type="numeric" label="Cronometro" name="cronometro" value={this.state.postReserva.cronometro} onChange={this.postSetStateReserva.bind(this)} />
                                             <MDBInput type="numeric" label="Status Reserva" name="statusReserva" value={this.state.postReserva.statusReserva} onChange={this.postSetStateReserva.bind(this)} />
-                    
+
                                         </MDBModalBody>
                                         <MDBModalFooter>
                                             <MDBBtn color="secondary" onClick={this.toggleReserva}>Fechar</MDBBtn>
@@ -752,6 +757,6 @@ export default class gerenciamento_produtos extends Component {
 
 
         )
-    
+
     }
 }

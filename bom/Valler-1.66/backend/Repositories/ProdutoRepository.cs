@@ -100,6 +100,25 @@ namespace backend.Repositories
                 return produto;
             }
         }
+
+
+
+
+
+        public async Task<List<Produto>> ListarOnlyId (int IdUsuario) {
+            using (VallerContext _context = new VallerContext ()) {
+                return await _context.Produto.Select(
+                    p => new Produto()
+                    {
+                        IdProduto = p.IdProduto,
+                        Descricao = p.Descricao,
+                        IdCategoria = p.IdCategoria,
+                        IdUsuario = p.IdUsuario,
+                        NomeProduto = p.NomeProduto
+                        }
+                ).Where(o => o.IdUsuario == IdUsuario).ToListAsync();
+            }
+        }
     }
 
 }

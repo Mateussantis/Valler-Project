@@ -3,7 +3,7 @@ import Header from '../../components/Header/header';
 import { api } from '../../services/api';
 import { parseJwt } from '../../services/auth';
 
-export default class Reserva extends Component {
+export default class ReservaFornecedor extends Component {
 
   constructor() {
     super();
@@ -39,7 +39,7 @@ export default class Reserva extends Component {
 
   // GET -- Reserva_finalizada
   getReserva = () => {
-    api.get('Reserva/a/' + parseJwt().idUsuario)
+    api.get('Reserva/aa/' + parseJwt().idUsuario)
       .then(response => {
         if (response.status === 200) {
           this.setState({ listarReserva: response.data })
@@ -64,7 +64,7 @@ export default class Reserva extends Component {
                     <tr key={e.idReserva}>
                       <br />
                       <td><strong>Oferta</strong> : {e.idOfertaNavigation.titulo} || </td>
-                      <td><strong>Mercado</strong> : {e.idOfertaNavigation.idProdutoNavigation.idUsuarioNavigation.nomeRazaoSocial} || </td>
+                      <td><strong>Usuario</strong> : {e.idUsuarioNavigation.nomeRazaoSocial} || </td>
                       <td><strong>Quantidade</strong> : {e.quantidadeReserva} -- </td>
                       <td><strong>Cronometro</strong> : {e.cronometro}  --  </td>
                       <td><strong>Status</strong> : {e.statusReserva == 0 && "Fechada" || "Aberta"}  --  </td>

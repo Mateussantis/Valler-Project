@@ -116,5 +116,23 @@ namespace Backend.Controllers
             
             return produto;
         }
+
+
+
+
+        [HttpGet ("a/{idUsuario}")]
+        public async Task<ActionResult<List<Produto>>> ListarOnlyId (int idUsuario) {
+
+            //findfasync = procurar algo especifico     
+            var Produtos = await _repositorio.ListarOnlyId(idUsuario);
+
+            if (Produtos == null) {
+                return NotFound (new {
+                    mensagem = "Nenhuma Reserva foi encontrada!"
+                });
+            }
+
+            return Produtos;
+        }
     }
 }

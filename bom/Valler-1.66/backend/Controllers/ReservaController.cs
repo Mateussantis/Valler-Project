@@ -126,5 +126,23 @@ namespace backend.Controllers {
             return Reserva;
         }
 
+
+
+
+        [HttpGet ("aa/{idUsuario}")]
+        public async Task<ActionResult<List<Reserva>>> ListarOnlyIdFornecedor (int idUsuario) {
+
+            //findfasync = procurar algo especifico     
+            var Reserva = await _repositorio.ListarOnlyIdFornecedor(idUsuario);
+
+            if (Reserva == null) {
+                return NotFound (new {
+                    mensagem = "Nenhuma Reserva foi encontrada!"
+                });
+            }
+
+            return Reserva;
+        }
+
     }
 }

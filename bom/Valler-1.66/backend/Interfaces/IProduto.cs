@@ -11,5 +11,6 @@ namespace backend.Interfaces
         Task<Produto> Salvar(Produto produto);
         Task<Produto> Alterar(Produto produto);
         Task<Produto> Excluir(Produto produto);
+        Task<List<Produto>> ListarOnlyId(int idUsuario);
     }
 }

@@ -4,8 +4,9 @@ import { api } from '../../services/api';
 import { Button, Modal } from 'react-bootstrap';
 import { Link, withRouter } from 'react-router-dom';
 import { MDBContainer, MDBBtn, MDBModal, MDBModalBody, MDBModalHeader, MDBModalFooter, MDBInput, MDBAlert } from 'mdbreact';
-import {logoValler} from '../../img/valler_logo_novo.png';
+import { logoValler } from '../../img/valler_logo_novo.png';
 import '../../css/style.css'
+// import { Dropdown } from 'uikit-react';
 
 class Header extends Component {
 
@@ -57,6 +58,13 @@ class Header extends Component {
     postUsuario = (u) => {
         u.preventDefault();
 
+        if (this.state.postUsuario.IdTipoUsuario === "2") {
+            this.state.postUsuario.IdTipoUsuario = 2
+
+        } if (this.state.postUsuario.IdTipoUsuario === "3") {
+            this.state.postUsuario.IdTipoUsuario = 3
+        }
+
         api.post('/usuario', this.state.postUsuario)
             .then(response => {
                 console.log(response);
@@ -85,6 +93,7 @@ class Header extends Component {
     abrirModalLogin = () => {
 
         this.toggleModalLogin();
+
     }
 
 
@@ -107,25 +116,30 @@ class Header extends Component {
                     localStorage.setItem('usuario-valler', response.data.token)
                     this.setState({ isLoading: false })
 
-                    if (parseJwt().Role === "ADM") {
+                    var base64 = localStorage.getItem('usuario-valler').split('.')[1]
+
+                    console.log(base64)
+
+                    console.log(parseJwt().Role)
+
+                    if (parseJwt().Role === "ADM" || parseJwt().Role === "Fornecedor") {
 
                         this.props.history.push('/geren_p');
+                        console.log(this.props)
 
-                    }if(parseJwt().Role === "Fornecedor") {
-                        this.props.history.push("/geren_p");
-
-                    } else{
-
-                        this.props.history.push('/');
                     }
 
-                    // if (parseJwt().Role === 'Comum') {
-                    //     this.props.history.push('/')
-                    // } if (parseJwt().Role === 'Fornecedor') {
-                    //     this.props.history.push('/geren_p')
-                    // }
+                } else {
+                    this.props.history.push('/')
                 }
-            })
+
+                // if (parseJwt().Role === 'Comum') {
+                //     this.props.history.push('/')
+                // } if (parseJwt().Role === 'Fornecedor') {
+                //     this.props.history.push('/geren_p')
+                // }
+            }
+            )
 
             .catch(erro => {
                 console.log("Erro: ", erro)
@@ -140,7 +154,6 @@ class Header extends Component {
     logout = () => {
 
         localStorage.removeItem("usuario-valler");
-
         this.props.history.push("/");
     }
 
@@ -189,6 +202,7 @@ class Header extends Component {
                             {
                                 this.state.isLoading === false &&
                                 <Button
+                                    onClick={this.toggleModalLogin}
                                     type="submit"
                                 >Entrar</Button>
                             }
@@ -207,6 +221,7 @@ class Header extends Component {
                                 value={this.state.postUsuario.IdTipoUsuario}
                                 onChange={this.postSetState}
                             >
+                                <option>Eu quero: </option>
                                 <option value="2">Quero Apenas comprar</option>
                                 <option value="3">Quero Vender!</option>
 
@@ -296,17 +311,17 @@ class Header extends Component {
                                 <div className="barra-desktop container">
                                     <nav className="barra-cima">
                                         <a href="/"><img src={logoValler} className="logo-valer"
-                                            alt="Logo da Valer - Clicar para Voltar para a página inicial"/></a>
-                                        {/* <button className="categoria s ">Categorias <i className="fas fa-bars"></i></button> */}
-                                        {/* <div uk-dropdown>
-                                            <ul className="uk-nav uk-dropdown-nav">
+                                            alt="Logo da Valer - Clicar para Voltar para a página inicial" /></a>
+                                        <button className="categorias ">Categorias <i className="fas fa-bars"></i></button>
+                                        <div uk-dropdown>
+                                            {/* <Dropdown className="uk-nav uk-dropdown-nav">
                                                 <li><a href="#">Bebidas</a></li>
                                                 <li><a href="#">Hortifruti</a></li>
                                                 <li><a href="#">Açougue</a></li>
                                                 <li><a href="#">Grãos</a></li>
                                                 <li><a href="#">Higiene</a></li>
-                                            </ul>
-                                        </div> */}
+                                            </Dropdown> */}
+                                        </div>
 
                                         <nav className="uk-navbar-container uk-navbar">
 
@@ -335,34 +350,53 @@ class Header extends Component {
                                     <li>
                                         {usuarioAutenticado() && parseJwt().Role === "ADM" ? (
                                             <>
-                                                <Link to="/geren_p" href="gerenciamento de produtos.html">Gerenciar Produtos/Ofertas</Link>
+                                                <Link to="/geren_p" >Gerenciar Produtos/Ofertas</Link>
                                             </>
                                         ) : (
-                                                usuarioAutenticado() && parseJwt.Role === "Fornecedor" ? (
+                                                usuarioAutenticado() && parseJwt().Role === "Comum" ? 
+                                                (
                                                     <>
-
-                                                        <Link to="/geren_p" href="gerenciamento de produtos.html">Gerenciar Produtos/Ofertas</Link>
-
+                                                    <Link to="/reserva" >Minhas Reservas</Link>
+                                                </>
+                                            ) :(
+                                                usuarioAutenticado() && parseJwt().Role === "Fornecedor" ? (
+                                                    <>
+                                                        <Link to="/geren_p" >Gerenciar Produtos/Ofertas</Link>
                                                     </>
-                                                ) : (
+                                                ) 
+                                                :(
                                                         <React.Fragment>
-                                                            <a href="#home" className="laranja-valler" onClick={this.abrirModalLogin}>Vender </a>
+                                                            <a href="#Home" className="laranja-valler" onClick={this.abrirModalLogin}>Vender</a>
                                                         </React.Fragment>
                                                     )
-                                        
-                                        )}
+                                        ))}
+
                                     </li>
 
 
                                     <li><a href="#">Como funciona?</a></li>
                                     <li><a href="#">Buscar outros mercados</a></li>
                                     <li className="laranja-valler">
-                                        {usuarioAutenticado() && parseJwt().Role === "ADM" ? (
-                                            <>
-                                                <a href="#home" className="laranja-valler" onClick={this.logout}>Sair<span
-                                                    uk-icon="sign-out"></span> </a>
-                                            </>
-                                        ) : (
+
+
+                                        {/* {
+                                            usuarioAutenticado() && ( parseJwt().Role === "ADM" || parseJwt().Role === "Comum" ) ? (
+                                                // faça algo
+                                            ) : (
+                                                // faça outra coisa
+                                            )
+                                        } */}
+
+
+
+
+                                        {usuarioAutenticado() && (parseJwt()
+                                            .Role === "ADM" || parseJwt().Role === "Comum" || parseJwt().Role === "Fornecedor") ? (
+                                                <>
+                                                    <a href="#home" className="laranja-valler" onClick={this.logout}>Sair<span
+                                                        uk-icon="sign-out"></span> </a>
+                                                </>
+                                            ) : (
                                                 <React.Fragment>
                                                     <a href="#home" className="laranja-valler" onClick={this.abrirModalLogin}>Entrar/Cadastrar<span
                                                         uk-icon="sign-out"></span> </a>

@@ -28,7 +28,7 @@ namespace backend.Domains
         {
             if (!optionsBuilder.IsConfigured)
             {
-                optionsBuilder.UseSqlServer("Server=DESKTOP-2R9DLMI\\SQLEXPRESS;Database=Valler;User Id=sa; Password=132");
+                optionsBuilder.UseSqlServer("Server=N-1S-DEV-07\\SQLEXPRESS;Database=Valler;User Id=sa; Password=132");
                 //teste
                 // optionsBuilder.UseSqlServer("Server=KAGAMI;Database=Valler;Trusted_Connection=True");
             }

@@ -12,5 +12,6 @@ namespace backend.Interfaces
         Task<Reserva> Alterar(Reserva reserva);
         Task<Reserva> Excluir(Reserva reserva);
         Task<List<Reserva>> ListarOnlyId(int idUsuario);
+        Task<List<Reserva>> ListarOnlyIdFornecedor(int idUsuario);
     }
 }

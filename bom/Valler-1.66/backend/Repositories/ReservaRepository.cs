@@ -199,6 +199,68 @@ namespace backend.Repositories
                 ).Where(r => r.IdUsuario == IdUsuario).ToListAsync();
             }
         }
+
+
+
+
+
+
+
+
+
+
+
+
+        public async Task<List<Reserva>> ListarOnlyIdFornecedor(int IdUsuario)
+        {
+            using (VallerContext _context = new VallerContext())
+            {
+                return await _context.Reserva.Select(
+                    r => new Reserva()
+                    {
+                        IdReserva = r.IdReserva,
+                        IdOferta = r.IdOferta,
+                        Cronometro = r.Cronometro,
+                        QuantidadeReserva = r.QuantidadeReserva,
+                        StatusReserva = r.StatusReserva,
+                        IdUsuario = r.IdUsuario,
+
+                        IdOfertaNavigation = new Oferta()
+                        {
+                            IdOferta = r.IdOfertaNavigation.IdOferta,
+                            DataOferta = r.IdOfertaNavigation.DataOferta,
+                            DataVencimento = r.IdOfertaNavigation.DataVencimento,
+                            IdProduto = r.IdOfertaNavigation.IdProduto,
+                            Imagem = r.IdOfertaNavigation.Imagem,
+                            Preco = r.IdOfertaNavigation.Preco,
+                            Quantidade = r.IdOfertaNavigation.Quantidade,
+                            Titulo = r.IdOfertaNavigation.Titulo,
+
+                            IdProdutoNavigation = new Produto()
+                            {
+                                IdProduto = r.IdOfertaNavigation.IdProdutoNavigation.IdProduto,
+                                IdCategoria = r.IdOfertaNavigation.IdProdutoNavigation.IdCategoria,
+                                IdUsuario = r.IdOfertaNavigation.IdProdutoNavigation.IdUsuario,
+                                NomeProduto = r.IdOfertaNavigation.IdProdutoNavigation.NomeProduto,
+                                IdCategoriaNavigation = r.IdOfertaNavigation.IdProdutoNavigation.IdCategoriaNavigation,
+
+                                IdUsuarioNavigation = new Usuario()
+                                {
+                                    IdUsuario = r.IdOfertaNavigation.IdProdutoNavigation.IdUsuarioNavigation.IdUsuario,
+                                    NomeRazaoSocial = r.IdOfertaNavigation.IdProdutoNavigation.IdUsuarioNavigation.NomeRazaoSocial,
+                                }
+                            }
+                        },
+                        IdUsuarioNavigation = new Usuario()
+                        {
+                            NomeRazaoSocial = r.IdUsuarioNavigation.NomeRazaoSocial,
+                            IdUsuario = r.IdUsuarioNavigation.IdUsuario,
+                        }
+                    }
+                ).Where(r => r.IdOfertaNavigation.IdProdutoNavigation.IdUsuarioNavigation.IdUsuario == IdUsuario).ToListAsync();
+            }
+        }
+
     }
 
 }

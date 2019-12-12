@@ -3,6 +3,7 @@ import { api, apiOfertaPut } from '../../services/api';
 import { MDBContainer, MDBBtn, MDBModal, MDBModalBody, MDBModalHeader, MDBModalFooter, MDBInput, MDBAlert } from 'mdbreact';
 import { Button, Modal } from 'react-bootstrap';
 import Header from '../../components/Header/header.js';
+import { parseJwt, usuarioAutenticado } from '../../services/auth';
 
 
 
@@ -12,6 +13,12 @@ export default class App extends Component {
 
   constructor() {
     super();
+
+    let token = "";
+    if (usuarioAutenticado()) {
+      token = parseJwt().idUsuario;
+    }
+
     this.state = {
       listarProduto: [],
       listarOferta: [],
@@ -19,10 +26,11 @@ export default class App extends Component {
 
       postReserva: {
         idOferta: "",
-        idUsuario: "",
+        titulo: "",
+        idUsuario: token,
         quantidadeReserva: "",
-        cronometro: "",
-        statusReserva: ""
+        cronometro: "23:59:59",
+        statusReserva: true
       },
 
       modal: false,
@@ -235,12 +243,6 @@ export default class App extends Component {
   cadastrarReservar = (c) => {
     c.preventDefault();
 
-    if (this.state.postReserva.statusReserva === "0") {
-      this.state.postReserva.statusReserva = false
-    }
-    else {
-      this.state.postReserva.statusReserva = true
-    }
 
     api.post('/reserva', this.state.postReserva)
       .then(response => {
@@ -256,14 +258,14 @@ export default class App extends Component {
     this.toggleReserva();
   }
 
-  abrirModalReserva = (id) => {
+  abrirModalReserva = (id, titulo) => {
 
-    this.toggleReserva();
-    this.setState(
-      {}
-    );
-    console.log("Post", this.state.postReserva);
-
+    
+      this.toggleReserva();
+      this.setState({ ...this.state.postReserva.idOferta = id });
+      this.setState({ ...this.state.postReserva.titulo = titulo });
+      console.log("Post", this.state.postReserva);
+    
   }
 
   postSetStateReserva = (input) => {
@@ -315,7 +317,7 @@ export default class App extends Component {
                       </div>
 
                       <div class="footer-card">
-                        <button class="uk-button uk-button-primary uk-width-1-1 uk-margin-small-bottom" onClick={() => this.abrirModalReserva(Oferta.idOferta)}>Adicionar a Reserva&nbsp;&nbsp;<span uk-icon="tag"></span>
+                        <button class="uk-button uk-button-primary uk-width-1-1 uk-margin-small-bottom" onClick={() => this.abrirModalReserva(Oferta.idOferta, Oferta.titulo)}>Adicionar a Reserva&nbsp;&nbsp;<span uk-icon="tag"></span>
                         </button>
                       </div>
                     </a>
@@ -329,19 +331,12 @@ export default class App extends Component {
               <form onSubmit={this.cadastrarReservar}>
                 <MDBModal isOpen={this.state.modalReserva} toggle={this.toggleReserva}>
                   <div>
-                    <MDBModalHeader toggle={this.toggleReserva}>Reservar - {this.state.postReserva.idUsuario}</MDBModalHeader>
+                    <MDBModalHeader toggle={this.toggleReserva}>Reservar - {this.state.postReserva.titulo}</MDBModalHeader>
                     <MDBModalBody>
-
-                      <MDBInput type="numeric" label="Oferta" name="idOferta" value={this.state.postReserva.idOferta} onChange={this.postSetStateReserva.bind(this)} />
-                      <MDBInput type="numeric" label="Usuario" name="idUsuario" value={this.state.postReserva.idUsuario} onChange={this.postSetStateReserva.bind(this)} />
                       <MDBInput type="numeric" label="Quantidade" name="quantidadeReserva" value={this.state.postReserva.quantidadeReserva} onChange={this.postSetStateReserva.bind(this)} />
-                      <MDBInput type="numeric" label="Cronometro" name="cronometro" value={this.state.postReserva.cronometro} onChange={this.postSetStateReserva.bind(this)} />
-                      <MDBInput type="numeric" label="Status Reserva" name="statusReserva" value={this.state.postReserva.statusReserva} onChange={this.postSetStateReserva.bind(this)} />
-
                     </MDBModalBody>
                     <MDBModalFooter>
                       <MDBBtn color="secondary" onClick={this.toggleReserva}>Fechar</MDBBtn>
-
                       <MDBBtn color="primary" type="submit">Salvar</MDBBtn>
                     </MDBModalFooter>
                   </div>
