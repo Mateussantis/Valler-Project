@@ -56,6 +56,7 @@ export default class gerenciamento_produtos extends Component {
             putSetStateOferta: {
                 idOferta: "",
                 idProduto: "",
+                idUsuario: token,
                 titulo: "",
                 dataOferta: "",
                 dataVencimento: "",
@@ -251,10 +252,12 @@ export default class gerenciamento_produtos extends Component {
 
     putOferta = (e) => {
         e.preventDefault();
+
         let Oferta = new FormData();
 
         Oferta.set('idOferta', this.state.putSetStateOferta.idOferta);
         Oferta.set('idProduto', this.state.putSetStateOferta.idProduto);
+        Oferta.set('idUsuario', this.state.putSetStateOferta.idUsuario);
         Oferta.set('titulo', this.state.putSetStateOferta.titulo);
         Oferta.set('dataOferta', this.state.putSetStateOferta.dataOferta);
         Oferta.set('dataVencimento', this.state.putSetStateOferta.dataVencimento);

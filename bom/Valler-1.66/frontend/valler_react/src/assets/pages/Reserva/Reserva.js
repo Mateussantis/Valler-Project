@@ -85,5 +85,4 @@ export default class Reserva extends Component {
       </div>
     );
   }
-
 }

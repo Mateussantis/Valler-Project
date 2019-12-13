@@ -6,6 +6,7 @@ import { Link, withRouter } from 'react-router-dom';
 import { MDBContainer, MDBBtn, MDBModal, MDBModalBody, MDBModalHeader, MDBModalFooter, MDBInput, MDBAlert } from 'mdbreact';
 import { logoValler } from '../../img/valler_logo_novo.png';
 import '../../css/style.css'
+import { parse } from 'querystring';
 // import { Dropdown } from 'uikit-react';
 
 class Header extends Component {
@@ -41,11 +42,21 @@ class Header extends Component {
             modalLogin: false,
             show: false,
 
-
-
+            termo: ""
         }
     }
 
+
+    buscaSetState = (input) =>{
+        this.setState({ termo: input.target.value })
+        console.log(this.props.location.termo)
+
+
+        
+
+
+
+    }
 
     postSetState = (input) => {
         this.setState({
@@ -159,10 +170,12 @@ class Header extends Component {
 
     render() {
 
+        
+
         return (
             <div>
 
-                <Modal show={this.state.modalLogin} toggleModalLogin={this.toggleModalLogin}>
+                <Modal show={this.state.modalLogin || this.props.logar } toggleModalLogin={this.toggleModalLogin || this.props.logar} logar={this.props.logar}>
                     <form onSubmit={this.fazerLogin.bind(this)}>
 
                         <Modal.Header>
@@ -329,7 +342,7 @@ class Header extends Component {
                                                 <div className="uk-navbar-item">
                                                     <form className="uk-search uk-search-navbar">
                                                         <span uk-search-icon></span>
-                                                        <input className="uk-search-input" type="search" placeholder="O que procura ?" />
+                                                        <input className="uk-search-input" type="search" placeholder="O que procura ?" value={this.state.termo} onChange={(e) => this.buscaSetState(e)} />
                                                     </form>
                                                 </div>
                                             </div>
@@ -370,22 +383,22 @@ class Header extends Component {
                                                         </React.Fragment>
                                                     )
                                         ))}
-
+                                    </li>
+                                    <li>
+                                        {usuarioAutenticado() && parseJwt().Role === "Fornecedor" ? (
+                                            <>
+                                                <Link to="/reservafornecedor">Produtos Reservados</Link>
+                                            </>
+                                        ):(
+                                            <>
+                                            </>
+                                        )} 
                                     </li>
 
 
                                     <li><a href="#">Como funciona?</a></li>
-                                    <li><a href="#">Buscar outros mercados</a></li>
+                                    {/* <li><a href="#">Buscar outros mercados</a></li> */}
                                     <li className="laranja-valler">
-
-
-                                        {/* {
-                                            usuarioAutenticado() && ( parseJwt().Role === "ADM" || parseJwt().Role === "Comum" ) ? (
-                                                // faça algo
-                                            ) : (
-                                                // faça outra coisa
-                                            )
-                                        } */}
 
 
 

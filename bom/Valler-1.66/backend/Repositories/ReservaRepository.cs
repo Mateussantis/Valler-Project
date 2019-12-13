@@ -187,6 +187,7 @@ namespace backend.Repositories
                                 {
                                     IdUsuario = r.IdOfertaNavigation.IdProdutoNavigation.IdUsuarioNavigation.IdUsuario,
                                     NomeRazaoSocial = r.IdOfertaNavigation.IdProdutoNavigation.IdUsuarioNavigation.NomeRazaoSocial,
+                                    
                                 }
                             }
                         },

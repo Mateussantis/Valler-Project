@@ -24,6 +24,7 @@ export default class App extends Component {
       listarOferta: [],
       puxaCategorias: [],
 
+
       postReserva: {
         idOferta: "",
         titulo: "",
@@ -32,6 +33,7 @@ export default class App extends Component {
         cronometro: "23:59:59",
         statusReserva: true
       },
+
 
       modal: false,
       modal2: false,
@@ -239,7 +241,7 @@ export default class App extends Component {
   //#endregion
 
 
-  //#region  Reserva
+  //#region Reserva
   cadastrarReservar = (c) => {
     c.preventDefault();
 
@@ -287,7 +289,7 @@ export default class App extends Component {
   render() {
     return (
       <div>
-        <Header {...this.props} />
+        <Header  {...this.props} />
 
         <main>
 
