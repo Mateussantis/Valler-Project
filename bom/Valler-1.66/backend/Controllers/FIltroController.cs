@@ -16,32 +16,84 @@ namespace backend.Controllers
     {
         VallerContext _context = new VallerContext();
 
-        [HttpGet]
-        public async Task<ActionResult<List<Produto>>> listafiltro(FiltroModel filtromodel) {
+        // [HttpPost]
+        // public async Task<ActionResult<List<Oferta>>> listafiltro(FiltroModel filtromodel) {
             
+        //     if(filtromodel == null) {
+        //         filtromodel = null;
+        //     }
+
+        //     var Oferta = await _context.Oferta.Select(
+        //        o => new Oferta () {
+        //                 IdOferta = o.IdOferta,
+        //                     IdProduto = o.IdProduto,
+        //                     DataOferta = o.DataOferta,
+        //                     DataVencimento = o.DataVencimento,
+        //                     Imagem = o.Imagem,
+        //                     Preco = o.Preco,
+        //                     Quantidade = o.Quantidade,
+        //                     Titulo = o.Titulo,
+
+        //                     IdProdutoNavigation = new Produto () {
+        //                         IdProduto = o.IdProdutoNavigation.IdProduto,
+        //                             Descricao = o.IdProdutoNavigation.Descricao,
+        //                             IdCategoria = o.IdProdutoNavigation.IdCategoria,
+        //                             IdUsuario = o.IdProdutoNavigation.IdUsuario,
+        //                             NomeProduto = o.IdProdutoNavigation.NomeProduto,
+
+        //                             IdUsuarioNavigation = new Usuario () {
+        //                                 IdUsuario = o.IdProdutoNavigation.IdUsuarioNavigation.IdUsuario,
+        //                                     NomeRazaoSocial = o.IdProdutoNavigation.IdUsuarioNavigation.NomeRazaoSocial,
+        //                                     Endereco = o.IdProdutoNavigation.IdUsuarioNavigation.Endereco,
+        //                                     Telefone = o.IdProdutoNavigation.IdUsuarioNavigation.Telefone,
+        //                                     Documento = o.IdProdutoNavigation.IdUsuarioNavigation.Documento,
+        //                             }
+        //                     }
+        //        }
+        //     ).Where(c => c.Titulo.Contains(filtromodel.filtro)).ToListAsync();
+
+        //     return Oferta;
+        // }  
+
+
+        [HttpPost]
+        public async Task<ActionResult<List<Oferta>>> Post(FiltroModel filtromodel){
+
             if(filtromodel == null) {
                 filtromodel = null;
             }
 
-            var produtos = await _context.Produto.Select(
-                c => new Produto() {
-                    IdProduto = c.IdProduto,
-                    Descricao = c.Descricao,
-                    NomeProduto = c.NomeProduto,
-                    IdUsuario = c.IdUsuario,
-                    IdCategoria = c.IdCategoria,
-                    IdCategoriaNavigation = c.IdCategoriaNavigation,
+            var Oferta = await _context.Oferta.Select(
+               o => new Oferta () {
+                        IdOferta = o.IdOferta,
+                            IdProduto = o.IdProduto,
+                            DataOferta = o.DataOferta,
+                            DataVencimento = o.DataVencimento,
+                            Imagem = o.Imagem,
+                            Preco = o.Preco,
+                            Quantidade = o.Quantidade,
+                            Titulo = o.Titulo,
 
-                    IdUsuarioNavigation = new Usuario() {
-                        IdUsuario = c.IdUsuarioNavigation.IdUsuario,
-                        NomeRazaoSocial = c.IdUsuarioNavigation.NomeRazaoSocial,
-                    }
-                    
-                }
-            ).Where(c => c.NomeProduto.Contains(filtromodel.filtro)).ToListAsync();
+                            IdProdutoNavigation = new Produto () {
+                                IdProduto = o.IdProdutoNavigation.IdProduto,
+                                    Descricao = o.IdProdutoNavigation.Descricao,
+                                    IdCategoria = o.IdProdutoNavigation.IdCategoria,
+                                    IdUsuario = o.IdProdutoNavigation.IdUsuario,
+                                    NomeProduto = o.IdProdutoNavigation.NomeProduto,
 
-            return produtos;
-        }  
+                                    IdUsuarioNavigation = new Usuario () {
+                                        IdUsuario = o.IdProdutoNavigation.IdUsuarioNavigation.IdUsuario,
+                                            NomeRazaoSocial = o.IdProdutoNavigation.IdUsuarioNavigation.NomeRazaoSocial,
+                                            Endereco = o.IdProdutoNavigation.IdUsuarioNavigation.Endereco,
+                                            Telefone = o.IdProdutoNavigation.IdUsuarioNavigation.Telefone,
+                                            Documento = o.IdProdutoNavigation.IdUsuarioNavigation.Documento,
+                                    }
+                            }
+               }
+            ).Where(c => c.Titulo.Contains(filtromodel.filtro)).ToListAsync();
+
+            return Oferta;
+        }
 
         
     }

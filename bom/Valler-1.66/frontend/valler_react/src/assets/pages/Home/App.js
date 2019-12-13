@@ -11,8 +11,8 @@ export default class App extends Component {
 
   //#region  Construtor
 
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
 
     let token = "";
     if (usuarioAutenticado()) {
@@ -42,6 +42,7 @@ export default class App extends Component {
       modalOferta: false,
       modalReserva: false,
       show: false,
+
     }
 
 
@@ -60,6 +61,12 @@ export default class App extends Component {
 
   componentDidUpdate() {
     console.log("Pagina atualizada");
+
+  }
+
+  UNSAFE_componentWillReceiveProps(){
+    this.setState({listarOferta : this.props.location.state.listarbusca})
+    console.log("Termo", this.props)
   }
 
   //#endregion
@@ -314,8 +321,8 @@ export default class App extends Component {
                       </div>
 
                       <div class="main-card">
-                        <p>{Oferta.titulo} - Quantidade: {Oferta.quantidade}</p>
-                        <p class="preco">R$ {Oferta.preco}  ---  <span class="local">{Oferta.idProdutoNavigation.idUsuarioNavigation.nomeRazaoSocial}</span></p>
+                        <p>{Oferta.idProdutoNavigation.nomeProduto} - {Oferta.titulo}</p>
+                        <p class="preco">R$ {Oferta.preco} --- <span class="local">{Oferta.idProdutoNavigation.idUsuarioNavigation.nomeRazaoSocial}</span></p>
                       </div>
 
                       <div class="footer-card">
@@ -327,6 +334,7 @@ export default class App extends Component {
                 }.bind(this)
               )
             }
+
 
             <MDBContainer>
 

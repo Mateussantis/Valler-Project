@@ -42,21 +42,65 @@ class Header extends Component {
             modalLogin: false,
             show: false,
 
-            termo: ""
+            filtro: "",
+            listarbusca: [],
+            // listarOferta: []
+
         }
     }
 
 
-    buscaSetState = (input) =>{
-        this.setState({ termo: input.target.value })
-        console.log(this.props.location.termo)
+    buscaSetState = (input) => {
 
+        // this.listaOfertaAtualizada();
+
+        this.setState({ [input.target.name]: input.target.value })
+
+        console.log("Termo", this.state.filtro);
+        console.log(this.props);
+
+        let dados = {
+            filtro: this.state.filtro
+        }
 
         
 
+        api.post('FIltro', dados)
+            .then(response => {
+                console.log(response)
+
+                
+                    setTimeout(() => {
+                        this.props.history.push({
+                            pathName: '/',
+                            state: { listarbusca: response.data }
+                        }, 10000)
+                    })     
+                
+                // else {
+                //     setTimeout(() => {
+                //         this.props.history.push({
+                //             pathName: '/',
+                //             state: { listarbusca: response.data }
+                //         }, 3000)
+                //     })   
+                // }
 
 
+
+            }
+            )
     }
+
+    // listaOfertaAtualizada = () => {
+    //     fetch("http://localhost:5000/api/Oferta")
+    //         .then(response => response.json())
+    //         .then(data => this.setState({ listarOferta: data })
+    //             , console.log(this.listarOferta));
+    // }
+
+
+
 
     postSetState = (input) => {
         this.setState({
@@ -170,12 +214,12 @@ class Header extends Component {
 
     render() {
 
-        
+
 
         return (
             <div>
 
-                <Modal show={this.state.modalLogin || this.props.logar } toggleModalLogin={this.toggleModalLogin || this.props.logar} logar={this.props.logar}>
+                <Modal show={this.state.modalLogin || this.props.logar} toggleModalLogin={this.toggleModalLogin || this.props.logar} logar={this.props.logar}>
                     <form onSubmit={this.fazerLogin.bind(this)}>
 
                         <Modal.Header>
@@ -342,7 +386,7 @@ class Header extends Component {
                                                 <div className="uk-navbar-item">
                                                     <form className="uk-search uk-search-navbar">
                                                         <span uk-search-icon></span>
-                                                        <input className="uk-search-input" type="search" placeholder="O que procura ?" value={this.state.termo} onChange={(e) => this.buscaSetState(e)} />
+                                                        <input className="uk-search-input" type="search" name="filtro" placeholder="O que procura ?" value={this.state.filtro} onChange={this.buscaSetState} />
                                                     </form>
                                                 </div>
                                             </div>
@@ -366,33 +410,33 @@ class Header extends Component {
                                                 <Link to="/geren_p" >Gerenciar Produtos/Ofertas</Link>
                                             </>
                                         ) : (
-                                                usuarioAutenticado() && parseJwt().Role === "Comum" ? 
-                                                (
-                                                    <>
-                                                    <Link to="/reserva" >Minhas Reservas</Link>
-                                                </>
-                                            ) :(
-                                                usuarioAutenticado() && parseJwt().Role === "Fornecedor" ? (
-                                                    <>
-                                                        <Link to="/geren_p" >Gerenciar Produtos/Ofertas</Link>
-                                                    </>
-                                                ) 
-                                                :(
-                                                        <React.Fragment>
-                                                            <a href="#Home" className="laranja-valler" onClick={this.abrirModalLogin}>Vender</a>
-                                                        </React.Fragment>
-                                                    )
-                                        ))}
+                                                usuarioAutenticado() && parseJwt().Role === "Comum" ?
+                                                    (
+                                                        <>
+                                                            <Link to="/reserva" >Minhas Reservas</Link>
+                                                        </>
+                                                    ) : (
+                                                        usuarioAutenticado() && parseJwt().Role === "Fornecedor" ? (
+                                                            <>
+                                                                <Link to="/geren_p" >Gerenciar Produtos/Ofertas</Link>
+                                                            </>
+                                                        )
+                                                            : (
+                                                                <React.Fragment>
+                                                                    <a href="#Home" className="laranja-valler" onClick={this.abrirModalLogin}>Vender</a>
+                                                                </React.Fragment>
+                                                            )
+                                                    ))}
                                     </li>
                                     <li>
                                         {usuarioAutenticado() && parseJwt().Role === "Fornecedor" ? (
                                             <>
                                                 <Link to="/reservafornecedor">Produtos Reservados</Link>
                                             </>
-                                        ):(
-                                            <>
-                                            </>
-                                        )} 
+                                        ) : (
+                                                <>
+                                                </>
+                                            )}
                                     </li>
 
 
