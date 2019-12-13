@@ -1,0 +1,71 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>backend</name>
+    </assembly>
+    <members>
+        <member name="M:Backend.Controllers.UsuarioController.Get">
+            <summary>
+            Listar Usuarios
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Backend.Controllers.UsuarioController.Get(System.Int32)">
+            <summary>
+            Pegamos usuario pelo ID 
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Backend.Controllers.UsuarioController.Post(backend.Domains.Usuario)">
+            <summary>
+            Cadastrar Usuario
+            </summary>
+            <param name="usuario"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Backend.Controllers.UsuarioController.Put(System.Int32,backend.Domains.Usuario)">
+            <summary>
+            
+            </summary>
+            <param name="id"></param>
+            <param name="usuario"></param>
+            <returns></returns>
+        </member>
+        <member name="M:backend.Controllers.TelefoneController.Get">
+            <summary>
+            Listar Telefones
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:backend.Controllers.TelefoneController.Get(System.Int32)">
+            <summary>
+            Chamar Telefone pelo ID
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:backend.Controllers.TelefoneController.Post(backend.Domains.Telefone)">
+            <summary>
+            Cadastrar Telefone
+            </summary>
+            <param name="telefone"></param>
+            <returns></returns>
+        </member>
+        <member name="M:backend.Controllers.TelefoneController.Put(System.Int32,backend.Domains.Telefone)">
+            <summary>
+            Editar Telefone pelo ID
+            </summary>
+            <param name="id"></param>
+            <param name="telefone"></param>
+            <returns></returns>
+        </member>
+        <member name="M:backend.Controllers.TelefoneController.Delete(System.Int32)">
+            <summary>
+            Deletar Telefone
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+    </members>
+</doc>

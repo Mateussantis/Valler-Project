@@ -1,0 +1,505 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Página inicial Valer</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/uikit.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="https://kit.fontawesome.com/596c3beb95.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/uikit@3.2.2/dist/js/uikit.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/uikit@3.2.2/dist/js/uikit-icons.min.js"></script>
+
+</head>
+
+<body>
+    <div id="login" class="fundo-modal">
+        <div class="conteudo-modal">
+            <a class="fechar" href="#">X</a>
+            <div class="cadastro-modal">
+                <img src="" alt="">
+                <form action="">
+                    <input type="text" placeholder="Insira seu nome e sobrenome">
+                    <input type="text" placeholder="Insira seu email">
+                    <input type="text" placeholder="insira seu CPF ou CNPJ">
+                </form>
+            </div>
+
+            <div class="login-modal">
+                <img src="" alt="">
+                <form action="">
+                    <input type="text" placeholder="Insira seu nome e sobrenome">
+                    <input type="text" placeholder="Insira seu email">
+                    <input type="text" placeholder="insira seu CPF ou CNPJ">
+                </form>
+            </div>
+
+            <div class="cover-cadastro">
+                <button class="btn-login">
+                    login
+                </button>
+            </div>
+
+        </div>
+
+    </div>
+    <header uk-sticky>
+        <div uk-sticky class="header-mobile"> 
+            <div class="background-laranja">
+                <nav class="container">
+                    <div class="barra-desktop container">
+                        <nav class="barra-cima">
+                            <a href="index.html"><img class="logo-valer" src="img/valler_logo_novo.png"
+                                    alt="Logo da Valer - Clicar para Voltar para a página inicial"></a>
+                            <button class="categorias ">Categorias <i class="fas fa-bars"></i></button>
+                            <div uk-dropdown>
+                                <ul class="uk-nav uk-dropdown-nav">
+                                    <li><a href="#">Bebidas</a></li>
+                                    <li><a href="#">Hortifruti</a></li>
+                                    <li><a href="#">Açougue</a></li>
+                                    <li><a href="#">Grãos</a></li>
+                                    <li><a href="#">Higiene</a></li>
+                                </ul>
+                            </div>
+                            <nav class="uk-navbar-container uk-navbar">
+                                <div class="uk-navbar-left container">
+    
+                                    <div class="uk-navbar-item">
+                                        <form class="uk-search uk-search-navbar">
+                                            <span uk-search-icon></span>
+                                            <input class="uk-search-input" type="search" placeholder="O que procura ?">
+                                        </form>
+                                    </div>
+    
+                                </div>
+                            </nav>
+                            <a href="#"><i class="fas fa-map-marker-alt"></i> Santa Cecilia, São Paulo - SP</a>
+                        </nav>
+                    </div>
+                </nav>
+            </div>
+    
+            <div class="background-branco">
+                <div class="barra-desktop container">
+    
+                    <ul class="uk-subnav uk-subnav-pill" uk-margin>
+                        <li class="uk-active"><a href="index.html">Destaques</a></li>
+                        <li><a href="gerenciamento de produtos.html">Vender</a></li>
+                        <li><a href="#">Como funciona?</a></li>
+                        <li><a href="#">Buscar outros mercados</a></li>
+                        <li class="laranja-valler"><a class="laranja-valler" href="#login"><span
+                                    uk-icon="sign-in"></span>&nbsp;</span>Entrar/Cadastrar</a></li>
+                    </ul>
+    
+                </div>
+            </div>
+        </div>
+
+    </header>
+
+    <main>
+
+        <!-- <div class="container">
+            <div class="search-cat">
+                <div class="barra_pesquisa-mobile">
+                    <i class="fas fa-search"></i>
+                    <label for="pesquisa-produtos">
+                        <input type="search" id="pesquisa-produtos" name="" placeholder="O que procura ?">
+                    </label>
+                </div>
+                <a href="#"><i class="fas fa-bars"></i>categorias</a>
+            </div>
+        </div> -->
+
+        <div class="banner">
+            <img class="listras" src="img/banner-home.png" alt="">
+        </div>
+        <!------------------------------------------------INICIO DA VITRINE DOS PRODUTOS ---------------------------------------------------->
+
+        <h3 class="titulo_h3 uk-text-center container">Marcas Próximas á Você</h3>
+
+        <div class="container marcas-section">
+            <div class="card-circular">
+                <a href="#">
+                    <img class="uk-box-shadow-medium" src="img/marcas/assai logo.png" alt="">
+                    <h4>Assaí - 9 de Julho</h4>
+                </a>
+            </div>
+            <div class="card-circular">
+                <a href="#">
+                    <img class="uk-box-shadow-medium" src="img/marcas/logo dia.png" alt="">
+                    <h4>Dia - 24 de Maio</h4>
+                </a>
+            </div>
+            <div>
+                <a class="card-circular" href="#">
+                    <img class="uk-box-shadow-medium" src="img/marcas/logo extra.png" alt="">
+                    <h4>Extra - Ipiranga</h4>
+                </a>
+            </div>
+            <div>
+                <a class="card-circular" href="#">
+                    <img class="uk-box-shadow-medium" src="img/marcas/logo sol.png" alt="">
+                    <h4>Sol - Barueri </h4>
+                </a>
+            </div>
+
+            <div>
+                <a class="card-circular" href="#">
+                    <img class="uk-box-shadow-medium" src="img/marcas/pao de acuar.png" alt="">
+
+                    <h4>Pão de Açucar - Santana</h4>
+                </a>
+            </div>
+
+
+
+        </div>
+
+        <hr class="container uk-divider-icon">
+        <div class="onde_vende container">
+            <h3>Melhores ofertas - Diversas Marcas</h3>
+        </div>
+
+
+        <section class="container sessao-produtos">
+            <a class="card-item">
+
+                <div class="header-card">
+                    <span class="uk-label uk-label-success .uk-position-right">Vence em 30 dias</span>
+                    <img src="img/produtos/Suco-de-Uva-Maguary-Selecao-Tinto-15l.png" alt="">
+                    <div class="avaliacao">
+                        <span class="fa fa-star checked"></span>
+                        <span class="fa fa-star checked"></span>
+                        <span class="fa fa-star checked"></span>
+                        <span class="fa fa-star unchecked"></span>
+                        <span class="fa fa-star unchecked"></span>
+                    </div>
+                </div>
+
+                <div class="main-card">
+                    <p>Suco de Uva Maguary Seleção Tinto500ML</p>
+                    <p class="preco">R$2,43 <span class="local"> - Mercado Sol</span></p>
+                </div>
+            
+                <div class="footer-card">
+                    <button class="uk-button uk-button-primary uk-width-1-1 uk-margin-small-bottom">Adicionar a Reserva&nbsp;&nbsp;<span uk-icon="tag"></span></button>
+                </div>
+
+            </a>
+
+            <!--  -->
+            <a class="card-item">
+
+                <div class="header-card">
+                    <span class="uk-label uk-label-success .uk-position-right">Vence em 30 dias</span>
+                    <img src="img/produtos/9320814968862.jpg    " alt="">
+                    <div class="avaliacao">
+                        <span class="fa fa-star checked"></span>
+                        <span class="fa fa-star checked"></span>
+                        <span class="fa fa-star checked"></span>
+                        <span class="fa fa-star unchecked"></span>
+                        <span class="fa fa-star unchecked"></span>
+                    </div>
+                </div>
+
+                <div class="main-card">
+                    <p>Suco de Maracuja Maguary Seleção Tinto 1L</p>
+                    <p class="preco">R$2,43<span class="local"> - Mercado Extra</span></p>
+                </div>
+
+                <div class="footer-card">
+                    <button class="uk-button uk-button-primary uk-width-1-1 uk-margin-small-bottom">Adicionar a Reserva&nbsp;&nbsp;<span uk-icon="tag"></span></button>
+                </div>
+
+            </a>
+
+            <a class="card-item">
+
+                <div class="header-card">
+                    <span class="uk-label uk-label-warning .uk-position-right">Vence em 15 dias</span>
+                    <img src="img/produtos/9476860608542.jpg" alt="">
+                    <div class="avaliacao">
+                        <span class="fa fa-star checked"></span>
+                        <span class="fa fa-star checked"></span>
+                        <span class="fa fa-star checked"></span>
+                        <span class="fa fa-star unchecked"></span>
+                        <span class="fa fa-star unchecked"></span>
+                    </div>
+                </div>
+
+                <div class="main-card">
+                    <p>Arroz Branco Camil 5kg</p>
+                    <p class="preco">R$4,43<span class="local"> - Mercado Dia</span></p>
+                </div>
+
+                <div class="footer-card">
+                    <button class="uk-button uk-button-primary uk-width-1-1 uk-margin-small-bottom">Adicionar a Reserva&nbsp;&nbsp;<span uk-icon="tag"></span></button>
+                </div>
+
+            </a>
+
+            <a class="card-item">
+
+                <div class="header-card">
+                    <span class="uk-label uk-label-danger .uk-position-right">Vence em 7 dias</span>
+                    <img src="img/produtos/Feijao-Preto-Super-Maximo-1kg.png" alt="">
+                    <div class="avaliacao">
+                        <span class="fa fa-star checked"></span>
+                        <span class="fa fa-star checked"></span>
+                        <span class="fa fa-star checked"></span>
+                        <span class="fa fa-star checked"></span>
+                        <span class="fa fa-star unchecked"></span>
+                    </div>
+                </div>
+
+                <div class="main-card">
+                    <p>Feijão Preto Sabor Máximo - 1kg</p>
+                    <p class="preco">R$2,43<span class="local"> - Mercado Extra</span></p>
+                </div>
+
+                <div class="footer-card">
+                    <button class="uk-button uk-button-primary uk-width-1-1 uk-margin-small-bottom">Adicionar a Reserva&nbsp;&nbsp;<span uk-icon="tag"></span></button>
+                </div>
+
+            </a>
+
+            <a class="card-item">
+
+                <div class="header-card">
+                    <span class="uk-label uk-label-danger .uk-position-right">Vence em 7 dias</span>
+                    <img src="img/produtos/Feijao-Preto-Super-Maximo-1kg.png" alt="">
+                    <div class="avaliacao">
+                        <span class="fa fa-star checked"></span>
+                        <span class="fa fa-star checked"></span>
+                        <span class="fa fa-star checked"></span>
+                        <span class="fa fa-star checked"></span>
+                        <span class="fa fa-star unchecked"></span>
+                    </div>
+                </div>
+
+                <div class="main-card">
+                    <p>Feijão Preto Sabor Máximo - 1kg</p>
+                    <p class="preco">R$2,43<span class="local"> - Mercado Extra</span></p>
+                </div>
+
+                <div class="footer-card">
+                    <button class="uk-button uk-button-primary uk-width-1-1 uk-margin-small-bottom">Adicionar a Reserva&nbsp;&nbsp;<span uk-icon="tag"></span></button>
+                </div>
+
+            </a>
+
+            <a class="card-item">
+
+                <div class="header-card">
+                    <span class="uk-label uk-label-success .uk-position-right">Vence em 30 dias</span>
+                    <img src="img/produtos/Suco-de-Uva-Maguary-Selecao-Tinto-15l.png" alt="">
+                    <div class="avaliacao">
+                        <span class="fa fa-star checked"></span>
+                        <span class="fa fa-star checked"></span>
+                        <span class="fa fa-star checked"></span>
+                        <span class="fa fa-star unchecked"></span>
+                        <span class="fa fa-star unchecked"></span>
+                    </div>
+                </div>
+
+                <div class="main-card">
+                    <p>Suco de Uva Maguary Seleção Tinto500ML</p>
+                    <p class="preco">R$2,43<span class="local"> - Mercado Extra</span></p>
+                </div>
+
+                <div class="footer-card">
+                    <button class="uk-button uk-button-primary uk-width-1-1 uk-margin-small-bottom">Adicionar a Reserva&nbsp;&nbsp;<span uk-icon="tag"></span></button>
+                </div>
+
+            </a>
+
+
+            <a class="card-item">
+
+                <div class="header-card">
+                    <span class="uk-label uk-label-success .uk-position-right">Vence em 30 dias</span>
+                    <img src="img/produtos/9320814968862.jpg    " alt="">
+                    <div class="avaliacao">
+                        <span class="fa fa-star checked"></span>
+                        <span class="fa fa-star checked"></span>
+                        <span class="fa fa-star checked"></span>
+                        <span class="fa fa-star unchecked"></span>
+                        <span class="fa fa-star unchecked"></span>
+                    </div>
+                </div>
+
+                <div class="main-card">
+                    <p>Suco de Maracuja Maguary Seleção Tinto 1L</p>
+                    <p class="preco">R$2,43<span class="local"> - Mercado Extra</span></p>
+                </div>
+
+                <div class="footer-card">
+                    <button class="uk-button uk-button-primary uk-width-1-1 uk-margin-small-bottom">Adicionar a Reserva&nbsp;&nbsp;<span uk-icon="tag"></span></button>
+                </div>
+
+            </a>
+
+            <a class="card-item">
+
+                <div class="header-card">
+                    <span class="uk-label uk-label-warning .uk-position-right">Vence em 15 dias</span>
+                    <img src="img/produtos/9476860608542.jpg" alt="">
+                    <div class="avaliacao">
+                        <span class="fa fa-star checked"></span>
+                        <span class="fa fa-star checked"></span>
+                        <span class="fa fa-star checked"></span>
+                        <span class="fa fa-star unchecked"></span>
+                        <span class="fa fa-star unchecked"></span>
+                    </div>
+                </div>
+
+                <div class="main-card">
+                    <p>Arroz Branco Camil 5kg</p>
+                    <p class="preco">R$4,43<span class="local"> - Mercado Extra</span></p>
+                </div>
+
+                <div class="footer-card">
+                    <button class="uk-button uk-button-primary uk-width-1-1 uk-margin-small-bottom">Adicionar a Reserva&nbsp;&nbsp;<span uk-icon="tag"></span></button>
+                </div>
+
+            </a>
+
+            <a class="card-item">
+
+                <div class="header-card">
+                    <span class="uk-label uk-label-danger .uk-position-right">Vence em 7 dias</span>
+                    <img src="img/produtos/Feijao-Preto-Super-Maximo-1kg.png" alt="">
+                    <div class="avaliacao">
+                        <span class="fa fa-star checked"></span>
+                        <span class="fa fa-star checked"></span>
+                        <span class="fa fa-star checked"></span>
+                        <span class="fa fa-star checked"></span>
+                        <span class="fa fa-star unchecked"></span>
+                    </div>
+                </div>
+
+                <div class="main-card">
+                    <p>Feijão Preto Sabor Máximo - 1kg</p>
+                    <p class="preco">R$2,43<span class="local"> - Mercado Extra</span></p>
+                </div>
+
+                <div class="footer-card">
+                    <button class="uk-button uk-button-primary uk-width-1-1 uk-margin-small-bottom">Adicionar a Reserva&nbsp;&nbsp;<span uk-icon="tag"></span></button>
+                </div>
+
+            </a>
+
+            <a class="card-item">
+
+                <div class="header-card">
+                    <span class="uk-label uk-label-danger .uk-position-right">Vence em 7 dias</span>
+                    <img src="img/produtos/Feijao-Preto-Super-Maximo-1kg.png" alt="">
+                    <div class="avaliacao">
+                        <span class="fa fa-star checked"></span>
+                        <span class="fa fa-star checked"></span>
+                        <span class="fa fa-star checked"></span>
+                        <span class="fa fa-star checked"></span>
+                        <span class="fa fa-star unchecked"></span>
+                    </div>
+                </div>
+
+                <div class="main-card">
+                    <p>Feijão Preto Sabor Máximo - 1kg</p>
+                    <p class="preco">R$2,43<span class="local"> - Mercado Extra</span></p>
+                </div>
+
+                <div class="footer-card">
+                    <button class="uk-button uk-button-primary uk-width-1-1 uk-margin-small-bottom">Adicionar a Reserva&nbsp;&nbsp;<span uk-icon="tag"></span></button>
+                </div>
+
+            </a>
+
+            <a class="card-item">
+
+                <div class="header-card">
+                    <span class="uk-label uk-label-success .uk-position-right">Vence em 30 dias</span>
+                    <img src="img/produtos/Suco-de-Uva-Maguary-Selecao-Tinto-15l.png" alt="">
+                    <div class="avaliacao">
+                        <span class="fa fa-star checked"></span>
+                        <span class="fa fa-star checked"></span>
+                        <span class="fa fa-star checked"></span>
+                        <span class="fa fa-star unchecked"></span>
+                        <span class="fa fa-star unchecked"></span>
+                    </div>
+                </div>
+
+                <div class="main-card">
+                    <p>Suco de Uva Maguary Seleção Tinto500ML</p>
+                    <p class="preco">R$2,43<span class="local"> - Mercado Extra</span></p>
+                </div>
+
+                <div class="footer-card">
+                    <button class="uk-button uk-button-primary uk-width-1-1 uk-margin-small-bottom">Adicionar a Reserva&nbsp;&nbsp;<span uk-icon="tag"></span></button>
+                </div>
+
+            </a>
+
+            <a class="card-item">
+
+                <div class="header-card">
+                    <span class="uk-label uk-label-success .uk-position-right">Vence em 30 dias</span>
+                    <img src="img/produtos/Suco-de-Uva-Maguary-Selecao-Tinto-15l.png" alt="">
+                    <div class="avaliacao">
+                        <span class="fa fa-star checked"></span>
+                        <span class="fa fa-star checked"></span>
+                        <span class="fa fa-star checked"></span>
+                        <span class="fa fa-star unchecked"></span>
+                        <span class="fa fa-star unchecked"></span>
+                    </div>
+                </div>
+
+                <div class="main-card">
+
+                    <p>Suco de Uva Maguary Seleção Tinto500ML</p>
+                    <p class="preco">R$2,43<span class="local"> - Mercado Extra</span></p>
+
+                </div>
+
+                <div class="footer-card">
+                    <button class="uk-button uk-button-primary uk-width-1-1 uk-margin-small-bottom">Adicionar a Reserva&nbsp;&nbsp;<span uk-icon="tag"></span></button>
+                </div>
+
+            </a>
+
+
+        </section>
+
+        <div class="paginacao container">
+            <ul class="uk-pagination" uk-margin>
+                <li><a href="#"><span uk-pagination-previous></span></a></li>
+                <li><a href="#">1</a></li>
+                <li class="uk-disabled"><span>...</span></li>
+                <li><a href="#">4</a></li>
+                <li><a href="#">5</a></li>
+                <li><a href="#">6</a></li>
+                <li class="uk-active"><span>7</span></li>
+                <li><a href="#">8</a></li>
+                <li><a href="#">9</a></li>
+                <li><a href="#">10</a></li>
+                <li class="uk-disabled"><span>...</span></li>
+                <li><a href="#">20</a></li>
+                <li><a href="#"><span uk-pagination-next></span></a></li>
+            </ul>
+        </div>
+
+    </main>
+
+    <footer>
+        <div class="rodape">
+            <div class="conteudo-rodape">
+                <p>Valler © 2019 · Todos os Direitos Reservados ·</p>
+            </div>
+        </div>
+    </footer>
+</body>
+
+</html>
