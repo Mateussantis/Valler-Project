@@ -40,7 +40,11 @@ export default class App extends Component {
       modalOferta: false,
       modalReserva: false,
       show: false,
+
+
+      logar: false
     }
+
 
 
   }
@@ -101,6 +105,7 @@ export default class App extends Component {
   }
 
   toggleReserva = () => {
+
     this.setState({
       modalReserva: !this.state.modalReserva
     });
@@ -259,12 +264,25 @@ export default class App extends Component {
   }
 
   abrirModalReserva = (id, titulo) => {
-
-    
+      
       this.toggleReserva();
       this.setState({ ...this.state.postReserva.idOferta = id });
       this.setState({ ...this.state.postReserva.titulo = titulo });
       console.log("Post", this.state.postReserva);
+  }
+
+
+  logarReserva = () => {
+      this.setState({
+        logar: !this.state.logar
+      })
+
+      console.log(this.state.logar)
+      console.log(this.usuarioAutenticado)      
+  }
+
+  logarReservaToggle = () => {
+    this.logarReserva();
     
   }
 
@@ -279,15 +297,20 @@ export default class App extends Component {
 
   }
 
+  
+
   //#endregion
 
 
 
 
   render() {
+
+
+
     return (
       <div>
-        <Header {...this.props} />
+        <Header logar={this.state.logar}  {...this.props} />
 
         <main>
 
@@ -318,6 +341,8 @@ export default class App extends Component {
 
                       <div class="footer-card">
                         <button class="uk-button uk-button-primary uk-width-1-1 uk-margin-small-bottom" onClick={() => this.abrirModalReserva(Oferta.idOferta, Oferta.titulo)}>Adicionar a Reserva&nbsp;&nbsp;<span uk-icon="tag"></span>
+                        </button>
+                        <button class="uk-button uk-button-primary uk-width-1-1 uk-margin-small-bottom" onClick={() => this.logarReservaToggle()}>Teste&nbsp;&nbsp;<span uk-icon="tag"></span>
                         </button>
                       </div>
                     </a>

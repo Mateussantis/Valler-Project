@@ -6,6 +6,7 @@ import { Button, Modal } from 'react-bootstrap';
 import Footer from '../../components/Footer/Footer';
 import { parseJwt, usuarioAutenticado } from '../../services/auth';
 import { isDate } from 'util';
+import {BootstrapTable, TableHeaderColumn } from 'react-bootstrap-table';
 // import MaterialTable from 'material-table';
 
 export default class gerenciamento_produtos extends Component {
@@ -464,28 +465,37 @@ export default class gerenciamento_produtos extends Component {
                         <a href="#"><i class="fas fa-bars"></i>categorias</a>
                     </div>
 
-                    <table>
+                    <>
+                    <BootstrapTable data={ this.state.tabelaProduto}>
                         {
                             this.state.listarProduto.map(
-                                function (Produto) {
+                                function (tabelaProduto) {
                                     return (
-                                        <tr key={Produto.idProduto}>
-                                            <td>{Produto.idProduto} ---</td>
-                                            <td>{Produto.idCategoria} ----</td>
-                                            <td>{Produto.idUsuario} ----</td>
-                                            <td>{Produto.nomeProduto}-----</td>
-                                            <td>{Produto.descricao}------</td>
-                                            <td>
-                                                <button onClick={() => this.abrirModal(Produto)}>Aleterar</button>
-                                                <button onClick={() => this.deleteProduto(Produto.idProduto)}>Deletar</button>
-                                            </td>
-                                        </tr>
-                                    )
-                                }.bind(this)
-                            )
+                                        // <tr key={tabelaProduto.idProduto}>
+                                        //     <td>{tabelaProduto.idProduto} ---</td>
+                                        //     <td>{tabelaProduto.idCategoria} ----</td>
+                                        //     <td>{tabelaProduto.idUsuario} ----</td>
+                                        //     <td>{tabelaProduto.nomeProduto}-----</td>
+                                        //     <td>{tabelaProduto.descricao}------</td>
+                                        //     <td>
+                                        //         <button onClick={() => this.abrirModal(tabelaProduto)}>Aleterar</button>
+                                        //         <button onClick={() => this.deleteProduto(tabelaProduto.idProduto)}>Deletar</button>
+                                        //     </td>
+                                        // </tr>
 
-                        }
-                    </table>
+                                                <>
+                                                <TableHeaderColumn dataField='idProduto' isKey={ true }>{tabelaProduto.idProduto}</TableHeaderColumn>
+                                                <TableHeaderColumn dataField='idProduto'>Product ID</TableHeaderColumn>
+                                                <TableHeaderColumn dataField='IdCategoria'>Product ID</TableHeaderColumn>
+                                                </>
+                                                
+                                                )
+                                            }.bind(this)
+                                            )
+                                            
+                                        }
+                                        </BootstrapTable>
+                    </>
 
 
 

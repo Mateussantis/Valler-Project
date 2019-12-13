@@ -42,9 +42,6 @@ class Header extends Component {
             show: false,
 
             termo: ""
-
-
-
         }
     }
 
@@ -166,10 +163,12 @@ class Header extends Component {
 
     render() {
 
+        
+
         return (
             <div>
 
-                <Modal show={this.state.modalLogin} toggleModalLogin={this.toggleModalLogin}>
+                <Modal show={this.state.modalLogin || this.props.logar } toggleModalLogin={this.toggleModalLogin || this.props.logar} logar={this.props.logar}>
                     <form onSubmit={this.fazerLogin.bind(this)}>
 
                         <Modal.Header>
