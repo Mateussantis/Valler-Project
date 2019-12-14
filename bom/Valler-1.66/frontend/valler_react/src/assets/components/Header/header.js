@@ -44,15 +44,16 @@ class Header extends Component {
 
             filtro: "",
             listarbusca: [],
-            // listarOferta: []
+            listarOferta: []
 
         }
     }
 
+    // componentDidUpdate() {
+    //     this.listaOfertaAtualizada();
+    // }
 
     buscaSetState = (input) => {
-
-        // this.listaOfertaAtualizada();
 
         this.setState({ [input.target.name]: input.target.value })
 
@@ -63,43 +64,52 @@ class Header extends Component {
             filtro: this.state.filtro
         }
 
-        
+        if (dados == "") {
+            api.post('FIltro', dados)
+                .then(response => {
+                    console.log(response)
+                    this.listaOfertaAtualizada()
+                    setTimeout(() => {
+                        this.props.history.push({
+                            pathName: '/',
+                            state: { listarbusca: this.state.listarOferta }
+                        }, 1000)
+                    })
+    
+                }
+                )
 
-        api.post('FIltro', dados)
-            .then(response => {
-                console.log(response)
+        }
+        else {
 
-                
+
+            api.post('FIltro', dados)
+                .then(response => {
+                    console.log(response)
+    
                     setTimeout(() => {
                         this.props.history.push({
                             pathName: '/',
                             state: { listarbusca: response.data }
-                        }, 10000)
-                    })     
-                
-                // else {
-                //     setTimeout(() => {
-                //         this.props.history.push({
-                //             pathName: '/',
-                //             state: { listarbusca: response.data }
-                //         }, 3000)
-                //     })   
-                // }
+                        }, 1000)
+                    })
+    
+                }
+                )
+
+        }
 
 
-
-            }
-            )
     }
 
-    // listaOfertaAtualizada = () => {
-    //     fetch("http://localhost:5000/api/Oferta")
-    //         .then(response => response.json())
-    //         .then(data => this.setState({ listarOferta: data })
-    //             , console.log(this.listarOferta));
-    // }
+    listaOfertaAtualizada = () => {
+        fetch("http://localhost:5000/api/Oferta")
+          .then(response => response.json())
+          .then(data => this.setState({ listarOferta: data })
+            , console.log(this.listarOferta));
+      }
 
-
+    
 
 
     postSetState = (input) => {
@@ -142,7 +152,6 @@ class Header extends Component {
         this.setState({
             modalLogin: !this.state.modalLogin
         });
-
     }
 
     abrirModalLogin = () => {

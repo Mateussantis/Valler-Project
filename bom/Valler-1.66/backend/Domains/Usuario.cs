@@ -10,6 +10,7 @@ namespace backend.Domains
         public Usuario()
         {
             Endereco = new HashSet<Endereco>();
+            Oferta = new HashSet<Oferta>();
             Produto = new HashSet<Produto>();
             Reserva = new HashSet<Reserva>();
             Telefone = new HashSet<Telefone>();
@@ -36,12 +37,17 @@ namespace backend.Domains
         [Column("documento")]
         [StringLength(255)]
         public string Documento { get; set; }
+        [Column("imagem_usuario")]
+        [StringLength(255)]
+        public string ImagemUsuario { get; set; }
 
         [ForeignKey(nameof(IdTipoUsuario))]
         [InverseProperty(nameof(TipoUsuario.Usuario))]
         public virtual TipoUsuario IdTipoUsuarioNavigation { get; set; }
         [InverseProperty("IdUsuarioNavigation")]
         public virtual ICollection<Endereco> Endereco { get; set; }
+        [InverseProperty("IdUsuarioNavigation")]
+        public virtual ICollection<Oferta> Oferta { get; set; }
         [InverseProperty("IdUsuarioNavigation")]
         public virtual ICollection<Produto> Produto { get; set; }
         [InverseProperty("IdUsuarioNavigation")]

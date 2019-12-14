@@ -15,20 +15,11 @@ namespace backend.Domains
         [Key]
         [Column("id_oferta")]
         public int IdOferta { get; set; }
-
-
-
         [Column("id_produto")]
         public int? IdProduto { get; set; }
-        [Required]
-
         [Column("id_usuario")]
         public int? IdUsuario { get; set; }
         [Required]
-
-
-
-
         [Column("titulo")]
         [StringLength(255)]
         public string Titulo { get; set; }
@@ -48,8 +39,10 @@ namespace backend.Domains
         [ForeignKey(nameof(IdProduto))]
         [InverseProperty(nameof(Produto.Oferta))]
         public virtual Produto IdProdutoNavigation { get; set; }
+        [ForeignKey(nameof(IdUsuario))]
+        [InverseProperty(nameof(Usuario.Oferta))]
+        public virtual Usuario IdUsuarioNavigation { get; set; }
         [InverseProperty("IdOfertaNavigation")]
         public virtual ICollection<Reserva> Reserva { get; set; }
-        
     }
 }

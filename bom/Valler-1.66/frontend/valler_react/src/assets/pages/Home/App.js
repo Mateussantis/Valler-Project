@@ -61,12 +61,43 @@ export default class App extends Component {
 
   componentDidUpdate() {
     console.log("Pagina atualizada");
-
   }
 
-  UNSAFE_componentWillReceiveProps(){
-    this.setState({listarOferta : this.props.location.state.listarbusca})
-    console.log("Termo", this.props)
+  // getDerivedStateFromProps() {
+  //   this.setState({ listarOferta: this.props.location.state.listarbusca })
+  // }
+
+
+
+  UNSAFE_componentWillReceiveProps() {
+
+    setTimeout(() => {
+      this.setState({ listarOferta: this.props.location.state.listarbusca })
+    }, 100)
+
+
+    // setTimeout(() => {
+    //   if (this.props.location.state.listarbusca !== undefined) {
+    //     this.setState({ listarOferta: this.props.location.state.listarbusca })
+    //   }
+    //   else {
+    //     setTimeout(() => {
+    //       this.listaOfertaAtualizada()
+    //       this.setState({ listarOferta: this.state.listarOferta})
+    //     }, 2000)
+    //   }
+    // }, 100);
+
+
+    // setTimeout(() => {
+    //   if (this.props.location.state.listarbusca !== undefined) {
+    //     this.setState({ listarOferta: this.props.location.state.listarbusca })
+    //   }
+    //   else {
+    //     this.listaOfertaAtualizada();
+    //   }
+    // }, 100);
+    // console.log("Termo", this.props)
   }
 
   //#endregion
@@ -269,12 +300,12 @@ export default class App extends Component {
 
   abrirModalReserva = (id, titulo) => {
 
-    
-      this.toggleReserva();
-      this.setState({ ...this.state.postReserva.idOferta = id });
-      this.setState({ ...this.state.postReserva.titulo = titulo });
-      console.log("Post", this.state.postReserva);
-    
+
+    this.toggleReserva();
+    this.setState({ ...this.state.postReserva.idOferta = id });
+    this.setState({ ...this.state.postReserva.titulo = titulo });
+    console.log("Post", this.state.postReserva);
+
   }
 
   postSetStateReserva = (input) => {

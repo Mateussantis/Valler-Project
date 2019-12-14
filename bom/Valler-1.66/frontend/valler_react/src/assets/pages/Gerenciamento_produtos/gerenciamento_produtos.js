@@ -400,7 +400,7 @@ export default class gerenciamento_produtos extends Component {
     //#endregion
 
 
-    //#region  Reserva
+    //#region Reserva
 
 
     cadastrarReservar = (c) => {
@@ -558,9 +558,8 @@ export default class gerenciamento_produtos extends Component {
                                         <MDBModalHeader toggle={this.toggle}>Editar - {this.state.putSetState.nomeProduto}</MDBModalHeader>
                                         <MDBModalBody>
                                             <select label="Categoria" name="idCategoria" value={this.state.putSetState.idCategoria} onChange={this.putSetState.bind(this)} >
-                                                <option value={this.state.putSetState.idCategoria}>{this.state.putSetState.idCategoria}</option>
                                                 {
-                                                    this.state.listarCategoria.map(
+                                                    this.state.puxaCategorias.map(
                                                         function (categoria) {
                                                             return (
                                                                 <option key={categoria.idCategoria} value={categoria.idCategoria}>{categoria.categoria1}</option>
@@ -637,8 +636,20 @@ export default class gerenciamento_produtos extends Component {
                                         <MDBModalHeader toggle={this.toggle3}>Editar - {this.state.putSetStateOferta.titulo}</MDBModalHeader>
                                         <MDBModalBody>
 
-                                            <MDBInput label="IdProduto" name="idProduto" value={this.state.putSetStateOferta.idProduto} onChange={this.putSetStateOferta.bind(this)} />
-                                            <MDBInput label="Produtos" name="titulo" value={this.state.putSetStateOferta.titulo} onChange={this.putSetStateOferta.bind(this)} />
+                                            <select onChange={this.putSetStateOferta.bind(this)} value={this.state.putSetStateOferta.idProduto} name="idProduto">
+                                               
+                                                {
+                                                    this.state.listarProduto.map(function (o) {
+                                                        return (
+                                                            <>
+                                                                <option key={o.idProduto} value={o.idProduto}>{o.nomeProduto}</option>
+                                                            </>
+                                                        )
+                                                    }.bind(this))
+                                                }
+                                            </select>
+
+                                            <MDBInput label="Oferta" name="titulo" value={this.state.putSetStateOferta.titulo} onChange={this.putSetStateOferta.bind(this)} />
                                             <MDBInput type="datetime-local" label="Data Oferta" name="dataOferta" value={this.state.putSetStateOferta.dataOferta.split(','[0])} onChange={this.putSetStateOferta.bind(this)} />
                                             <MDBInput type="datetime-local" label="Data Vencimento" name="dataVencimento" value={this.state.putSetStateOferta.dataVencimento.split(','[0])} onChange={this.putSetStateOferta.bind(this)} />
                                             <MDBInput type="numeric" label="Preço" name="preco" value={this.state.putSetStateOferta.preco} onChange={this.putSetStateOferta.bind(this)} />
