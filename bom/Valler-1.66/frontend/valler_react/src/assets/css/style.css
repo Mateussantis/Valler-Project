@@ -37,7 +37,7 @@
     color: var(--laranja-valer);
 }
 
-.container {
+.container_V {
     margin: auto;
     width: 90vw;
 }
@@ -96,6 +96,10 @@ header nav ul li a {
     width: 100%;
 }
 
+.altura-nav{
+    height: 50px;
+}
+
 .barra-desktop nav ul li a {
     color: var(--cinza-fonte);
 }
@@ -141,6 +145,55 @@ header nav ul li a {
     font-size: 1.2em;
     letter-spacing: 1.2px;
 }
+
+.laranja{
+    background-color: orange !important;
+}
+
+.categorias_btn{
+    background-color: var(--laranja-valer) !important;
+    margin: 0.375rem;
+    color: inherit !important;
+    text-transform: uppercase !important;
+    word-wrap: break-word !important;
+    white-space: normal!important ;
+    cursor: pointer !important;
+    border: 0 !important;
+    border-radius: 0.125rem !important;
+    box-shadow: none !important;
+    transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out !important;
+    padding: 0.84rem 2.14rem !important;
+    font-size: 0.81rem !important;
+
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+}
+
+
+btn-secondary dropdown-toggle{
+    background-color: var(--laranja-valer) !important;
+}
+.btn-secondary.dropdown-toggle{
+    background-color: var(--laranja-valer) !important;
+}
+
+#btn-secondary #dropdown-toggle{
+    background-color: var(--laranja-valer) !important;
+}
+
+#laranja{
+    background-color: var(--laranja-valer) !important;
+}
+
+laranja{
+    background-color: var(--laranja-valer) !important;
+}
+
+.laranja{
+    background-color: var(--laranja-valer) !important;
+}
+
 
 
 .barra_pesquisa {
@@ -1070,7 +1123,7 @@ a::placeholder, i::placeholder {
     .barra-mobile {
         display: none;
     }
-    .container {
+    .container_V {
         width: 70vw;
     }
     .search-cat {
@@ -1128,7 +1181,7 @@ a::placeholder, i::placeholder {
         margin-bottom: 100px;
     }
 
-    .container-produtos{
+    .container_V-produtos{
         flex-direction: row;
     }
 

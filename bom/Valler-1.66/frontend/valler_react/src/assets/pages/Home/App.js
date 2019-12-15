@@ -71,9 +71,9 @@ export default class App extends Component {
 
   UNSAFE_componentWillReceiveProps() {
 
-    setTimeout(() => {
-      this.setState({ listarOferta: this.props.location.state.listarbusca })
-    }, 100)
+    // setTimeout(() => {
+    //   this.setState({ listarOferta: this.props.location.state.listarbusca })
+    // }, 100)
 
 
     // setTimeout(() => {

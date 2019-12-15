@@ -102,14 +102,14 @@ audio, canvas, iframe, img, svg, video {
 }
 
 canvas, img, video {
-    max-width: 100%;
+    /* max-width: 100%; */
     height: auto;
     box-sizing: border-box
 }
 
 @supports (display:block) {
     svg {
-        max-width: 100%;
+        /* max-width: 100%; */
         height: auto;
         box-sizing: border-box
     }
@@ -7904,7 +7904,7 @@ iframe.uk-cover {
         page-break-inside: avoid
     }
     img {
-        max-width: 100%!important
+        /* max-width: 100%!important */
     }
     @page {
         margin: .5cm

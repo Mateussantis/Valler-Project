@@ -171,7 +171,7 @@ canvas,
 img,
 video {
   /* 1 */
-  max-width: 100%;
+  /* max-width: 100%; */
   /* 2 */
   height: auto;
   /* 3 */
@@ -12399,7 +12399,7 @@ iframe.uk-cover {
     page-break-inside: avoid;
   }
   img {
-    max-width: 100% !important;
+    /* max-width: 100% !important; */
   }
   @page {
     margin: 0.5cm;

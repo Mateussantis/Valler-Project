@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
 import Header from '../../components/Header/header';
 import { api, apiOfertaPut } from '../../services/api';
-import { MDBContainer, MDBBtn, MDBModal, MDBModalBody, MDBModalHeader, MDBModalFooter, MDBInput, MDBAlert } from 'mdbreact';
+import { MDBContainer, MDBBtn, MDBModal, MDBModalBody, MDBModalHeader, MDBModalFooter, MDBInput, MDBTable,MDBDataTable, MDBTableHead, MDBTableFoot, MDBTableBody } from 'mdbreact';
 import { Button, Modal } from 'react-bootstrap';
 import Footer from '../../components/Footer/Footer';
 import { parseJwt, usuarioAutenticado } from '../../services/auth';
 import { isDate } from 'util';
-// import MaterialTable from 'material-table';
+import '../../css/table_MDB.css';
 
 export default class gerenciamento_produtos extends Component {
 
@@ -456,6 +456,45 @@ export default class gerenciamento_produtos extends Component {
 
                 <main>
 
+                <div className="container">
+                        <MDBTable striped bordered>
+                            <MDBTableHead>
+                                <tr>
+                                    <th>ID Produto</th>
+                                    <th>Categoria</th>
+                                    <th>Usuario</th>
+                                    <th>Nome Usuario</th>
+                                    <th>descricao</th>
+                                    <th>Ações</th>
+                                </tr>
+                            </MDBTableHead>
+
+                            <MDBTableBody>
+                            {
+                                this.state.listarProduto.map(
+                                    function (Produto) {
+                                        return (
+                                            <tr key={Produto.idProduto}>
+                                                <td>{Produto.idProduto}</td>
+                                                <td>{Produto.idCategoria}</td>
+                                                <td>{Produto.idUsuario}</td>
+                                                <td>{Produto.nomeProduto}</td>
+                                                <td>{Produto.descricao}</td>
+                                                <td>
+                                                    <button onClick={() => this.abrirModal(Produto)}>Aleterar</button>
+                                                    <button onClick={() => this.deleteProduto(Produto.idProduto)}>Deletar</button>
+                                                </td>
+                                            </tr>
+                                        )
+                                    }.bind(this)
+                                )
+                            }
+                            </MDBTableBody>
+                            
+                        </MDBTable>
+
+                    </div>
+
                     <div class="search-cat">
                         <div class="barra_pesquisa-mobile">
                             <i class="fas fa-search"></i>
@@ -466,29 +505,6 @@ export default class gerenciamento_produtos extends Component {
                         </div>
                         <a href="#"><i class="fas fa-bars"></i>categorias</a>
                     </div>
-
-                    <table>
-                        {
-                            this.state.listarProduto.map(
-                                function (Produto) {
-                                    return (
-                                        <tr key={Produto.idProduto}>
-                                            <td>{Produto.idProduto} ---</td>
-                                            <td>{Produto.idCategoria} ----</td>
-                                            <td>{Produto.idUsuario} ----</td>
-                                            <td>{Produto.nomeProduto}-----</td>
-                                            <td>{Produto.descricao}------</td>
-                                            <td>
-                                                <button onClick={() => this.abrirModal(Produto)}>Aleterar</button>
-                                                <button onClick={() => this.deleteProduto(Produto.idProduto)}>Deletar</button>
-                                            </td>
-                                        </tr>
-                                    )
-                                }.bind(this)
-                            )
-
-                        }
-                    </table>
 
 
 
