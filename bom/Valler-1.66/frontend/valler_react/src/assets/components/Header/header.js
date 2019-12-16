@@ -89,14 +89,14 @@ class Header extends Component {
 
         api.post('FIltroTrue', dados)
             .then(response => {
-                console.log(response)                
-                    this.props.history.push({
-                        pathName: '/',
-                        state: { filtroState: response.data }
-                    })
-                    this.listaOfertaAtualizada()
+                console.log(response)
+                this.props.history.push({
+                    pathName: '/',
+                    state: { filtroState: response.data }
+                })
             }
             )
+
     }
 
     buscaSetState = (input) => {
@@ -110,40 +110,36 @@ class Header extends Component {
             filtro: this.state.filtro
         }
 
-        if (dados == "") {
-            api.post('FIltro', dados)
-                .then(response => {
-                    console.log(response)
-                    this.listaOfertaAtualizada()
-                    setTimeout(() => {
-                        this.props.history.push({
-                            pathName: '/',
-                            state: { listarbusca: this.state.listarOferta }
-                        }, 1000)
-                    })
-
-                }
-                )
-
-        }
-        else {
+        api.post('FIltro', dados)
+            .then(response => {
+                console.log(response)
+                // this.listaOfertaAtualizada()
+                setTimeout(() => {
+                    this.props.history.push({
+                        pathName: '/',
+                        state: { listarbusca: this.state.listarOferta }
+                    }, 1000)
+                })
+            }
+            )
 
 
-            api.post('FIltro', dados)
-                .then(response => {
-                    console.log(response)
+        // else {
+        //     api.post('FIltro', dados)
+        //         .then(response => {
+        //             console.log(response)
 
-                    setTimeout(() => {
-                        this.props.history.push({
-                            pathName: '/',
-                            state: { listarbusca: response.data }
-                        }, 1000)
-                    })
+        //             setTimeout(() => {
+        //                 this.props.history.push({
+        //                     pathName: '/',
+        //                     state: { listarbusca: response.data }
+        //                 }, 1000)
+        //             })
 
-                }
-                )
+        //         }
+        //         )
 
-        }
+        // }
 
 
     }
@@ -500,10 +496,10 @@ class Header extends Component {
                                             <MDBDropdownMenu basic>
                                                 {
                                                     this.state.puxarCategorias.map(categoria => {
-                                                            return (
-                                                                <MDBDropdownItem onClick={() => this.filtroSetState(categoria.categoria1)} key={categoria.idCategoria} value={categoria.idCategoria}>{categoria.categoria1}</MDBDropdownItem>
-                                                            )
-                                                        }
+                                                        return (
+                                                            <MDBDropdownItem onClick={() => this.filtroSetState(categoria.categoria1)} key={categoria.idCategoria} value={categoria.idCategoria}>{categoria.categoria1}</MDBDropdownItem>
+                                                        )
+                                                    }
                                                     )
                                                 }
                                             </MDBDropdownMenu>
@@ -574,10 +570,10 @@ class Header extends Component {
                                                         uk-icon="sign-out"></span> </a>
                                                 </>
                                             ) : (
-                                                <React.Fragment>
-                                                    <a href="#home" className="laranja-valler" onClick={this.abrirModalLogin}>Entrar/Cadastrar<span
-                                                        uk-icon="sign-out"></span> </a>
-                                                </React.Fragment>
+                                                <>
+                                                    <Link to="/#" className="laranja-valler" onClick={this.abrirModalLogin} {...this.props} >Entrar/Cadastrar<span
+                                                        uk-icon="sign-out"></span> </Link>
+                                                </>
                                             )
                                         }
                                     </li>

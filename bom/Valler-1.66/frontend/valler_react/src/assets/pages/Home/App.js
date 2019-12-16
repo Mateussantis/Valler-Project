@@ -65,28 +65,34 @@ export default class App extends Component {
     console.log("Pagina atualizada");
   }
 
-  // getDerivedStateFromProps() {
-  //   this.setState({ listarOferta: this.props.location.state.listarbusca })
-  // }
-
-
-
+  
+  
+  getDerivedStateFromProps() {
+    console.log("getDerivedStateFromProps")
+    //this.setState({ listarOferta: this.props.location.state.listarbusca })
+  }
+  
   UNSAFE_componentWillReceiveProps() {
-
-
+    
     setTimeout(() => {
-      this.setState({ listarOferta: this.props.location.state.filtroState })
-    }, 100)
+      if(this.props.location.state !== undefined){
 
+        console.log("OK: ", this.props.location.state)
 
+        if(this.props.location.state.filtroState !== undefined){
+          this.setState({ listarOferta: this.props.location.state.filtroState })
+        }
 
+        if(this.props.location.state.listarbusca !== undefined){
+          this.setState({ listarOferta: this.props.location.state.listarbusca })
+        }
 
+      }else{
+        console.log("Fudeu: ", this.props.location)
+      }
+  
+    }, 100);
 
-
-
-    // setTimeout(() => {
-    //   this.setState({ listarOferta: this.props.location.state.listarbusca })
-    // }, 100)
 
 
     // setTimeout(() => {
@@ -383,7 +389,7 @@ export default class App extends Component {
                       </div>
 
                       <div class="main-card">
-                        <p> - {Oferta.titulo}</p>
+                        <p> {Oferta.idProdutoNavigation.nomeProduto} - {Oferta.titulo}</p>
                         <p class="preco">R$ {Oferta.preco} --- <span class="local">{Oferta.idProdutoNavigation.idUsuarioNavigation.nomeRazaoSocial}</span></p>
                       </div>
 
