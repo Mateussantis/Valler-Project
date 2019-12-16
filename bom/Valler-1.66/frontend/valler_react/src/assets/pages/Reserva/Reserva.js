@@ -2,42 +2,51 @@ import React, { Component } from 'react';
 import Header from '../../components/Header/header';
 import { api } from '../../services/api';
 import { parseJwt } from '../../services/auth';
+import Alert from 'react-bootstrap/Alert';
 
 export default class Reserva extends Component {
+
+  //#region Construtor
 
   constructor() {
     super();
     this.state = {
       listarReserva: [],
-      idUsuario: parseJwt().idUsuario
+      idUsuario: parseJwt().idUsuario,
+
+      mensagemErro: "",
+      mensagemSucesso: ""
     }
   }
+
+  //#endregion
+
+  //#region Ciclo De Vida
 
   componentDidMount() {
     this.getReserva();
   }
 
-  //DELETE -- Reserva
+  //#endregion
+
+  //#region Reservas
 
   deletarReserva = (id) => {
-    console.log(id);
-
     api.delete("Reserva/" + id)
-      .then(response => {
-        if (response.status === 200) {
-          console.log('Item deletado')
-          setTimeout(() => {
-            this.getReserva()
-          }, 1500)
-        }
-      }).catch(error => {
-        console.log(error);
+      .then(() => {
+        this.setState({ mensagemSucesso: "Uma Reserva foi cancelada!" })
+        setTimeout(() => {
+          this.getReserva()
+        }, 1500)
+      }
+      ).catch(() => {
+        this.setState({ mensagemErro: "Não foi possivel remover essa reseva, por favor aguarde, ou entre em contato com o forne!" })
       })
-
+    setTimeout(() => {
+      this.getReserva()
+    }, 1500)
   }
 
-
-  // GET -- Reserva_finalizada
   getReserva = () => {
     api.get('Reserva/a/' + parseJwt().idUsuario)
       .then(response => {
@@ -47,11 +56,33 @@ export default class Reserva extends Component {
       })
   }
 
+  //#endregion
+
   render() {
     return (
       <div>
 
         <Header />
+
+        {
+          this.state.mensagemErro &&
+          <Alert variant="danger" dismissible>
+            <Alert.Heading>Opss, parece que houve um problema!</Alert.Heading>
+            <p>
+              {this.state.mensagemErro}
+            </p>
+          </Alert>
+        }
+
+        {
+          this.state.mensagemSucesso &&
+          <Alert variant="success" dismissible>
+            <Alert.Heading>Que bom, sua operação foi realizada com sucesso!</Alert.Heading>
+            <p>
+              {this.state.mensagemSucesso}
+            </p>
+          </Alert>
+        }
 
         <table>
 

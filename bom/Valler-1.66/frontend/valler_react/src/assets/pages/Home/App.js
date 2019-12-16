@@ -4,8 +4,7 @@ import { MDBContainer, MDBBtn, MDBModal, MDBModalBody, MDBModalHeader, MDBModalF
 import { Button, Modal } from 'react-bootstrap';
 import Header from '../../components/Header/header.js';
 import { parseJwt, usuarioAutenticado } from '../../services/auth';
-
-
+import Alert from 'react-bootstrap/Alert'
 
 export default class App extends Component {
 
@@ -43,6 +42,9 @@ export default class App extends Component {
       modalReserva: false,
       show: false,
 
+      mensagemErro: "",
+      mensagemSucesso: ""
+
     }
 
 
@@ -70,6 +72,14 @@ export default class App extends Component {
 
 
   UNSAFE_componentWillReceiveProps() {
+
+
+    // setTimeout(() => {
+    //   this.setState({ listarOferta: this.props.location.state.filtroState })
+    // }, 2000)
+
+
+
 
     // setTimeout(() => {
     //   this.setState({ listarOferta: this.props.location.state.listarbusca })
@@ -283,14 +293,12 @@ export default class App extends Component {
   cadastrarReservar = (c) => {
     c.preventDefault();
 
-
     api.post('/reserva', this.state.postReserva)
-      .then(response => {
-        console.log(response);
+      .then(() => {
+        this.setState({ mensagemSucesso: "Você acabou de fazer uma Reserva, pode encontrar ela no carrinho de reservas!" });
       })
-      .catch(error => {
-        console.log(error);
-        this.setState({ erroMsg: "Não foi possível cadastrar essa Reserva" });
+      .catch(() => {
+        this.setState({ mensagemErro: "Não foi possível fazer a Reserva, por favor verifique se escolheu um numero!" });
       })
     setTimeout(() => {
       this.listaOfertaAtualizada();
@@ -322,7 +330,7 @@ export default class App extends Component {
   //#endregion
 
 
-
+  
 
   render() {
     return (
@@ -330,6 +338,26 @@ export default class App extends Component {
         <Header  {...this.props} />
 
         <main>
+
+          {
+            this.state.mensagemErro &&
+            <Alert variant="danger" dismissible>
+              <Alert.Heading>Opss, parece que houve um problema!</Alert.Heading>
+              <p>
+                {this.state.mensagemErro}
+              </p>
+            </Alert>
+          }
+
+          {
+            this.state.mensagemSucesso &&
+            <Alert variant="success" dismissible>
+              <Alert.Heading>Que bom, sua operação foi realizada com sucesso!</Alert.Heading>
+              <p>
+                {this.state.mensagemSucesso}
+              </p>
+            </Alert>
+          }
 
           <section class="container sessao-produtos">
 
@@ -365,10 +393,7 @@ export default class App extends Component {
                 }.bind(this)
               )
             }
-
-
             <MDBContainer>
-
               <form onSubmit={this.cadastrarReservar}>
                 <MDBModal isOpen={this.state.modalReserva} toggle={this.toggleReserva}>
                   <div>
@@ -384,12 +409,8 @@ export default class App extends Component {
                 </MDBModal>
               </form>
             </MDBContainer>
-
-
-
           </section>
         </main>
-
       </div>
     );
   }

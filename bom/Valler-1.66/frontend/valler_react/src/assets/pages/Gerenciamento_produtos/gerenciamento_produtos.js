@@ -1,12 +1,13 @@
 import React, { Component } from 'react';
 import Header from '../../components/Header/header';
 import { api, apiOfertaPut } from '../../services/api';
-import { MDBContainer, MDBBtn, MDBModal, MDBModalBody, MDBModalHeader, MDBModalFooter, MDBInput, MDBTable,MDBDataTable, MDBTableHead, MDBTableFoot, MDBTableBody } from 'mdbreact';
+import { MDBContainer, MDBBtn, MDBModal, MDBModalBody, MDBModalHeader, MDBModalFooter, MDBInput, MDBTable, MDBDataTable, MDBTableHead, MDBTableFoot, MDBTableBody } from 'mdbreact';
 import { Button, Modal } from 'react-bootstrap';
 import Footer from '../../components/Footer/Footer';
 import { parseJwt, usuarioAutenticado } from '../../services/auth';
 import { isDate } from 'util';
 import '../../css/table_MDB.css';
+import Alert from 'react-bootstrap/Alert';
 
 export default class gerenciamento_produtos extends Component {
 
@@ -81,6 +82,9 @@ export default class gerenciamento_produtos extends Component {
             modalReserva: false,
             show: false,
 
+            mensagemErro: "",
+            mensagemSucesso: ""
+
         }
     }
 
@@ -154,12 +158,12 @@ export default class gerenciamento_produtos extends Component {
 
     deleteOferta(id) {
         api.delete("Oferta/" + id)
-            .then(response => {
-                if (response === 200) {
-                    console.log('Item deletado')
-                }
-            }).catch(error => {
-                console.log(error);
+            .then(() => {
+                this.setState({ mensagemSucesso: "Você excluiu uma oferta!" })
+                this.listaOfertaAtualizada()
+            }
+            ).catch(() => {
+                this.setState({ mensagemErro: "Não foi possivel excluir essa oferta, verifique se não esta reservado!" })
             })
         setTimeout(() => {
             this.listaOfertaAtualizada()
@@ -168,34 +172,39 @@ export default class gerenciamento_produtos extends Component {
 
 
     postOferta = (e) => {
+
         console.log(this.state.postSetStateOferta)
         e.preventDefault();
         let Oferta = new FormData();
 
-        Oferta.set('idProduto', this.state.postSetStateOferta.idProduto);
-        Oferta.set('idUsuario', this.state.postSetStateOferta.idUsuario);
-        Oferta.set('titulo', this.state.postSetStateOferta.titulo);
-        Oferta.set('dataOferta', this.state.postSetStateOferta.dataOferta);
-        Oferta.set('dataVencimento', this.state.postSetStateOferta.dataVencimento);
-        Oferta.set('preco', this.state.postSetStateOferta.preco);
-        Oferta.set('quantidade', this.state.postSetStateOferta.quantidade);
-        Oferta.set('imagemServer', this.state.postSetStateOferta.imagem.current.files[0]);
-        Oferta.set('imagem', this.state.postSetStateOferta.imagem.current.value);
+        try {
 
-        console.log(this.state.postSetStateOferta.imagem.current.value)
-        console.log(Oferta)
+            Oferta.set('idProduto', this.state.postSetStateOferta.idProduto);
+            Oferta.set('idUsuario', this.state.postSetStateOferta.idUsuario);
+            Oferta.set('titulo', this.state.postSetStateOferta.titulo);
+            Oferta.set('dataOferta', this.state.postSetStateOferta.dataOferta);
+            Oferta.set('dataVencimento', this.state.postSetStateOferta.dataVencimento);
+            Oferta.set('preco', this.state.postSetStateOferta.preco);
+            Oferta.set('quantidade', this.state.postSetStateOferta.quantidade);
+            Oferta.set('imagemServer', this.state.postSetStateOferta.imagem.current.files[0]);
+            Oferta.set('imagem', this.state.postSetStateOferta.imagem.current.value);
 
-        fetch('http://localhost:5000/api/Oferta', {
-            method: "POST",
-            body: Oferta,
-        })
-            .then(response => response.json())
-            .then(response => {
-                console.log(response);
-                this.toggle2();
-                this.listaOfertaAtualizada();
-            })
-            .catch(error => console.log('Não foi possível cadastrar:' + error))
+        }
+        catch{
+            this.setState({ mensagemErro: "Digite todos os dados necessarios para finalizar o cadastro dessa Oferta!" });
+        }
+        api.post('Oferta', Oferta)
+            .then(() => {
+                this.setState({ mensagemSucesso: "Você cadastrou uma oferta!" })
+                setTimeout(() => {
+                    this.listaOfertaAtualizada();
+                }, 1500);
+            }
+            ).catch(() => {
+                this.setState({ mensagemErro: "Digite todos os dados necessarios para finalizar o cadastro dessa Oferta!" })
+            }
+            )
+        this.toggle2();
     }
 
 
@@ -255,29 +264,31 @@ export default class gerenciamento_produtos extends Component {
 
         let Oferta = new FormData();
 
-        Oferta.set('idOferta', this.state.putSetStateOferta.idOferta);
-        Oferta.set('idProduto', this.state.putSetStateOferta.idProduto);
-        Oferta.set('idUsuario', this.state.putSetStateOferta.idUsuario);
-        Oferta.set('titulo', this.state.putSetStateOferta.titulo);
-        Oferta.set('dataOferta', this.state.putSetStateOferta.dataOferta);
-        Oferta.set('dataVencimento', this.state.putSetStateOferta.dataVencimento);
-        Oferta.set('preco', this.state.putSetStateOferta.preco);
-        Oferta.set('quantidade', this.state.putSetStateOferta.quantidade);
-        Oferta.set('imagems', this.state.putSetStateOferta.imagem.current.files[0], this.state.putSetStateOferta.imagem.value);
-        Oferta.set('imagem', this.state.putSetStateOferta.imagem.value);
+        try {
 
-        console.log("aaa", Oferta)
+            Oferta.set('idOferta', this.state.putSetStateOferta.idOferta);
+            Oferta.set('idProduto', this.state.putSetStateOferta.idProduto);
+            Oferta.set('idUsuario', this.state.putSetStateOferta.idUsuario);
+            Oferta.set('titulo', this.state.putSetStateOferta.titulo);
+            Oferta.set('dataOferta', this.state.putSetStateOferta.dataOferta);
+            Oferta.set('dataVencimento', this.state.putSetStateOferta.dataVencimento);
+            Oferta.set('preco', this.state.putSetStateOferta.preco);
+            Oferta.set('quantidade', this.state.putSetStateOferta.quantidade);
+            Oferta.set('imagems', this.state.putSetStateOferta.imagem.current.files[0], this.state.putSetStateOferta.imagem.value);
+            Oferta.set('imagem', this.state.putSetStateOferta.imagem.value);
 
-        apiOfertaPut.put('Oferta/' + this.state.putSetStateOferta.idOferta, Oferta)
-            .then(res => console.log("Sucesso"))
-            .catch(error => {
-                console.log("Erro: ", error);
-            })
+            console.log("aaa", Oferta)
 
+            apiOfertaPut.put('Oferta/' + this.state.putSetStateOferta.idOferta, Oferta)
+                .then(this.setState({ mensagemSucesso: "Você atualizou uma oferta!" }))
+            setTimeout(() => {
+                this.listaOfertaAtualizada();
+            }, 1500);
+        }
+        catch{
+            this.setState({ mensagemErro: "Digite todos os dados necessarios para atualizar sua Oferta, não deixe campos em branco!" })
+        }
         this.toggle3();
-        setTimeout(() => {
-            this.listaOfertaAtualizada();
-        }, 1500);
     }
 
     //#endregion
@@ -296,13 +307,16 @@ export default class gerenciamento_produtos extends Component {
     cadastrarProduto = (c) => {
         c.preventDefault();
         api.post('/produto', this.state.postProduto)
-            .then(response => {
-                console.log(response);
-            })
-            .catch(error => {
-                console.log(error);
-                this.setState({ erroMsg: "Não foi possível cadastrar esse produto" });
-            })
+            .then(() => {
+                try {
+                    this.setState({ mensagemSucesso: "Você cadastrou um produto, agora pode realizar uma oferta!" })
+                    this.listaAtualizada();
+                } catch {
+                    this.setState({ mensagemErro: "Não foi possível cadastrar esse produto!" })
+                }
+            }
+            )
+            .catch(() => { this.setState({ mensagemErro: "Não foi possível cadastrar esse produto!" }) })
         setTimeout(() => {
             this.listaAtualizada();
         }, 1200);
@@ -311,16 +325,18 @@ export default class gerenciamento_produtos extends Component {
     deleteProduto(id) {
         console.log(id)
         api.delete("/Produto/" + id)
-            .then(response => {
-                if (response === 200) {
-                    console.log("Item deletado")
+            .then(() => {
+                try {
+                    this.setState({ mensagemSucesso: "Você deletou um produto!" })
+                    setTimeout(() => {
+                        this.listaAtualizada()
+                    }, 1500)
                 }
-            }).catch(error => {
-                console.log(error);
+                catch{
+                    this.setState({ mensagemErro: "Não foi possível cadastrar esse produto!" })
+                }
             })
-        setTimeout(() => {
-            this.listaAtualizada()
-        }, 1500)
+            .catch(() => { this.setState({ mensagemErro: "Não foi possível cadastrar esse produto!" }) })
     }
 
 
@@ -344,10 +360,11 @@ export default class gerenciamento_produtos extends Component {
         let produto = this.state.putSetState;
 
         api.put('Produto/' + idProduto, produto)
-            .then(res => console.log("Sucesso"))
-            .catch(error => {
-                console.log("Erro: ", error);
+            .then(() => {
+                this.setState({ mensagemSucesso: "Você atualizou um produto!" })
+                this.listaAtualizada()
             })
+            .catch(() => { this.setState({ mensagemErro: "Verifique se os campos foram inteiramente preenchidos" }) })
 
         this.toggle();
 
@@ -402,28 +419,29 @@ export default class gerenciamento_produtos extends Component {
 
     //#region Reserva
 
-
     cadastrarReservar = (c) => {
         c.preventDefault();
 
-        if (this.state.postReserva.statusReserva === "0") {
-            this.state.postReserva.statusReserva = false
-        }
-        else {
-            this.state.postReserva.statusReserva = true
-        }
-
         api.post('/reserva', this.state.postReserva)
-            .then(response => {
-                console.log(response);
-            })
-            .catch(error => {
-                console.log(error);
-                this.setState({ erroMsg: "Não foi possível cadastrar essa Reserva" });
-            })
-        setTimeout(() => {
-            this.listaAtualizada();
-        }, 1200);
+            .then(() => {
+
+                try {
+                    setTimeout(() => {
+                        this.setState({ mensagemSucesso: "Você acabou de reservar um produto, pode ver essas compras no seu carrinho de reservas" })
+                    },1000)
+
+                } catch {
+                    this.setState({ mensagemErro: "Não foi possível fazer a Reserva, por favor verifique se o produto ainda existe em estoque!" })
+                }
+            }
+            )
+            .catch(() => {
+                this.setState({ mensagemErro: "Não foi possível fazer a Reserva, por favor verifique se o produto ainda existe em estoque!" });
+            }
+            )
+        // setTimeout(() => {
+        //     this.listaAtualizada();
+        // }, 1200);
         this.toggleReserva();
     }
 
@@ -456,7 +474,27 @@ export default class gerenciamento_produtos extends Component {
 
                 <main>
 
-                <div className="container">
+                    {
+                        this.state.mensagemErro &&
+                        <Alert variant="danger" dismissible>
+                            <Alert.Heading>Opss, parece que houve um problema!</Alert.Heading>
+                            <p>
+                                {this.state.mensagemErro}
+                            </p>
+                        </Alert>
+                    }
+
+                    {
+                        this.state.mensagemSucesso &&
+                        <Alert variant="success" dismissible>
+                            <Alert.Heading>Que bom, sua operação foi realizada com sucesso!</Alert.Heading>
+                            <p>
+                                {this.state.mensagemSucesso}
+                            </p>
+                        </Alert>
+                    }
+
+                    <div className="container">
                         <MDBTable striped bordered>
                             <MDBTableHead>
                                 <tr>
@@ -470,27 +508,27 @@ export default class gerenciamento_produtos extends Component {
                             </MDBTableHead>
 
                             <MDBTableBody>
-                            {
-                                this.state.listarProduto.map(
-                                    function (Produto) {
-                                        return (
-                                            <tr key={Produto.idProduto}>
-                                                <td>{Produto.idProduto}</td>
-                                                <td>{Produto.idCategoria}</td>
-                                                <td>{Produto.idUsuario}</td>
-                                                <td>{Produto.nomeProduto}</td>
-                                                <td>{Produto.descricao}</td>
-                                                <td>
-                                                    <button onClick={() => this.abrirModal(Produto)}>Aleterar</button>
-                                                    <button onClick={() => this.deleteProduto(Produto.idProduto)}>Deletar</button>
-                                                </td>
-                                            </tr>
-                                        )
-                                    }.bind(this)
-                                )
-                            }
+                                {
+                                    this.state.listarProduto.map(
+                                        function (Produto) {
+                                            return (
+                                                <tr key={Produto.idProduto}>
+                                                    <td>{Produto.idProduto}</td>
+                                                    <td>{Produto.idCategoria}</td>
+                                                    <td>{Produto.idUsuario}</td>
+                                                    <td>{Produto.nomeProduto}</td>
+                                                    <td>{Produto.descricao}</td>
+                                                    <td>
+                                                        <button onClick={() => this.abrirModal(Produto)}>Aleterar</button>
+                                                        <button onClick={() => this.deleteProduto(Produto.idProduto)}>Deletar</button>
+                                                    </td>
+                                                </tr>
+                                            )
+                                        }.bind(this)
+                                    )
+                                }
                             </MDBTableBody>
-                            
+
                         </MDBTable>
 
                     </div>
@@ -620,8 +658,8 @@ export default class gerenciamento_produtos extends Component {
                                             </select>
 
                                             <MDBInput label="Produtos" name="titulo" value={this.state.postSetStateOferta.titulo} onChange={this.postSetStateOferta.bind(this)} />
-                                            <MDBInput type="datetime-local" label="Data Oferta" name="dataOferta" value={this.state.postSetStateOferta.dataOferta} onChange={this.postSetStateOferta.bind(this)} />
-                                            <MDBInput type="datetime-local" label="Data Vencimento" name="dataVencimento" value={this.state.postSetStateOferta.dataVencimento} onChange={this.postSetStateOferta.bind(this)} />
+                                            <MDBInput type="date" label="Data Oferta" name="dataOferta" value={this.state.postSetStateOferta.dataOferta} onChange={this.postSetStateOferta.bind(this)} />
+                                            <MDBInput type="date" label="Data Vencimento" name="dataVencimento" value={this.state.postSetStateOferta.dataVencimento} onChange={this.postSetStateOferta.bind(this)} />
                                             <MDBInput type="numeric" label="Preço" name="preco" value={this.state.postSetStateOferta.preco} onChange={this.postSetStateOferta.bind(this)} />
                                             <MDBInput type="numeric" label="Quantidade" name="quantidade" value={this.state.postSetStateOferta.quantidade} onChange={this.postSetStateOferta.bind(this)} />
                                             <input
@@ -653,7 +691,7 @@ export default class gerenciamento_produtos extends Component {
                                         <MDBModalBody>
 
                                             <select onChange={this.putSetStateOferta.bind(this)} value={this.state.putSetStateOferta.idProduto} name="idProduto">
-                                               
+
                                                 {
                                                     this.state.listarProduto.map(function (o) {
                                                         return (

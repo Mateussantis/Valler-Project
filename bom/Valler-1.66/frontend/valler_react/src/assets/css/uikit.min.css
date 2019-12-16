@@ -2676,7 +2676,8 @@ select.uk-form-width-xsmall {
 }
 
 .uk-search-navbar {
-    width: 400px
+    width: 400px;
+    margin-bottom: 30px;
 }
 
 .uk-search-navbar .uk-search-input {
@@ -2882,9 +2883,6 @@ ul.uk-nav-sub {
     align-items: center;
 }
 
-.uk-navbar-container:not(.uk-navbar-transparent):focus {
-
-}
 
 
 

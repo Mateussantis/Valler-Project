@@ -3,11 +3,11 @@ import { usuarioAutenticado, parseJwt } from '../../services/auth';
 import { api } from '../../services/api';
 import { Button, Modal } from 'react-bootstrap';
 import { Link, withRouter } from 'react-router-dom';
-import { MDBContainer, MDBBtn, MDBModal, MDBModalBody, MDBModalHeader, MDBModalFooter, MDBInput, MDBAlert, MDBDropdown, MDBDropdownItem, MDBDropdownToggle, MDBDropdownMenu } from 'mdbreact';
+import { MDBContainer, MDBBtn,MDBIcon, MDBModal, MDBModalBody, MDBModalHeader, MDBModalFooter, MDBInput, MDBAlert, MDBDropdown, MDBDropdownItem, MDBDropdownToggle, MDBDropdownMenu } from 'mdbreact';
 import logoValler from '../../img/valler_logo_novo.png';
 import '../../css/style.css'
 import { parse } from 'querystring';
-// import { Dropdown } from 'uikit-react';
+
 
 class Header extends Component {
 
@@ -50,6 +50,9 @@ class Header extends Component {
             // Lista para o filtro de categorias
             puxaCategorias: [],
 
+            filtroState: [],
+            filtrotrue: ""
+
         }
     }
 
@@ -63,6 +66,52 @@ class Header extends Component {
             .then(data => {
                 this.setState({ puxaCategorias: data.data })
             })
+    }
+
+    filtroSetState = (categoria) => {
+
+        console.log("Agora filtro", categoria);
+
+        // let dados = {
+        //     filtro: this.state.filtrotrue
+        // }
+
+
+        api.post('FIltroTrue', categoria)
+            .then(response => {
+                console.log(response)
+
+                setTimeout(() => {
+                    this.props.history.push({
+                        pathName: '/',
+                        state: { filtroState: response }
+                    }, 1000)
+                })
+
+            }
+            )
+
+
+        // else {
+
+
+        //     api.post('FIltro', dados)
+        //         .then(response => {
+        //             console.log(response)
+
+        //             setTimeout(() => {
+        //                 this.props.history.push({
+        //                     pathName: '/',
+        //                     state: { listarbusca: response.data }
+        //                 }, 1000)
+        //             })
+
+        //         }
+        //         )
+
+        // }
+
+
     }
 
     buscaSetState = (input) => {
@@ -87,7 +136,7 @@ class Header extends Component {
                             state: { listarbusca: this.state.listarOferta }
                         }, 1000)
                     })
-    
+
                 }
                 )
 
@@ -98,14 +147,14 @@ class Header extends Component {
             api.post('FIltro', dados)
                 .then(response => {
                     console.log(response)
-    
+
                     setTimeout(() => {
                         this.props.history.push({
                             pathName: '/',
                             state: { listarbusca: response.data }
                         }, 1000)
                     })
-    
+
                 }
                 )
 
@@ -116,12 +165,12 @@ class Header extends Component {
 
     listaOfertaAtualizada = () => {
         fetch("http://localhost:5000/api/Oferta")
-          .then(response => response.json())
-          .then(data => this.setState({ listarOferta: data })
-            , console.log(this.listarOferta));
-      }
+            .then(response => response.json())
+            .then(data => this.setState({ listarOferta: data })
+                , console.log(this.listarOferta));
+    }
 
-    
+
 
 
     postSetState = (input) => {
@@ -241,147 +290,191 @@ class Header extends Component {
         return (
             <div>
 
-            <Modal show={this.state.modalLogin || this.props.logar} toggleModalLogin={this.toggleModalLogin || this.props.logar} logar={this.props.logar}>
-                <form onSubmit={this.fazerLogin.bind(this)}>
+            <div className="modal-size">
+                <Modal show={this.state.modalLogin || this.props.logar} toggleModalLogin={this.toggleModalLogin || this.props.logar} logar={this.props.logar}>
 
-                    <Modal.Header>
-                        Fazer Login
-                    </Modal.Header>
+                    <div className="flex-login">
+                        <form className="form-login" onSubmit={this.fazerLogin.bind(this)}>
 
-                    <Modal.Body>
-                        <MDBInput
-                            label="Digite seu Email:"
-                            placeholder="Email"
-                            type="text"
-                            name="email"
-                            value={this.state.email}
-                            onChange={this.atualizaEstado}
-                            id="login_email"
-                        />
-                        <MDBInput
-                            label="Digite sua senha:"
-                            placeholder="Senha"
-                            type="number"
-                            name="senha"
-                            value={this.state.senha}
-                            onChange={this.atualizaEstado}
-                            id="login_senha"
-                        />
-                        <p style={{ color: 'red' }}>{this.state.erroMensagem}</p>
-                    </Modal.Body>
+                            {/* <Modal.Header className="title-modal force-down">
+                            <MDBIcon icon="shopping-cart" />
+                                Fazer Login
+                            </Modal.Header> */}
 
-                    <Modal.Footer>
-                        {
-                            this.state.isLoading === true &&
-                            <Button
-                                type="submit"
-                            >Carregando</Button>
-                        }
+                            <Modal.Body>
+                                <MDBInput
+                                    icon="at"
+                                    size="lg"
+                                    label="Digite seu Email:"
+                                    placeholder="Email"
+                                    type="text"
+                                    name="email"
+                                    value={this.state.email}
+                                    onChange={this.atualizaEstado}
+                                    id="login_email"
+                                />
+                                <MDBInput
+                                    color="#FF5700"
+                                    icon="lock"
+                                    size="lg"
+                                    label="Digite sua senha:"
+                                    placeholder="Senha"
+                                    type="number"
+                                    name="senha"
+                                    value={this.state.senha}
+                                    onChange={this.atualizaEstado}
+                                    id="login_senha"
+                                />
+                                
+                                <p style={{ color: 'red' }}>{this.state.erroMensagem}</p>
 
-                        {
-                            this.state.isLoading === false &&
-                            <Button
-                                onClick={this.toggleModalLogin}
-                                type="submit"
-                            >Entrar</Button>
-                        }
-                    </Modal.Footer>
-                </form>
+                            </Modal.Body>
 
-                <form onSubmit={this.postUsuario}>
-                    <Modal.Header>
-                        Realizar Cadastro
-                    </Modal.Header>
+                            <Modal.Footer>
+                                {
+                                    this.state.isLoading === true &&
+                                    <MDBBtn
+                                        className="background-valler"
+                                        color="#FF5700"
+                                        type="submit"
+                                    >Carregando</MDBBtn>
+                                }
 
-                    <Modal.Body>
+                                {
+                                    this.state.isLoading === false &&
+                                    <MDBBtn
+                                        className="background-valler"
+                                        color="#FF5700"
+                                        onClick={this.toggleModalLogin}
+                                        type="submit"
+                                    >Entrar</MDBBtn>
+                                }
+                                
+                                
+                            </Modal.Footer>
+                            <div  className="title-modal force-down">
+                                <MDBIcon icon="shopping-cart" />
+                                Fazer Login
+                            </div>
+                        </form>
 
-                        <select id="option_tipoUsuario"
-                            name="IdTipoUsuario"
-                            value={this.state.postUsuario.IdTipoUsuario}
-                            onChange={this.postSetState}
-                        >
-                            <option>Eu quero: </option>
-                            <option value="2">Quero Apenas comprar</option>
-                            <option value="3">Quero Vender!</option>
 
 
-                        </select>
+                        <form className="form-cadastro" onSubmit={this.postUsuario}>
+                            <Modal.Header className="title-modal">
+                                <MDBIcon icon="dollar-sign" />
+                                Realizar Cadastro
+                            </Modal.Header>
 
-                        <MDBInput
-                            label="Digite seu Nome ou Razão Social"
-                            placeholder="Nome ou Razão Social"
-                            type="text"
-                            name="NomeRazaoSocial"
-                            value={this.state.NomeRazaoSocial}
-                            onChange={this.postSetState}
-                        />
-                        <MDBInput
-                            // label="Digite seu Nome ou Razão Social"
-                            // placeholder="Nome ou Razão Social"
-                            type="hidden"
-                            name="IdTipoUsuario"
-                            value={this.state.IdTipoUsuario}
-                            onChange={this.postSetState}
-                        />
+                            <Modal.Body>
 
-                        <MDBInput
-                            label="Digite seu CPF ou CNPJ"
-                            placeholder="CPF/CNPJ"
-                            type="text"
-                            name="Documento"
-                            value={this.state.Documento}
-                            onChange={this.postSetState}
-                        />
 
-                        <MDBInput
-                            label="Digite seu Telefone"
-                            placeholder="Telefone"
-                            type="text"
-                            name="Telefone1"
-                            value={this.state.Telefone1}
-                            onChange={this.postSetState}
-                        />
+                                <MDBInput
+                                    icon="user"
+                                    size="lg"
+                                    label="Nome/Razão Social"
+                                    placeholder="Nome ou Razão Social"
+                                    type="text"
+                                    name="NomeRazaoSocial"
+                                    value={this.state.NomeRazaoSocial}
+                                    onChange={this.postSetState}
+                                />
+                                <select id="option_tipoUsuario"
+                                    className="browser-default custom-select"
+                                    name="IdTipoUsuario"
+                                    value={this.state.postUsuario.IdTipoUsuario}
+                                    onChange={this.postSetState}
+                                >
+                                    <option>Eu quero: </option>
+                                    <option value="2">Quero Apenas comprar</option>
+                                    <option value="3">Quero Vender!</option>
 
-                        <MDBInput
-                            label="Digite seu Email:"
-                            placeholder="Email"
-                            type="text"
-                            name="Email"
-                            value={this.state.Email}
-                            onChange={this.postSetState}
-                            id="cadastro_email"
-                        />
-                        <MDBInput
-                            label="Digite sua senha:"
-                            placeholder="Senha"
-                            type="text"
-                            name="Senha"
-                            value={this.state.Senha}
-                            onChange={this.postSetState}
-                            id="login_senha"
-                        />
 
-                        <p style={{ color: 'red' }}>{this.state.erroMensagem}</p>
-                    </Modal.Body>
+                                </select>
+                                <MDBInput
+                                    // label="Digite seu Nome ou Razão Social"
+                                    // placeholder="Nome ou Razão Social"
+                                    type="hidden"
+                                    name="IdTipoUsuario"
+                                    value={this.state.IdTipoUsuario}
+                                    onChange={this.postSetState}
+                                />
 
-                    <Modal.Footer>
-                        {
-                            this.state.isLoading === true &&
-                            <Button
-                                disabled
-                                type="submit"
+                                <MDBInput
+                                    icon="id-card"
+                                    size="lg"
+                                    label="CPF/CNPJ"
+                                    placeholder="CPF/CNPJ"
+                                    type="text"
+                                    name="Documento"
+                                    value={this.state.Documento}
+                                    onChange={this.postSetState}
+                                />
 
-                            >Carregando</Button>
-                        }
-                        {
-                            this.state.isLoading === false &&
-                            <Button
-                                type="submit"
-                            >Cadastrar</Button>
-                        }
-                    </Modal.Footer>
-                </form>
-            </Modal>
+                                <MDBInput
+                                    icon="phone-alt"
+                                    size="lg"
+                                    label="Digite seu Telefone"
+                                    placeholder="Telefone"
+                                    type="text"
+                                    name="Telefone1"
+                                    value={this.state.Telefone1}
+                                    onChange={this.postSetState}
+                                />
+
+                                <MDBInput
+                                    icon="at"
+                                    size="lg"
+                                    label="Email:"
+                                    placeholder="Email"
+                                    type="text"
+                                    name="Email"
+                                    value={this.state.Email}
+                                    onChange={this.postSetState}
+                                    id="cadastro_email"
+                                    
+                                />
+                                <MDBInput
+                                    icon="lock"
+                                    size="lg"
+                                    label="Senha:"
+                                    placeholder="Senha"
+                                    type="text"
+                                    name="Senha"
+                                    value={this.state.Senha}
+                                    onChange={this.postSetState}
+                                    id="login_senha"
+                                />
+
+                                <p style={{ color: 'red' }}>{this.state.erroMensagem}</p>
+                            </Modal.Body>
+
+                            <Modal.Footer>
+                                {
+                                    this.state.isLoading === true &&
+                                    <Button
+                                        className="background-valler"
+                                            color="#FF5700"
+                                        disabled
+                                        type="submit"
+
+                                    >Carregando</Button>
+                                }
+                                {
+                                    this.state.isLoading === false &&
+                                    <MDBBtn
+                                        className="background-valler"
+                                        color="#FF5700"
+                                        type="submit"
+                                    >Cadastrar</MDBBtn>
+                                }
+                            </Modal.Footer>
+                        </form>
+                    </div>
+
+
+                </Modal>
+            </div>
 
             <header uk-sticky>
                 <div uk-sticky className="header-mobile">
@@ -398,8 +491,10 @@ class Header extends Component {
                                             <div className="uk-navbar-left container_V">
                                                 <div className="uk-navbar-item">
                                                     <form className="uk-search uk-search-navbar">
-                                                        <span uk-search-icon></span>
-                                                        <input className="uk-search-input" type="search" placeholder="O que procura ?" value={this.state.termo} onChange={(e) => this.buscaSetState(e)} />
+                                                        <div className="flex-busca">
+                                                            <MDBIcon icon="search" className="margin-icon" />
+                                                            <input className="uk-search-input" type="search" placeholder="O que procura ?" value={this.state.termo} onChange={(e) => this.buscaSetState(e)} />
+                                                        </div>
                                                     </form>
                                                 </div>
                                             </div>
@@ -408,28 +503,37 @@ class Header extends Component {
 
                                     <MDBDropdown>
 
-                                        <MDBDropdownToggle className="categorias_btn laranja" id="#laranja" caret>
-                                            <i className="fas fa-bars"></i>Categorias
+                                        <MDBDropdownToggle color="" className="categorias_btn laranja" id="#laranja">
+                                            <div className="categoria_t">
+                                                <i className="fas fa-bars margin-icon"></i> Categorias
+                                        </div>
                                         </MDBDropdownToggle>
 
 
 
                                         <MDBDropdownMenu basic>
-                                            {
-                                                this.state.puxaCategorias.map(
-                                                    function(categoria){
-                                                        return(
+                                            {/* {
+                                            this.state.puxaCategorias.map(
+                                                function(categoria){
+                                                    return(
 
 
-                                                        <MDBDropdownItem key={categoria.idCategoria} value={categoria.idCategoria}>{categoria.categoria1}</MDBDropdownItem>
+                                                    <MDBDropdownItem key={categoria.idCategoria} value={categoria.idCategoria}>{categoria.categoria1}</MDBDropdownItem>
 
 
 
 
-                                                        )    
-                                                    }
-                                                )
-                                            }
+                                                    )    
+                                                }
+                                            )
+                                        } */}
+
+                                            <MDBDropdownItem>Action</MDBDropdownItem>
+                                            <MDBDropdownItem>Another Action</MDBDropdownItem>
+                                            <MDBDropdownItem>Something else here</MDBDropdownItem>
+                                            <MDBDropdownItem divider />
+                                            <MDBDropdownItem>Separated link</MDBDropdownItem>
+
                                         </MDBDropdownMenu>
                                     </MDBDropdown>
 
@@ -443,21 +547,24 @@ class Header extends Component {
 
                             <ul className="uk-subnav uk-subnav-pill" uk-margin>
                                 <li className="uk-active"><Link to="/" href>Destaques</Link></li>
+
+
                                 <li>
                                     {usuarioAutenticado() && parseJwt().Role === "ADM" ? (
                                         <>
-                                            <Link to="/geren_p" >Gerenciar Produtos/Ofertas</Link>
+
+                                            <Link to="/geren_p" className="uk-active" >Gerenciar Produtos/Ofertas</Link>
                                         </>
                                     ) : (
                                             usuarioAutenticado() && parseJwt().Role === "Comum" ?
                                                 (
                                                     <>
-                                                        <Link to="/reserva" >Minhas Reservas</Link>
+                                                        <Link to="/reserva" className="uk-active" >Minhas Reservas</Link>
                                                     </>
                                                 ) : (
                                                     usuarioAutenticado() && parseJwt().Role === "Fornecedor" ? (
                                                         <>
-                                                            <Link to="/geren_p" >Gerenciar Produtos/Ofertas</Link>
+                                                            <Link to="/geren_p" className="uk-active">Gerenciar Produtos/Ofertas</Link>
                                                         </>
                                                     )
                                                         : (
