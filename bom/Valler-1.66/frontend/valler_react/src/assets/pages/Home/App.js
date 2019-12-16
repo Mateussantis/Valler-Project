@@ -74,9 +74,12 @@ export default class App extends Component {
   UNSAFE_componentWillReceiveProps() {
 
 
-    // setTimeout(() => {
-    //   this.setState({ listarOferta: this.props.location.state.filtroState })
-    // }, 2000)
+    setTimeout(() => {
+      this.setState({ listarOferta: this.props.location.state.filtroState })
+    }, 100)
+
+
+
 
 
 
@@ -330,7 +333,7 @@ export default class App extends Component {
   //#endregion
 
 
-  
+
 
   render() {
     return (
@@ -380,7 +383,7 @@ export default class App extends Component {
                       </div>
 
                       <div class="main-card">
-                        <p>{Oferta.idProdutoNavigation.nomeProduto} - {Oferta.titulo}</p>
+                        <p> - {Oferta.titulo}</p>
                         <p class="preco">R$ {Oferta.preco} --- <span class="local">{Oferta.idProdutoNavigation.idUsuarioNavigation.nomeRazaoSocial}</span></p>
                       </div>
 
