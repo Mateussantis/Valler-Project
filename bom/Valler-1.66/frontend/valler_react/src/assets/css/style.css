@@ -382,6 +382,11 @@ laranja{
     width: 100%;
 }
 
+dl, ol, ul {
+    margin-top: 0;
+    margin-bottom: 0rem !important; 
+}
+
 
 .onde_vende {
     display: flex;

@@ -65,7 +65,7 @@ CREATE TABLE Oferta (
 	titulo VARCHAR (255) NOT NULL,
 	data_oferta datetime NOT NULL,
 	data_vencimento datetime NOT NULL,
-	preco float NOT NULL,
+	preco money NOT NULL,
 	quantidade int NOT NULL,
 	imagem VARCHAR (255) NOT NULL
 );
@@ -79,3 +79,4 @@ CREATE TABLE Reserva (
 	cronometro time(3) NOT NULL,
 	status_reserva bit NOT NULL
 );
+

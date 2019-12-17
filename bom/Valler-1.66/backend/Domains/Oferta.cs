@@ -27,8 +27,8 @@ namespace backend.Domains
         public DateTime DataOferta { get; set; }
         [Column("data_vencimento", TypeName = "datetime")]
         public DateTime DataVencimento { get; set; }
-        [Column("preco")]
-        public double Preco { get; set; }
+        [Column("preco", TypeName = "money")]
+        public decimal Preco { get; set; }
         [Column("quantidade")]
         public int Quantidade { get; set; }
         [Required]

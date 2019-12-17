@@ -81,7 +81,7 @@ namespace backend.Controllers
                 oferta.Titulo = Request.Form["Titulo"];
                 oferta.DataOferta = DateTime.Parse(Request.Form["DataOferta"]);
                 oferta.DataVencimento = DateTime.Parse((Request.Form["DataVencimento"]));
-                oferta.Preco = float.Parse(Request.Form["Preco"]);
+                oferta.Preco = Decimal.Parse(Request.Form["Preco"]);
                 oferta.Quantidade = int.Parse(Request.Form["Quantidade"]);
                 oferta.Imagem = _up.Upload(a);
 
@@ -121,7 +121,7 @@ namespace backend.Controllers
                 oferta.Titulo = Request.Form["Titulo"];
                 oferta.DataOferta = DateTime.Parse(Request.Form["DataOferta"]);
                 oferta.DataVencimento = DateTime.Parse((Request.Form["DataVencimento"]));
-                oferta.Preco = float.Parse(Request.Form["Preco"]);
+                oferta.Preco = Decimal.Parse(Request.Form["Preco"]);
                 oferta.Quantidade = int.Parse(Request.Form["Quantidade"]);
                 oferta.Imagem = _up.Upload(a);
                 await _repositorio.Alterar(oferta);

@@ -4,7 +4,8 @@ import { MDBContainer, MDBBtn, MDBModal, MDBModalBody, MDBModalHeader, MDBModalF
 import { Button, Modal } from 'react-bootstrap';
 import Header from '../../components/Header/header.js';
 import { parseJwt, usuarioAutenticado } from '../../services/auth';
-import Alert from 'react-bootstrap/Alert'
+import Alert from 'react-bootstrap/Alert';
+import Banner from '../../img/banner-home.png';
 
 export default class App extends Component {
 
@@ -344,6 +345,8 @@ export default class App extends Component {
         <Header  {...this.props} />
 
         <main>
+          
+        <img className="banner" src={Banner}/>
 
           {
             this.state.mensagemErro &&

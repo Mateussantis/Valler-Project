@@ -170,7 +170,7 @@ export default class gerenciamento_produtos extends Component {
             this.listaOfertaAtualizada()
             this.setState({mensagemSucesso: ""})   
             this.setState({mensagemErro: ""}) 
-        }, 1000)
+        }, 2500)
     }
 
 
@@ -292,8 +292,6 @@ export default class gerenciamento_produtos extends Component {
             setTimeout(() => {
                 this.listaOfertaAtualizada();
             }, 1500);
-
-            
         }
         catch{
             this.setState({ mensagemErro: "Digite todos os dados necessarios para atualizar sua Oferta, não deixe campos em branco!" })
@@ -302,7 +300,7 @@ export default class gerenciamento_produtos extends Component {
         setTimeout(() => {
             this.setState({mensagemSucesso: ""})   
             this.setState({mensagemErro: ""})  
-        }, 3000);
+        }, 3500);
     }
 
     //#endregion
@@ -498,7 +496,7 @@ export default class gerenciamento_produtos extends Component {
 
                     {
                         this.state.mensagemErro &&
-                        <Alert variant="danger">
+                        <Alert variant="danger" >
                             <Alert.Heading>Opss, parece que houve um problema!</Alert.Heading>
                             <p>
                                 {this.state.mensagemErro}
