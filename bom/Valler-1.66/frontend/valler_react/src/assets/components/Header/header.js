@@ -109,37 +109,33 @@ class Header extends Component {
         let dados = {
             filtro: this.state.filtro
         }
-
+        
         api.post('FIltro', dados)
             .then(response => {
                 console.log(response)
-                // this.listaOfertaAtualizada()
+
                 setTimeout(() => {
                     this.props.history.push({
                         pathName: '/',
-                        state: { listarbusca: this.state.listarOferta }
+                        state: { listarbusca: response.data }
                     }, 1000)
                 })
+
             }
             )
 
-
-        // else {
-        //     api.post('FIltro', dados)
-        //         .then(response => {
-        //             console.log(response)
-
-        //             setTimeout(() => {
-        //                 this.props.history.push({
-        //                     pathName: '/',
-        //                     state: { listarbusca: response.data }
-        //                 }, 1000)
-        //             })
-
-        //         }
-        //         )
-
-        // }
+        // api.post('FIltro', dados)
+        //     .then(response => {
+        //         console.log(response)
+        //         // this.listaOfertaAtualizada()
+        //         setTimeout(() => {
+        //             this.props.history.push({
+        //                 pathName: '/',
+        //                 state: { listarbusca: this.state.listarOferta }
+        //             }, 1000)
+        //         })
+        //     }
+        //     )
 
 
     }

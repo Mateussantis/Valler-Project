@@ -3,6 +3,7 @@ import Header from '../../components/Header/header';
 import { api } from '../../services/api';
 import { parseJwt } from '../../services/auth';
 import Alert from 'react-bootstrap/Alert';
+import { MDBContainer, MDBBtn, MDBModal, MDBModalBody, MDBModalHeader, MDBModalFooter, MDBInput, MDBTable, MDBDataTable, MDBTableHead, MDBTableFoot, MDBTableBody } from 'mdbreact';
 
 export default class ReservaFornecedor extends Component {
 
@@ -42,6 +43,10 @@ export default class ReservaFornecedor extends Component {
         }, 1000)
       }
       ).catch(() => {this.setState({mensagemErro: "Voce nao pode remover esta reserva no momento, aguarde ate ser cancelada"})})
+      setTimeout(() => {
+        this.setState({mensagemSucesso: ""})   
+        this.setState({mensagemErro: ""}) 
+    }, 1000)
     }
 
   getReserva = () => {
@@ -63,7 +68,7 @@ export default class ReservaFornecedor extends Component {
 
         {
           this.state.mensagemErro &&
-          <Alert variant="danger" dismissible>
+          <Alert variant="danger">
             <Alert.Heading>Opss, parece que houve um problema!</Alert.Heading>
             <p>
               {this.state.mensagemErro}
@@ -73,7 +78,7 @@ export default class ReservaFornecedor extends Component {
 
         {
           this.state.mensagemSucesso &&
-          <Alert variant="success" dismissible>
+          <Alert variant="success">
             <Alert.Heading>Que bom, sua operação foi realizada com sucesso!</Alert.Heading>
             <p>
               {this.state.mensagemSucesso}
@@ -81,7 +86,7 @@ export default class ReservaFornecedor extends Component {
           </Alert>
         }
 
-        <table>
+        {/* <table>
 
           <tbody id="tabela-corpo-lista">
             {
@@ -108,7 +113,45 @@ export default class ReservaFornecedor extends Component {
 
           </tbody>
 
-        </table>
+        </table> */}
+
+        <div className="container">
+                        <MDBTable striped bordered>
+                            <MDBTableHead>
+                                <tr>
+                                    <th>Oferta Reservada</th>
+                                    <th>Mercado</th>
+                                    <th>Quantidade</th>
+                                    <th>Tempo restante</th>
+                                    <th>Status</th>
+                                    <th>Ações</th>
+                                </tr>
+                            </MDBTableHead>
+
+                            <MDBTableBody>
+                                {
+                                    this.state.listarReserva.map(
+                                        function (r) {
+                                            return (
+                                                <tr key={r.idReserva}>
+                                                    <td>{r.idOfertaNavigation.titulo}</td>
+                                                    <td>{r.idOfertaNavigation.idProdutoNavigation.idUsuarioNavigation.nomeRazaoSocial}</td>
+                                                    <td>{r.quantidadeReserva}</td>
+                                                    <td>{r.cronometro}</td>
+                                                    <td>{r.statusReserva == 0 && "Fechada" || "Aberta"}</td>
+                                                    <td>
+                                                        <button onClick={() => this.deleteProduto(r.idReserva)}>Deletar</button>
+                                                    </td>
+                                                </tr>
+                                            )
+                                        }.bind(this)
+                                    )
+                                }
+                            </MDBTableBody>
+
+                        </MDBTable>
+
+                    </div>
 
       </div>
     );

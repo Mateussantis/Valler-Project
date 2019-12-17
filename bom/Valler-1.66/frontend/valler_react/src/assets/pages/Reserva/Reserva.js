@@ -3,6 +3,7 @@ import Header from '../../components/Header/header';
 import { api } from '../../services/api';
 import { parseJwt } from '../../services/auth';
 import Alert from 'react-bootstrap/Alert';
+import { MDBContainer, MDBBtn, MDBModal, MDBModalBody, MDBModalHeader, MDBModalFooter, MDBInput, MDBTable, MDBDataTable, MDBTableHead, MDBTableFoot, MDBTableBody } from 'mdbreact';
 
 export default class Reserva extends Component {
 
@@ -44,6 +45,8 @@ export default class Reserva extends Component {
       })
     setTimeout(() => {
       this.getReserva()
+      this.setState({mensagemSucesso: ""})   
+      this.setState({mensagemErro: ""}) 
     }, 1500)
   }
 
@@ -66,7 +69,7 @@ export default class Reserva extends Component {
 
         {
           this.state.mensagemErro &&
-          <Alert variant="danger" dismissible>
+          <Alert variant="danger">
             <Alert.Heading>Opss, parece que houve um problema!</Alert.Heading>
             <p>
               {this.state.mensagemErro}
@@ -76,7 +79,7 @@ export default class Reserva extends Component {
 
         {
           this.state.mensagemSucesso &&
-          <Alert variant="success" dismissible>
+          <Alert variant="success">
             <Alert.Heading>Que bom, sua operação foi realizada com sucesso!</Alert.Heading>
             <p>
               {this.state.mensagemSucesso}
@@ -84,34 +87,44 @@ export default class Reserva extends Component {
           </Alert>
         }
 
-        <table>
+        <div className="container">
+                        <MDBTable striped bordered>
+                            <MDBTableHead>
+                                <tr>
+                                    <th>Oferta Reservada</th>
+                                    <th>Mercado</th>
+                                    <th>Quantidade</th>
+                                    <th>Tempo restante</th>
+                                    <th>Status</th>
+                                    <th>Ações</th>
+                                </tr>
+                            </MDBTableHead>
 
-          <tbody id="tabela-corpo-lista">
-            {
-              this.state.listarReserva.map(
-                function (e) {
-                  return (
+                            <MDBTableBody>
+                                {
+                                    this.state.listarReserva.map(
+                                        function (r) {
+                                            return (
+                                                <tr key={r.idReserva}>
+                                                    <td>{r.idOfertaNavigation.titulo}</td>
+                                                    <td>{r.idOfertaNavigation.idProdutoNavigation.idUsuarioNavigation.nomeRazaoSocial}</td>
+                                                    <td>{r.quantidadeReserva}</td>
+                                                    <td>{r.cronometro}</td>
+                                                    <td>{r.statusReserva == 0 && "Fechada" || "Aberta"}</td>
+                                                    <td>
+                                                        <button onClick={() => this.abrirModal(Reserva)}>Alterar</button>
+                                                        <button onClick={() => this.deleteProduto(r.idReserva)}>Deletar</button>
+                                                    </td>
+                                                </tr>
+                                            )
+                                        }.bind(this)
+                                    )
+                                }
+                            </MDBTableBody>
 
-                    <tr key={e.idReserva}>
-                      <br />
-                      <td><strong>Oferta</strong> : {e.idOfertaNavigation.titulo} || </td>
-                      <td><strong>Mercado</strong> : {e.idOfertaNavigation.idProdutoNavigation.idUsuarioNavigation.nomeRazaoSocial} || </td>
-                      <td><strong>Quantidade</strong> : {e.quantidadeReserva} -- </td>
-                      <td><strong>Cronometro</strong> : {e.cronometro}  --  </td>
-                      <td><strong>Status</strong> : {e.statusReserva == 0 && "Fechada" || "Aberta"}  --  </td>
-                      <td>
-                        <button onClick={() => this.deletarReserva(e.idReserva)}>Deletar</button>
-                      </td>
+                        </MDBTable>
 
-                    </tr>
-                  )
-                }.bind(this)
-              )
-            }
-
-          </tbody>
-
-        </table>
+                    </div>
 
       </div>
     );

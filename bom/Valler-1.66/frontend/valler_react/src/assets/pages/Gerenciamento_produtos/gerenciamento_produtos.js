@@ -8,6 +8,7 @@ import { parseJwt, usuarioAutenticado } from '../../services/auth';
 import { isDate } from 'util';
 import '../../css/table_MDB.css';
 import Alert from 'react-bootstrap/Alert';
+import { number } from 'prop-types';
 
 export default class gerenciamento_produtos extends Component {
 
@@ -167,6 +168,8 @@ export default class gerenciamento_produtos extends Component {
             })
         setTimeout(() => {
             this.listaOfertaAtualizada()
+            this.setState({mensagemSucesso: ""})   
+            this.setState({mensagemErro: ""}) 
         }, 1000)
     }
 
@@ -205,6 +208,10 @@ export default class gerenciamento_produtos extends Component {
             }
             )
         this.toggle2();
+        setTimeout(() => {
+            this.setState({mensagemSucesso: ""})   
+            this.setState({mensagemErro: ""})  
+        }, 3000);
     }
 
 
@@ -264,8 +271,9 @@ export default class gerenciamento_produtos extends Component {
 
         let Oferta = new FormData();
 
-        try {
 
+        try {
+            
             Oferta.set('idOferta', this.state.putSetStateOferta.idOferta);
             Oferta.set('idProduto', this.state.putSetStateOferta.idProduto);
             Oferta.set('idUsuario', this.state.putSetStateOferta.idUsuario);
@@ -284,11 +292,17 @@ export default class gerenciamento_produtos extends Component {
             setTimeout(() => {
                 this.listaOfertaAtualizada();
             }, 1500);
+
+            
         }
         catch{
             this.setState({ mensagemErro: "Digite todos os dados necessarios para atualizar sua Oferta, não deixe campos em branco!" })
         }
         this.toggle3();
+        setTimeout(() => {
+            this.setState({mensagemSucesso: ""})   
+            this.setState({mensagemErro: ""})  
+        }, 3000);
     }
 
     //#endregion
@@ -319,6 +333,8 @@ export default class gerenciamento_produtos extends Component {
             .catch(() => { this.setState({ mensagemErro: "Não foi possível cadastrar esse produto!" }) })
         setTimeout(() => {
             this.listaAtualizada();
+            this.setState({mensagemSucesso: ""})   
+            this.setState({mensagemErro: ""})  
         }, 1200);
     }
 
@@ -337,6 +353,10 @@ export default class gerenciamento_produtos extends Component {
                 }
             })
             .catch(() => { this.setState({ mensagemErro: "Não foi possível cadastrar esse produto!" }) })
+            setTimeout(() => {
+                this.setState({mensagemSucesso: ""})   
+                this.setState({mensagemErro: ""})  
+            }, 3000);
     }
 
 
@@ -370,8 +390,9 @@ export default class gerenciamento_produtos extends Component {
 
         setTimeout(() => {
             this.listaAtualizada();
+            this.setState({mensagemSucesso: ""})   
+            this.setState({mensagemErro: ""})  
         }, 1500);
-
     }
 
 
@@ -439,10 +460,11 @@ export default class gerenciamento_produtos extends Component {
                 this.setState({ mensagemErro: "Não foi possível fazer a Reserva, por favor verifique se o produto ainda existe em estoque!" });
             }
             )
-        // setTimeout(() => {
-        //     this.listaAtualizada();
-        // }, 1200);
         this.toggleReserva();
+        setTimeout(() => {
+            this.setState({mensagemSucesso: ""})   
+            this.setState({mensagemErro: ""})  
+        }, 3000);
     }
 
     abrirModalReserva = (id) => {
@@ -476,7 +498,7 @@ export default class gerenciamento_produtos extends Component {
 
                     {
                         this.state.mensagemErro &&
-                        <Alert variant="danger" dismissible>
+                        <Alert variant="danger">
                             <Alert.Heading>Opss, parece que houve um problema!</Alert.Heading>
                             <p>
                                 {this.state.mensagemErro}
@@ -486,7 +508,7 @@ export default class gerenciamento_produtos extends Component {
 
                     {
                         this.state.mensagemSucesso &&
-                        <Alert variant="success" dismissible>
+                        <Alert variant="success">
                             <Alert.Heading>Que bom, sua operação foi realizada com sucesso!</Alert.Heading>
                             <p>
                                 {this.state.mensagemSucesso}
@@ -576,7 +598,7 @@ export default class gerenciamento_produtos extends Component {
                                         <a key={Oferta.idOferta} class="card-item">
 
                                             <div class="header-card">
-                                                <span class="uk-label uk-label-success .uk-position-right">Vencimento <br></br>{Oferta.dataVencimento}</span>
+                                                <span class="uk-label uk-label-success .uk-position-right">Vencimento <br></br>{(Oferta.dataVencimento).split('T')[0]}</span>
                                                 <img src={"http://localhost:5000/Images/" + Oferta.imagem} alt="" />
                                                 <div class="avaliacao">
                                                     <span class="fa fa-star checked"></span>

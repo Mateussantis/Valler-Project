@@ -64,13 +64,6 @@ export default class App extends Component {
   componentDidUpdate() {
     console.log("Pagina atualizada");
   }
-
-  
-  
-  getDerivedStateFromProps() {
-    console.log("getDerivedStateFromProps")
-    //this.setState({ listarOferta: this.props.location.state.listarbusca })
-  }
   
   UNSAFE_componentWillReceiveProps() {
     
@@ -78,6 +71,8 @@ export default class App extends Component {
       if(this.props.location.state !== undefined){
 
         console.log("OK: ", this.props.location.state)
+
+        console.log("aqui", this.props.location.state.listarbusca)
 
         if(this.props.location.state.filtroState !== undefined){
           this.setState({ listarOferta: this.props.location.state.filtroState })
@@ -309,10 +304,12 @@ export default class App extends Component {
       .catch(() => {
         this.setState({ mensagemErro: "Não foi possível fazer a Reserva, por favor verifique se escolheu um numero!" });
       })
+      this.toggleReserva();
     setTimeout(() => {
       this.listaOfertaAtualizada();
+      this.setState({mensagemSucesso: ""})   
+      this.setState({mensagemErro: ""}) 
     }, 1200);
-    this.toggleReserva();
   }
 
   abrirModalReserva = (id, titulo) => {
@@ -350,7 +347,7 @@ export default class App extends Component {
 
           {
             this.state.mensagemErro &&
-            <Alert variant="danger" dismissible>
+            <Alert variant="danger">
               <Alert.Heading>Opss, parece que houve um problema!</Alert.Heading>
               <p>
                 {this.state.mensagemErro}
@@ -360,7 +357,7 @@ export default class App extends Component {
 
           {
             this.state.mensagemSucesso &&
-            <Alert variant="success" dismissible>
+            <Alert variant="success">
               <Alert.Heading>Que bom, sua operação foi realizada com sucesso!</Alert.Heading>
               <p>
                 {this.state.mensagemSucesso}
@@ -377,7 +374,7 @@ export default class App extends Component {
                     <a key={Oferta.idOferta} class="card-item">
 
                       <div class="header-card">
-                        <span class="uk-label uk-label-success .uk-position-right">Vencimento<br></br>{Oferta.dataVencimento}</span>
+                        <span class="uk-label uk-label-success .uk-position-right">Vencimento<br></br>{(Oferta.dataVencimento).split('T')[0]}</span>
                         <img src={"http://localhost:5000/Images/" + Oferta.imagem} alt="" />
                         <div class="avaliacao">
                           <span class="fa fa-star checked"></span>
