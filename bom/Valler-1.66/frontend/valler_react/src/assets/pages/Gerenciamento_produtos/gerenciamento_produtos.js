@@ -168,8 +168,8 @@ export default class gerenciamento_produtos extends Component {
             })
         setTimeout(() => {
             this.listaOfertaAtualizada()
-            this.setState({mensagemSucesso: ""})   
-            this.setState({mensagemErro: ""}) 
+            this.setState({ mensagemSucesso: "" })
+            this.setState({ mensagemErro: "" })
         }, 2500)
     }
 
@@ -209,9 +209,9 @@ export default class gerenciamento_produtos extends Component {
             )
         this.toggle2();
         setTimeout(() => {
-            this.setState({mensagemSucesso: ""})   
-            this.setState({mensagemErro: ""})  
-        }, 3000);
+            this.setState({ mensagemSucesso: "" })
+            this.setState({ mensagemErro: "" })
+        }, 1300);
     }
 
 
@@ -273,7 +273,7 @@ export default class gerenciamento_produtos extends Component {
 
 
         try {
-            
+
             Oferta.set('idOferta', this.state.putSetStateOferta.idOferta);
             Oferta.set('idProduto', this.state.putSetStateOferta.idProduto);
             Oferta.set('idUsuario', this.state.putSetStateOferta.idUsuario);
@@ -298,8 +298,8 @@ export default class gerenciamento_produtos extends Component {
         }
         this.toggle3();
         setTimeout(() => {
-            this.setState({mensagemSucesso: ""})   
-            this.setState({mensagemErro: ""})  
+            this.setState({ mensagemSucesso: "" })
+            this.setState({ mensagemErro: "" })
         }, 3500);
     }
 
@@ -331,8 +331,8 @@ export default class gerenciamento_produtos extends Component {
             .catch(() => { this.setState({ mensagemErro: "Não foi possível cadastrar esse produto!" }) })
         setTimeout(() => {
             this.listaAtualizada();
-            this.setState({mensagemSucesso: ""})   
-            this.setState({mensagemErro: ""})  
+            this.setState({ mensagemSucesso: "" })
+            this.setState({ mensagemErro: "" })
         }, 1200);
     }
 
@@ -351,10 +351,10 @@ export default class gerenciamento_produtos extends Component {
                 }
             })
             .catch(() => { this.setState({ mensagemErro: "Não foi possível cadastrar esse produto!" }) })
-            setTimeout(() => {
-                this.setState({mensagemSucesso: ""})   
-                this.setState({mensagemErro: ""})  
-            }, 3000);
+        setTimeout(() => {
+            this.setState({ mensagemSucesso: "" })
+            this.setState({ mensagemErro: "" })
+        }, 3000);
     }
 
 
@@ -388,8 +388,8 @@ export default class gerenciamento_produtos extends Component {
 
         setTimeout(() => {
             this.listaAtualizada();
-            this.setState({mensagemSucesso: ""})   
-            this.setState({mensagemErro: ""})  
+            this.setState({ mensagemSucesso: "" })
+            this.setState({ mensagemErro: "" })
         }, 1500);
     }
 
@@ -447,7 +447,7 @@ export default class gerenciamento_produtos extends Component {
                 try {
                     setTimeout(() => {
                         this.setState({ mensagemSucesso: "Você acabou de reservar um produto, pode ver essas compras no seu carrinho de reservas" })
-                    },1000)
+                    }, 1000)
 
                 } catch {
                     this.setState({ mensagemErro: "Não foi possível fazer a Reserva, por favor verifique se o produto ainda existe em estoque!" })
@@ -460,8 +460,8 @@ export default class gerenciamento_produtos extends Component {
             )
         this.toggleReserva();
         setTimeout(() => {
-            this.setState({mensagemSucesso: ""})   
-            this.setState({mensagemErro: ""})  
+            this.setState({ mensagemSucesso: "" })
+            this.setState({ mensagemErro: "" })
         }, 3000);
     }
 
@@ -496,7 +496,7 @@ export default class gerenciamento_produtos extends Component {
 
                     {
                         this.state.mensagemErro &&
-                        <Alert variant="danger" >
+                        <Alert variant="danger">
                             <Alert.Heading>Opss, parece que houve um problema!</Alert.Heading>
                             <p>
                                 {this.state.mensagemErro}
@@ -515,41 +515,63 @@ export default class gerenciamento_produtos extends Component {
                     }
 
                     <div className="container">
-                        <MDBTable striped bordered>
-                            <MDBTableHead>
-                                <tr>
-                                    <th>ID Produto</th>
-                                    <th>Categoria</th>
-                                    <th>Usuario</th>
-                                    <th>Nome Usuario</th>
-                                    <th>descricao</th>
-                                    <th>Ações</th>
-                                </tr>
-                            </MDBTableHead>
+                        <p id="title_gerenciamento_de_produtos">Gerenciamento de produtos e Ofertas </p>
 
-                            <MDBTableBody>
-                                {
-                                    this.state.listarProduto.map(
-                                        function (Produto) {
-                                            return (
-                                                <tr key={Produto.idProduto}>
-                                                    <td>{Produto.idProduto}</td>
-                                                    <td>{Produto.idCategoria}</td>
-                                                    <td>{Produto.idUsuario}</td>
-                                                    <td>{Produto.nomeProduto}</td>
-                                                    <td>{Produto.descricao}</td>
-                                                    <td>
-                                                        <button onClick={() => this.abrirModal(Produto)}>Aleterar</button>
-                                                        <button onClick={() => this.deleteProduto(Produto.idProduto)}>Deletar</button>
-                                                    </td>
-                                                </tr>
-                                            )
-                                        }.bind(this)
-                                    )
-                                }
-                            </MDBTableBody>
+                        <div class="cads container">
 
-                        </MDBTable>
+                            <button className="btn botao-laranja" onClick={this.abrirModalOferta}>
+                                <i class="fas fa-bars"></i> Cadastrar Oferta
+                                        +
+                        </button>
+                        </div>
+
+                        <tr>
+                            <td className="botao-add">
+                                <button className="btn botao-laranja" onClick={this.abrirModalProduto}>
+                                    <i class="fas fa-hamburger"></i> Cadastrar Produto
+                                        +
+                            </button>
+                            </td>
+                        </tr>
+
+                        <div className="tabela-produto">
+                            <MDBTable striped bordered>
+                                <MDBTableHead className="table-head">
+                                    <tr className="table-head">
+                                        <th>Produto</th>
+                                        <th>Categoria</th>
+                                        <th>Descricão</th>
+                                        <th>Ações</th>
+                                    </tr>
+                                </MDBTableHead>
+
+                                <MDBTableBody>
+                                    {
+                                        this.state.listarProduto.map(
+                                            function (Produto) {
+                                                return (
+                                                    <tr key={Produto.idProduto}>
+                                                        <td>{Produto.nomeProduto}</td>
+                                                        <td>{Produto.idCategoria}</td>
+                                                        <td>{Produto.descricao}</td>
+                                                        <td>
+                                                            <button onClick={() => this.abrirModal(Produto)}>Aleterar</button>
+                                                            <button onClick={() => this.deleteProduto(Produto.idProduto)}>Deletar</button>
+                                                        </td>
+                                                    </tr>
+                                                )
+                                            }.bind(this)
+                                        )
+                                    }
+
+                                </MDBTableBody>
+
+                                <MDBTableFoot>
+                                </MDBTableFoot>
+
+                            </MDBTable>
+
+                        </div>
 
                     </div>
 
@@ -567,23 +589,7 @@ export default class gerenciamento_produtos extends Component {
 
 
 
-                    <div class="cads container">
-                        <Button onClick={this.abrirModalProduto}>
-                            Cadastrar Produto
-                            <div class="icon-cad">
-                                <i class="fas fa-hamburger"></i>
-                                +
-                            </div>
-                        </Button>
 
-                        <Button onClick={this.abrirModalOferta}>
-                            Cadastrar Oferta
-                            <div class="icon-cad">
-                                <i class="fas fa-bars"></i>
-                                +
-                            </div>
-                        </Button>
-                    </div>
 
 
 

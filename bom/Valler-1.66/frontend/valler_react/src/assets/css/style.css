@@ -43,7 +43,7 @@
 }
 
 body {
-    background-color: var(--cinza-fumaca);
+    background-color: var(--cinza-fumaca) !important;
     font-family: lato;
 }
 
@@ -321,6 +321,7 @@ laranja{
     flex-direction: column;
     align-items: center;
     border-right: solid 1px var(--preto-valler);
+    justify-content: space-between;
     
 }
 
@@ -637,6 +638,43 @@ dl, ol, ul {
     border-radius: 4px;
     padding: 10px;
 }
+
+.botao-laranja{
+    background-color: var(--laranja-valer) !important;
+    color: white !important;
+}
+
+#title_gerenciamento_de_produtos{
+    color: orange;
+    text-align: center;
+    font-size: 40px;
+    margin-top: 80px;
+}
+
+
+.formulario_cadastro label input[type=text] {
+    color: #F5F5F5;
+    padding-left: 30px;
+}
+
+.table-head{
+    background-color: #343330 !important;
+    color: #F5F5F5;
+}
+
+.tabela-produto{
+    background-color: white !important;
+    padding-top: 20px
+}
+
+.botao-add{
+    background-color: white !important;
+    padding: 30px;
+    border-radius: 0px 0px 0% 0%; 
+    
+}
+
+
 
 /*-------------------------------------------------*/
 

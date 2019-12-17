@@ -23,6 +23,30 @@ namespace backend.Controllers
         //         filtromodel = null;
         //     }
 
+        //     var Oferta = await _context.Produto.Select(
+        //         p => new Produto() {
+        //                 IdProduto = p.IdProduto,
+        //                 IdCategoria = p.IdCategoria,
+        //                 IdUsuario = p.IdUsuario,
+        //                 NomeProduto = p.NomeProduto,
+        //                 Descricao = p.Descricao,
+        //                 IdCategoriaNavigation = p.IdCategoriaNavigation,
+        //                 IdUsuarioNavigation = p.IdUsuarioNavigation
+        //             }
+               
+        //     ).Where(c => c.NomeProduto.Contains(filtromodel.filtro)).ToListAsync();
+
+        //     return produto;
+        // }  
+
+
+        // [HttpPost]
+        // public async Task<ActionResult<List<Oferta>>> Post(FiltroModel filtromodel){
+
+        //     if(filtromodel == null) {
+        //         filtromodel = null;
+        //     }
+
         //     var Oferta = await _context.Oferta.Select(
         //        o => new Oferta () {
         //                 IdOferta = o.IdOferta,
@@ -53,7 +77,8 @@ namespace backend.Controllers
         //     ).Where(c => c.Titulo.Contains(filtromodel.filtro)).ToListAsync();
 
         //     return Oferta;
-        // }  
+        // }
+
 
 
         [HttpPost]
@@ -90,7 +115,7 @@ namespace backend.Controllers
                                     }
                             }
                }
-            ).Where(c => c.Titulo.Contains(filtromodel.filtro)).ToListAsync();
+            ).Where(c => c.IdProdutoNavigation.NomeProduto.Contains(filtromodel.filtro)).ToListAsync();
 
             return Oferta;
         }

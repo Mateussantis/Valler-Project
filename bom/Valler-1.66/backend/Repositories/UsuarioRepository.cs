@@ -21,7 +21,7 @@ namespace backend.Repositories
         public async Task<Usuario> BuscarPorID(int id)
         {
             using(VallerContext _context = new VallerContext()){
-                return await _context.Usuario.Include(t => t.IdTipoUsuarioNavigation).FirstOrDefaultAsync(c => c.IdUsuario == id);
+                return await _context.Usuario.Include(t => t.IdTipoUsuarioNavigation).Include(t => t.Endereco).FirstOrDefaultAsync(c => c.IdUsuario == id);
             }
         }
 

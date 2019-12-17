@@ -79,8 +79,6 @@ class Header extends Component {
 
     filtroSetState = (categoria) => {
 
-        // this.setState({ filtrotrue: categoria })
-
         console.log(this.state.filtrotrue)
 
         let dados = {
@@ -96,7 +94,6 @@ class Header extends Component {
                 })
             }
             )
-
     }
 
     buscaSetState = (input) => {
@@ -106,18 +103,22 @@ class Header extends Component {
         console.log("Termo", this.state.filtro);
         console.log(this.props);
 
+        // let dados = {
+        //     filtro: this.state.filtro
+        // }
+
         let dados = {
-            filtro: this.state.filtro
+            filtro: input.target.value
         }
 
         api.post('FIltro', dados)
             .then(response => {
                 console.log(response)
-                // this.listaOfertaAtualizada()
+                this.listaOfertaAtualizada()
                 setTimeout(() => {
                     this.props.history.push({
                         pathName: '/',
-                        state: { listarbusca: this.state.listarOferta }
+                        state: { listarbusca: response.data }
                     }, 1000)
                 })
             }
@@ -529,17 +530,16 @@ class Header extends Component {
                                         )}
 
 
-                                    {this.props.location.pathname === "/geren_p" ? (
+                                    {this.props.location.pathname === "/geren_p" || this.props.location.pathname === "/reserva" ? (
 
                                         <li className="uk-active">
                                             {usuarioAutenticado() && parseJwt().Role === "ADM" ? (
                                                 <>
-
                                                     <Link to="/geren_p">Gerenciar Produtos/Ofertas</Link>
                                                 </>
                                             ) : (
 
-                                                
+
                                                     usuarioAutenticado() && parseJwt().Role === "Comum" ?
                                                         (
                                                             <>
@@ -561,34 +561,63 @@ class Header extends Component {
 
                                     ) : (
 
-                                        <li>
-                                            {usuarioAutenticado() && parseJwt().Role === "ADM" ? (
-                                                <>
 
-                                                    <Link to="/geren_p" className="uk-active" >Gerenciar Produtos/Ofertas</Link>
+
+                                            <li>
+                                                {usuarioAutenticado() && parseJwt().Role === "ADM" ? (
+                                                    <>
+
+                                                        <Link to="/geren_p" className="uk-active" >Gerenciar Produtos/Ofertas</Link>
+                                                    </>
+                                                ) : (
+                                                        usuarioAutenticado() && parseJwt().Role === "Comum" ?
+                                                            (
+                                                                <>
+                                                                    <Link to="/reserva" className="uk-active" >Minhas Reservas</Link>
+                                                                </>
+                                                            ) : (
+                                                                usuarioAutenticado() && parseJwt().Role === "Fornecedor" ? (
+                                                                    <>
+                                                                        <Link to="/geren_p" className="uk-active">Gerenciar Produtos/Ofertas</Link>
+                                                                    </>
+                                                                )
+                                                                    : (
+                                                                        <React.Fragment>
+                                                                            <a href="#Home" className="laranja-valler" onClick={this.abrirModalLogin}>Vender</a>
+                                                                        </React.Fragment>
+                                                                    )
+                                                            ))}
+                                            </li>
+
+                                        )}
+
+
+
+                                    {this.props.location.pathname === "/reservafornecedor" ? (
+                                        <li className="uk-active">
+                                            {usuarioAutenticado() && parseJwt().Role === "Fornecedor" ? (
+                                                <>
+                                                    <Link to="/reservafornecedor">Meus Produtos Reservados</Link>
                                                 </>
                                             ) : (
-                                                    usuarioAutenticado() && parseJwt().Role === "Comum" ?
-                                                        (
-                                                            <>
-                                                                <Link to="/reserva" className="uk-active" >Minhas Reservas</Link>
-                                                            </>
-                                                        ) : (
-                                                            usuarioAutenticado() && parseJwt().Role === "Fornecedor" ? (
-                                                                <>
-                                                                    <Link to="/geren_p" className="uk-active">Gerenciar Produtos/Ofertas</Link>
-                                                                </>
-                                                            )
-                                                                : (
-                                                                    <React.Fragment>
-                                                                        <a href="#Home" className="laranja-valler" onClick={this.abrirModalLogin}>Vender</a>
-                                                                    </React.Fragment>
-                                                                )
-                                                        ))}
+                                                    <>
+                                                    </>
+                                                )}
                                         </li>
 
-                                )}
-                                   
+                                    ) : (
+                                            <li>
+                                                {usuarioAutenticado() && parseJwt().Role === "Fornecedor" ? (
+                                                    <>
+                                                        <Link to="/reservafornecedor">Meus Produtos Reservados</Link>
+                                                    </>
+                                                ) : (
+                                                        <>
+                                                        </>
+                                                    )}
+                                            </li>
+
+                                        )}
 
 
 

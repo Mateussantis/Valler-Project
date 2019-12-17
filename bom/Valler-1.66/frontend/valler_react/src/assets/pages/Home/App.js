@@ -65,28 +65,28 @@ export default class App extends Component {
   componentDidUpdate() {
     console.log("Pagina atualizada");
   }
-  
+
   UNSAFE_componentWillReceiveProps() {
-    
+
     setTimeout(() => {
-      if(this.props.location.state !== undefined){
+      if (this.props.location.state !== undefined) {
 
         console.log("OK: ", this.props.location.state)
 
         console.log("aqui", this.props.location.state.listarbusca)
 
-        if(this.props.location.state.filtroState !== undefined){
+        if (this.props.location.state.filtroState !== undefined) {
           this.setState({ listarOferta: this.props.location.state.filtroState })
         }
 
-        if(this.props.location.state.listarbusca !== undefined){
+        else if (this.props.location.state.listarbusca !== undefined) {
           this.setState({ listarOferta: this.props.location.state.listarbusca })
         }
 
-      }else{
+      } else {
         console.log("Fudeu: ", this.props.location)
       }
-  
+
     }, 100);
 
 
@@ -290,7 +290,6 @@ export default class App extends Component {
     }, 1500);
   }
 
-
   //#endregion
 
 
@@ -298,19 +297,32 @@ export default class App extends Component {
   cadastrarReservar = (c) => {
     c.preventDefault();
 
-    api.post('/reserva', this.state.postReserva)
-      .then(() => {
-        this.setState({ mensagemSucesso: "Você acabou de fazer uma Reserva, pode encontrar ela no carrinho de reservas!" });
-      })
-      .catch(() => {
-        this.setState({ mensagemErro: "Não foi possível fazer a Reserva, por favor verifique se escolheu um numero!" });
-      })
+    let user = parseJwt().idUsuario;
+
+    console.log(user)
+
+    if (user == 3) {
+      this.toggleReserva()
+      this.setState({ mensagemErro: "Usuarios fornecedores não podem efetuar uma reserva!" })
+      setTimeout(() => {
+        this.setState({ mensagemErro: "" })
+      },8000)
+    }
+    else {
+      api.post('/reserva', this.state.postReserva)
+        .then(() => {
+          this.setState({ mensagemSucesso: "Você acabou de fazer uma Reserva, pode encontrar ela no carrinho de reservas!" });
+        })
+        .catch(() => {
+          this.setState({ mensagemErro: "Não foi possível fazer a Reserva, por favor verifique se escolheu um numero!" });
+        })
       this.toggleReserva();
-    setTimeout(() => {
-      this.listaOfertaAtualizada();
-      this.setState({mensagemSucesso: ""})   
-      this.setState({mensagemErro: ""}) 
-    }, 1200);
+      setTimeout(() => {
+        this.listaOfertaAtualizada();
+        this.setState({ mensagemSucesso: "" })
+        this.setState({ mensagemErro: "" })
+      }, 1200);
+    }
   }
 
   abrirModalReserva = (id, titulo) => {
@@ -337,6 +349,26 @@ export default class App extends Component {
   //#endregion
 
 
+  //#region Banner
+
+  filtroSetState = () => {
+
+    console.log(this.state.filtrotrue)
+
+    let dados = {
+      filtro: "Alimentos"
+    }
+
+    api.post('FIltroTrue', dados)
+      .then(response => {
+        console.log(response)
+        this.setState({ listarOferta: response.data })
+      }
+      )
+  }
+
+
+  //#endregion
 
 
   render() {
@@ -345,8 +377,8 @@ export default class App extends Component {
         <Header  {...this.props} />
 
         <main>
-          
-        <img className="banner" src={Banner}/>
+
+          <a onClick={this.filtroSetState}><img className="banner" src={Banner} /></a>
 
           {
             this.state.mensagemErro &&

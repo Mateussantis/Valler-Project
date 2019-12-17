@@ -27,30 +27,24 @@ namespace backend.Repositories
 
                     p => new Produto()
                     {
-
                         IdProduto = p.IdProduto,
                         Descricao = p.Descricao,
                         IdCategoria = p.IdCategoria,
                         IdUsuario = p.IdUsuario,
                         NomeProduto = p.NomeProduto,
-                        // IdUsuarioNavigation = p.IdUsuarioNavigation,
+                        IdCategoriaNavigation = new Categoria() {
+                            IdCategoria = p.IdCategoriaNavigation.IdCategoria,
+                            Categoria1 = p.IdCategoriaNavigation.Categoria1,
+                        },                        
 
-                        // IdUsuarioNavigation = new Usuario()
-                        // {
-                        //     IdUsuario = p.IdUsuarioNavigation.IdUsuario,
-                        //     NomeRazaoSocial = p.IdUsuarioNavigation.NomeRazaoSocial,
-                        //     Endereco = p.IdUsuarioNavigation.Endereco,
-                        //     Telefone = p.IdUsuarioNavigation.Telefone,
-                        // },
-
-                        // IdCategoriaNavigation = new Categoria() {
-                        //     IdCategoria = p.IdCategoriaNavigation.IdCategoria,
-                        //     Categoria1 = p.IdCategoriaNavigation.Categoria1,
-                        // }
-
-
+                        IdUsuarioNavigation = new Usuario()
+                        {
+                            IdUsuario = p.IdUsuarioNavigation.IdUsuario,
+                            NomeRazaoSocial = p.IdUsuarioNavigation.NomeRazaoSocial,
+                            Endereco = p.IdUsuarioNavigation.Endereco,
+                            Telefone = p.IdUsuarioNavigation.Telefone,
+                        }
                     }
-
                 ).FirstOrDefaultAsync(c => c.IdProduto == id);
             }
         }
@@ -77,14 +71,15 @@ namespace backend.Repositories
                         IdUsuario = p.IdUsuario,
                         NomeProduto = p.NomeProduto,
                         Descricao = p.Descricao,
-                        // IdCategoriaNavigation = p.IdCategoriaNavigation,
-                        // IdUsuarioNavigation = p.IdUsuarioNavigation,
-
-                        // IdUsuarioNavigation = new Usuario(){
-                        //     IdUsuario = p.IdUsuarioNavigation.IdUsuario,
-                        //     NomeRazaoSocial = p.IdUsuarioNavigation.NomeRazaoSocial,
-                        //     Telefone = p.IdUsuarioNavigation.Telefone,
-                        // }
+                        IdCategoriaNavigation = new Categoria() {
+                            IdCategoria = p.IdCategoriaNavigation.IdCategoria,
+                            Categoria1 = p.IdCategoriaNavigation.Categoria1,
+                        },       
+                        IdUsuarioNavigation = new Usuario(){
+                            IdUsuario = p.IdUsuarioNavigation.IdUsuario,
+                            NomeRazaoSocial = p.IdUsuarioNavigation.NomeRazaoSocial,
+                            Telefone = p.IdUsuarioNavigation.Telefone
+                        }
                     }
 
                 ).ToListAsync();

@@ -86,41 +86,12 @@ export default class ReservaFornecedor extends Component {
           </Alert>
         }
 
-        {/* <table>
-
-          <tbody id="tabela-corpo-lista">
-            {
-              this.state.listarReserva.map(
-                function (e) {
-                  return (
-
-                    <tr key={e.idReserva}>
-                      <br />
-                      <td><strong>Oferta</strong> : {e.idOfertaNavigation.titulo} || </td>
-                      <td><strong>Usuario</strong> : {e.idUsuarioNavigation.nomeRazaoSocial} || </td>
-                      <td><strong>Quantidade</strong> : {e.quantidadeReserva} -- </td>
-                      <td><strong>Cronometro</strong> : {e.cronometro}  --  </td>
-                      <td><strong>Status</strong> : {e.statusReserva == 0 && "Fechada" || "Aberta"}  --  </td>
-                      <td>
-                        <button onClick={() => this.deletarReserva(e.idReserva)}>Deletar</button>
-                      </td>
-
-                    </tr>
-                  )
-                }.bind(this)
-              )
-            }
-
-          </tbody>
-
-        </table> */}
-
         <div className="container">
                         <MDBTable striped bordered>
                             <MDBTableHead>
                                 <tr>
                                     <th>Oferta Reservada</th>
-                                    <th>Mercado</th>
+                                    <th>Usuario</th>
                                     <th>Quantidade</th>
                                     <th>Tempo restante</th>
                                     <th>Status</th>
@@ -135,12 +106,12 @@ export default class ReservaFornecedor extends Component {
                                             return (
                                                 <tr key={r.idReserva}>
                                                     <td>{r.idOfertaNavigation.titulo}</td>
-                                                    <td>{r.idOfertaNavigation.idProdutoNavigation.idUsuarioNavigation.nomeRazaoSocial}</td>
+                                                    <td>{r.idUsuarioNavigation.nomeRazaoSocial}</td>
                                                     <td>{r.quantidadeReserva}</td>
                                                     <td>{r.cronometro}</td>
                                                     <td>{r.statusReserva == 0 && "Fechada" || "Aberta"}</td>
                                                     <td>
-                                                        <button onClick={() => this.deleteProduto(r.idReserva)}>Deletar</button>
+                                                        <button onClick={() => this.deletarReserva(r.idReserva)}>Deletar</button>
                                                     </td>
                                                 </tr>
                                             )
