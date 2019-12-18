@@ -16,6 +16,6 @@ namespace backend.Interfaces
 
         Task<Endereco> Excluir(Endereco endereco);
 
-        Task<List<Endereco>> ListarOnlyId(int idUsuario);
+        Task<Endereco> ListarOnlyId(int idUsuario);
     }
 }

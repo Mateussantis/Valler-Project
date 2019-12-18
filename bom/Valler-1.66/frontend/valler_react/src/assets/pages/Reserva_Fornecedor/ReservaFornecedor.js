@@ -161,7 +161,7 @@ export default class ReservaFornecedor extends Component {
                           <td>{r.cronometro}</td>
                           <td>{r.statusReserva == 0 && "Fechada" || "Aberta"}</td>
                           <td>
-                            <button onClick={() => this.deletarReserva(r.idReserva)}>Deletar</button>
+                            <button className="uk-button uk-button-primary uk-width-1-1 uk-margin-small-bottom btn-delete" onClick={() => this.deletarReserva(r.idReserva)}>Deletar</button>
                           </td>
                         </tr>
                       )

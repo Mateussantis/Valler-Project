@@ -40,7 +40,7 @@ export default class Reserva extends Component {
 
   componentDidMount() {
     this.getReserva();
-    this.getEndereco();
+    // this.getEndereco();
   }
 
   //#endregion
@@ -76,14 +76,14 @@ export default class Reserva extends Component {
 
   getEndereco = (a) => {
 
-    api.post('Endereco/a/', a)
-    .then(response => {
-      this.setState({ listarEndereco: response.data })
-    })
+    api.get('Endereco/a/' + a)
+      .then(response => {
+        this.setState({ listarEndereco: response.data })
+      })
 
     // this.setState({listarEnderecos.rua : this.listarEndereco})
 
-    console.log("aaaaaaaaaaaaaaa",this.state.listarEndereco)
+    console.log("aaaaaaaaaaaaaaa", this.state.listarEndereco)
   }
 
 
@@ -145,8 +145,7 @@ export default class Reserva extends Component {
                         <td>{r.idOfertaNavigation.titulo}</td>
                         <td>{r.idOfertaNavigation.idProdutoNavigation.idUsuarioNavigation.nomeRazaoSocial}</td>
                         <td>
-                          {this.getEndereco(r.idOfertaNavigation.idProdutoNavigation.idUsuarioNavigation.idUsuario)}
-                          {/* {this.state.listarEndereco} */}
+                          {/* {this.getEndereco(r.idOfertaNavigation.idProdutoNavigation.idUsuarioNavigation.idUsuario)} */}
                         </td>
                         <td>{r.quantidadeReserva}</td>
                         <td>R$  {r.idOfertaNavigation.preco}</td>
@@ -165,6 +164,18 @@ export default class Reserva extends Component {
             </MDBTableBody>
 
           </MDBTable>
+          {/* <table>
+          {
+            this.state.listarEndereco.map(
+              function (r) {
+                return (
+                  <tr key={r.idEndereco}>
+                    <td>{r.rua}</td>
+                )
+              }.bind(this)
+            )
+          }
+          </table> */}
 
         </div>
 

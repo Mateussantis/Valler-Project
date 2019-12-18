@@ -18,30 +18,30 @@ namespace backend.Repositories {
         public async Task<Endereco> BuscarPorID (int id) {
             using (VallerContext _contexto = new VallerContext ()) {
 
-                return await _contexto.Endereco.Select(
+                return await _contexto.Endereco.Select (
 
-                    p => new Endereco() {
+                    p => new Endereco () {
 
                         IdEndereco = p.IdEndereco,
-                        Bairro = p.Bairro,
-                        Cep = p.Cep,
-                        Cidade = p.Cidade,
-                        Numero = p.Numero,
-                        Rua = p.Rua,
-                        Uf = p.Uf,
-                        IdUsuario = p.IdUsuarioNavigation.IdUsuario,
-                        
-                        IdUsuarioNavigation = new Usuario() {
+                            Bairro = p.Bairro,
+                            Cep = p.Cep,
+                            Cidade = p.Cidade,
+                            Numero = p.Numero,
+                            Rua = p.Rua,
+                            Uf = p.Uf,
                             IdUsuario = p.IdUsuarioNavigation.IdUsuario,
-                            NomeRazaoSocial = p.IdUsuarioNavigation.NomeRazaoSocial,
-                            IdTipoUsuario = p.IdUsuarioNavigation.IdUsuario,
-                            Documento = p.IdUsuarioNavigation.Documento,
-                            IdTipoUsuarioNavigation = p.IdUsuarioNavigation.IdTipoUsuarioNavigation
-                        }
+
+                            IdUsuarioNavigation = new Usuario () {
+                                IdUsuario = p.IdUsuarioNavigation.IdUsuario,
+                                    NomeRazaoSocial = p.IdUsuarioNavigation.NomeRazaoSocial,
+                                    IdTipoUsuario = p.IdUsuarioNavigation.IdUsuario,
+                                    Documento = p.IdUsuarioNavigation.Documento,
+                                    IdTipoUsuarioNavigation = p.IdUsuarioNavigation.IdTipoUsuarioNavigation
+                            }
 
                     }
 
-                ).FirstOrDefaultAsync( p => p.IdEndereco == id);
+                ).FirstOrDefaultAsync (p => p.IdEndereco == id);
             }
         }
 
@@ -56,9 +56,9 @@ namespace backend.Repositories {
         public async Task<List<Endereco>> Listar () {
             using (VallerContext _contexto = new VallerContext ()) {
 
-                return await _contexto.Endereco.Select( p => new Endereco() {
+                return await _contexto.Endereco.Select (p => new Endereco () {
 
-                        IdEndereco = p.IdEndereco,
+                    IdEndereco = p.IdEndereco,
                         IdUsuario = p.IdUsuarioNavigation.IdUsuario,
                         Rua = p.Rua,
                         Numero = p.Numero,
@@ -67,15 +67,14 @@ namespace backend.Repositories {
                         Cep = p.Cep,
                         Uf = p.Uf,
 
-                    IdUsuarioNavigation = new Usuario() {
-                        IdUsuario = p.IdUsuarioNavigation.IdUsuario,
-                        NomeRazaoSocial = p.IdUsuarioNavigation.NomeRazaoSocial,
-                        IdTipoUsuario = p.IdUsuarioNavigation.IdUsuario,
-                        Documento = p.IdUsuarioNavigation.Documento,
-                        IdTipoUsuarioNavigation = p.IdUsuarioNavigation.IdTipoUsuarioNavigation
-                    }    
-                    }
-                ).ToListAsync();
+                        IdUsuarioNavigation = new Usuario () {
+                            IdUsuario = p.IdUsuarioNavigation.IdUsuario,
+                                NomeRazaoSocial = p.IdUsuarioNavigation.NomeRazaoSocial,
+                                IdTipoUsuario = p.IdUsuarioNavigation.IdUsuario,
+                                Documento = p.IdUsuarioNavigation.Documento,
+                                IdTipoUsuarioNavigation = p.IdUsuarioNavigation.IdTipoUsuarioNavigation
+                        }
+                }).ToListAsync ();
             }
         }
 
@@ -91,36 +90,29 @@ namespace backend.Repositories {
             throw new System.NotImplementedException ();
         }
 
-
-
-
-
-
-        public async Task<List<Endereco>> ListarOnlyId(int IdUsuario)
-        {
-            using (VallerContext _context = new VallerContext())
-            {
-                return await _context.Endereco.Select(
-                    p => new Endereco() {
+        public async Task<Endereco> ListarOnlyId (int IdUsuario) {
+            using (VallerContext _context = new VallerContext ()) {
+                return await _context.Endereco.Select (
+                    p => new Endereco () {
 
                         IdEndereco = p.IdEndereco,
-                        IdUsuario = p.IdUsuarioNavigation.IdUsuario,
-                        Rua = p.Rua,
-                        Numero = p.Numero,
-                        Bairro = p.Bairro,
-                        Cidade = p.Cidade,
-                        Cep = p.Cep,
-                        Uf = p.Uf,
+                            IdUsuario = p.IdUsuarioNavigation.IdUsuario,
+                            Rua = p.Rua,
+                            Numero = p.Numero,
+                            Bairro = p.Bairro,
+                            Cidade = p.Cidade,
+                            Cep = p.Cep,
+                            Uf = p.Uf,
 
-                    IdUsuarioNavigation = new Usuario() {
-                        IdUsuario = p.IdUsuarioNavigation.IdUsuario,
-                        NomeRazaoSocial = p.IdUsuarioNavigation.NomeRazaoSocial,
-                        IdTipoUsuario = p.IdUsuarioNavigation.IdUsuario,
-                        Documento = p.IdUsuarioNavigation.Documento,
-                        IdTipoUsuarioNavigation = p.IdUsuarioNavigation.IdTipoUsuarioNavigation
-                    }    
+                            IdUsuarioNavigation = new Usuario () {
+                                IdUsuario = p.IdUsuarioNavigation.IdUsuario,
+                                    NomeRazaoSocial = p.IdUsuarioNavigation.NomeRazaoSocial,
+                                    IdTipoUsuario = p.IdUsuarioNavigation.IdUsuario,
+                                    Documento = p.IdUsuarioNavigation.Documento,
+                                    IdTipoUsuarioNavigation = p.IdUsuarioNavigation.IdTipoUsuarioNavigation
+                            }
                     }
-                ).Where(r => r.IdUsuarioNavigation.IdUsuario == IdUsuario).ToListAsync();
+                ).Where (r => r.IdUsuarioNavigation.IdUsuario == IdUsuario).FirstOrDefaultAsync ();
             }
         }
     }
