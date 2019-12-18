@@ -605,6 +605,8 @@ dl, ol, ul {
     height: 30px;
     padding: 0;
     margin: 0;
+    position: absolute;
+
 }
 
 .conteudo-rodape p{
@@ -642,6 +644,7 @@ dl, ol, ul {
 .botao-laranja{
     background-color: var(--laranja-valer) !important;
     color: white !important;
+    font-size: 1rem !important;
 }
 
 #title_gerenciamento_de_produtos{
@@ -649,6 +652,19 @@ dl, ol, ul {
     text-align: center;
     font-size: 40px;
     margin-top: 80px;
+
+}
+
+.text-align{
+    text-align: center;
+}
+
+.titulo_gerenciamento{
+    margin: 100px 100px;
+}
+
+.icon-geren{
+    color: #343330 !important;
 }
 
 
@@ -662,15 +678,81 @@ dl, ol, ul {
     color: #F5F5F5;
 }
 
-.tabela-produto{
-    background-color: white !important;
-    padding-top: 20px
+.cabecalho-oferta{
+    background-color: var(--preto-valler);
+    color: #f5f5f5 !important;
+}
+
+
+.titulo-reserva{
+    text-align: center !important;
+}
+
+.cabecalho-tb-reserva{
+    display: flex;
+    justify-content: center;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+
+.t{
+    text-align: center;
+}
+
+.margin-top{
+    margin-top: 100px;
+}
+
+.margin-bottom{
+    margin-bottom: 30px;
+}
+
+.tabela-body{
+    box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12);
+    text-align: center;
+}
+
+.sombra{
+    box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12);
+}
+
+
+.cabecalho-tb-produto{
+    display: flex;
+    justify-content: space-between;
+}
+
+
+.titulo-tb-produto{
+    letter-spacing: 0.5rem !important;    
+    font-weight: 300;
+    text-transform: uppercase;
+}
+
+.flex{
+    display: flex;
+    justify-content: space-between;
+}
+
+.separador{
+    width: 1100px;
+    height: 55px;
+    background-color: #343330;
+    display: flex;
+    align-items: center;
+}
+
+.separador h3{
+    color: white !important;
+}
+.zera-margin{
+    margin: 0px !important;
 }
 
 .botao-add{
     background-color: white !important;
     padding: 30px;
-    border-radius: 0px 0px 0% 0%; 
+    border-radius: 60px 60px 0% 0%; 
     
 }
 
@@ -716,6 +798,26 @@ dl, ol, ul {
     -moz-box-shadow: 6px 10px 14px -3px rgba(0, 0, 0, 0.1);
     box-shadow: 6px 10px 14px -3px rgba(0, 0, 0, 0.1);
 }
+
+.acoes{
+    display: flex;
+    justify-content: space-around;
+} 
+
+.btn_50{
+    width: 40% !important;
+    height: 50px !important;
+}
+
+.btn-edit{
+    background-color: #00B6FF !important    ;
+}
+
+.btn-delete{
+    background-color: red !important;
+}
+
+
 
 .form_add_produto {
     margin-left: auto;
@@ -1170,9 +1272,6 @@ a::placeholder, i::placeholder {
     margin: 0px;
 }
 
-.card-veja-mais .preco {
-    
-}
 .foto-comentario-div {
     display: flex;
     padding: 20px;

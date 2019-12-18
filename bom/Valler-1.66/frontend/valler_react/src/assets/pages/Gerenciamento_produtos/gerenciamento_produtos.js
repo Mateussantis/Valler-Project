@@ -9,6 +9,7 @@ import { isDate } from 'util';
 import '../../css/table_MDB.css';
 import Alert from 'react-bootstrap/Alert';
 import { number } from 'prop-types';
+import moment from 'moment';
 
 export default class gerenciamento_produtos extends Component {
 
@@ -514,64 +515,58 @@ export default class gerenciamento_produtos extends Component {
                         </Alert>
                     }
 
-                    <div className="container">
-                        <p id="title_gerenciamento_de_produtos">Gerenciamento de produtos e Ofertas </p>
-
-                        <div class="cads container">
-
-                            <button className="btn botao-laranja" onClick={this.abrirModalOferta}>
-                                <i class="fas fa-bars"></i> Cadastrar Oferta
-                                        +
-                        </button>
+                        <div className="titulo_gerenciamento">
+                            <p id="title_gerenciamento_de_produtos">- Gerenciamento de produtos e Ofertas -</p>
                         </div>
+                    <div className="container ">
 
-                        <tr>
-                            <td className="botao-add">
-                                <button className="btn botao-laranja" onClick={this.abrirModalProduto}>
-                                    <i class="fas fa-hamburger"></i> Cadastrar Produto
+                    
+                    <div className="tabela-produto">
+                            <div className="cabecalho-tb-produto margin-bottom">
+                                
+                                <h3 className="titulo-tb-produto zera-margin"><i class="fas fa-file-contract"/> Seus Produtos Cadastrados</h3>
+                                <button className="btn botao-laranja zera-margin" onClick={this.abrirModalProduto}>
+                                    <i className="" class="fas fa-hamburger"></i> Cadastrar Produto  
                                         +
-                            </button>
-                            </td>
-                        </tr>
+                                </button>
+                            </div>
+                    <MDBTable striped className="tabela-body">
+                            <MDBTableHead className="table-head">
+                                <tr className="table-head">
+                                    <th>Produto</th>
+                                    <th>Categoria</th>
+                                    <th>Descricão</th>
+                                    <th>Ações</th>
+                                </tr>
+                            </MDBTableHead>
 
-                        <div className="tabela-produto">
-                            <MDBTable striped bordered>
-                                <MDBTableHead className="table-head">
-                                    <tr className="table-head">
-                                        <th>Produto</th>
-                                        <th>Categoria</th>
-                                        <th>Descricão</th>
-                                        <th>Ações</th>
-                                    </tr>
-                                </MDBTableHead>
+                            <MDBTableBody>
+                                {
+                                    this.state.listarProduto.map(
+                                        function (Produto) {
+                                            return (
+                                                <tr key={Produto.idProduto}>
+                                                    <td>{Produto.nomeProduto}</td>
+                                                    <td>{Produto.idCategoria}</td>
+                                                    <td>{Produto.descricao}</td>
+                                                    <td className="acoes">
+                                                        <button className="uk-button uk-button-primary uk-width-1-1 uk-margin-small-bottom btn_50 btn-edit" onClick={() => this.abrirModal(Produto)}>Alterar</button>
+                                                        <button className="uk-button uk-button-primary uk-width-1-1 uk-margin-small-bottom btn_50 btn-delete" onClick={() => this.deleteProduto(Produto.idProduto)}>Deletar</button>
+                                                    </td>
+                                                </tr>
+                                            )
+                                        }.bind(this)
+                                    )
+                                }
+                                
+                            </MDBTableBody>
 
-                                <MDBTableBody>
-                                    {
-                                        this.state.listarProduto.map(
-                                            function (Produto) {
-                                                return (
-                                                    <tr key={Produto.idProduto}>
-                                                        <td>{Produto.nomeProduto}</td>
-                                                        <td>{Produto.idCategoria}</td>
-                                                        <td>{Produto.descricao}</td>
-                                                        <td>
-                                                            <button onClick={() => this.abrirModal(Produto)}>Aleterar</button>
-                                                            <button onClick={() => this.deleteProduto(Produto.idProduto)}>Deletar</button>
-                                                        </td>
-                                                    </tr>
-                                                )
-                                            }.bind(this)
-                                        )
-                                    }
+                            <MDBTableFoot>
+                            </MDBTableFoot>
 
-                                </MDBTableBody>
+                        </MDBTable>
 
-                                <MDBTableFoot>
-                                </MDBTableFoot>
-
-                            </MDBTable>
-
-                        </div>
+                    </div>
 
                     </div>
 
@@ -589,20 +584,34 @@ export default class gerenciamento_produtos extends Component {
 
 
 
+                    
 
 
+                
+                <hr className="container uk-divider-icon"/>
+                    <div className="cabecalho-tb-produto container  margin-top">
+                            <h3 className="titulo-tb-produto zera-margin" ><i class="fas fa-dollar-sign"/> Suas Ofertas Cadastradas</h3>
+                            <button className="btn botao-laranja zera-margin" onClick={this.abrirModalOferta}>
+                            <i class="fas fa-bars"></i> Cadastrar Oferta 
+                            +
+                    </button>
+                  </div>
+                  {/* <div className="separador container">
+                    
+                    </div> */}
 
-
-
+                    {/* <h3 className="titulo-tb-produto zera-margin" >Suas Ofertas Cadastradas</h3> */}
                     <section class="container sessao-produtos">
-                        {
+                    {
                             this.state.listarOferta.map(
                                 function (Oferta) {
                                     return (
                                         <a key={Oferta.idOferta} class="card-item">
 
                                             <div class="header-card">
-                                                <span class="uk-label uk-label-success .uk-position-right">Vencimento <br></br>{(Oferta.dataVencimento).split('T')[0]}</span>
+                                                <span class="uk-label uk-label-success .uk-position-right">Vencimento <br></br>
+                                                {moment((Oferta.dataVencimento).split('T')[0]).format('DD-MM-YYYY').replace("-","/").replace("-","/")}
+                                                </span>
                                                 <img src={"http://localhost:5000/Images/" + Oferta.imagem} alt="" />
                                                 <div class="avaliacao">
                                                     <span class="fa fa-star checked"></span>
@@ -619,9 +628,9 @@ export default class gerenciamento_produtos extends Component {
                                             </div>
 
                                             <div class="footer-card">
-                                                <button class="uk-button uk-button-primary uk-width-1-1 uk-margin-small-bottom" onClick={() => this.abrirModalOferta2(Oferta)}>Aleterar
+                                                	<button className="uk-button uk-button-primary uk-width-1-1 uk-margin-small-bottom btn-edit" onClick={() => this.abrirModalOferta2(Oferta)}>Alterar
                                                 </button>
-                                                <button class="uk-button uk-button-primary uk-width-1-1 uk-margin-small-bottom" onClick={() => this.deleteOferta(Oferta.idOferta)}>Deletar
+                                                <button className="uk-button uk-button-primary uk-width-1-1 uk-margin-small-bottom btn-delete" onClick={() => this.deleteOferta(Oferta.idOferta)}>Deletar
                                                 </button>
                                             </div>
 
@@ -630,7 +639,6 @@ export default class gerenciamento_produtos extends Component {
                                 }.bind(this)
                             )
                         }
-
                         <MDBContainer>
                             <form onSubmit={this.putProduto}>
                                 <MDBModal isOpen={this.state.modal} toggle={this.toggle}>
@@ -844,11 +852,9 @@ export default class gerenciamento_produtos extends Component {
 
                     </section>
                 </main>
+               
             </div>
-
             // <Footer/>
-
-
 
         )
 

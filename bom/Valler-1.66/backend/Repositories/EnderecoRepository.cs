@@ -90,5 +90,38 @@ namespace backend.Repositories {
         Task<Endereco> IEndereco.BuscarPorID (int id) {
             throw new System.NotImplementedException ();
         }
+
+
+
+
+
+
+        public async Task<List<Endereco>> ListarOnlyId(int IdUsuario)
+        {
+            using (VallerContext _context = new VallerContext())
+            {
+                return await _context.Endereco.Select(
+                    p => new Endereco() {
+
+                        IdEndereco = p.IdEndereco,
+                        IdUsuario = p.IdUsuarioNavigation.IdUsuario,
+                        Rua = p.Rua,
+                        Numero = p.Numero,
+                        Bairro = p.Bairro,
+                        Cidade = p.Cidade,
+                        Cep = p.Cep,
+                        Uf = p.Uf,
+
+                    IdUsuarioNavigation = new Usuario() {
+                        IdUsuario = p.IdUsuarioNavigation.IdUsuario,
+                        NomeRazaoSocial = p.IdUsuarioNavigation.NomeRazaoSocial,
+                        IdTipoUsuario = p.IdUsuarioNavigation.IdUsuario,
+                        Documento = p.IdUsuarioNavigation.Documento,
+                        IdTipoUsuarioNavigation = p.IdUsuarioNavigation.IdTipoUsuarioNavigation
+                    }    
+                    }
+                ).Where(r => r.IdUsuarioNavigation.IdUsuario == IdUsuario).ToListAsync();
+            }
+        }
     }
 }

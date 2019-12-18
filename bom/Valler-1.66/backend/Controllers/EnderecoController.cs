@@ -122,5 +122,20 @@ namespace Backend.Controllers
 
             return endereco;
         }
+
+        [HttpPost("a/")]
+        public async Task<ActionResult<List<Endereco>>> ListarOnlyId (int idUsuario) {
+
+            //findfasync = procurar algo especifico     
+            var Endereco = await _repositorio.ListarOnlyId(idUsuario);
+
+            if (Endereco == null) {
+                return NotFound (new {
+                    mensagem = "Nenhuma Reserva foi encontrada!"
+                });
+            }
+
+            return Endereco;
+        }
     }
 }

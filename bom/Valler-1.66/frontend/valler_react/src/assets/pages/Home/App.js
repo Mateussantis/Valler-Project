@@ -6,6 +6,7 @@ import Header from '../../components/Header/header.js';
 import { parseJwt, usuarioAutenticado } from '../../services/auth';
 import Alert from 'react-bootstrap/Alert';
 import Banner from '../../img/banner-home.png';
+import moment from 'moment';
 
 export default class App extends Component {
 
@@ -44,7 +45,8 @@ export default class App extends Component {
       show: false,
 
       mensagemErro: "",
-      mensagemSucesso: ""
+      mensagemSucesso: "",
+      rest: ""
 
     }
 
@@ -306,7 +308,7 @@ export default class App extends Component {
       this.setState({ mensagemErro: "Usuarios fornecedores não podem efetuar uma reserva!" })
       setTimeout(() => {
         this.setState({ mensagemErro: "" })
-      },8000)
+      }, 8000)
     }
     else {
       api.post('/reserva', this.state.postReserva)
@@ -409,7 +411,34 @@ export default class App extends Component {
                     <a key={Oferta.idOferta} class="card-item">
 
                       <div class="header-card">
-                        <span class="uk-label uk-label-success .uk-position-right">Vencimento<br></br>{(Oferta.dataVencimento).split('T')[0]}</span>
+
+
+                        {/* {() => {
+
+                          let v = moment((Oferta.dataVencimento).split('T')[0]).format('DD-MM-YYYY')
+                          let o = moment((Oferta.dataOferta).split('T')[0]).format('DD-MM-YYYY')
+
+                          let rest = v.diff(o, 'days')
+                          this.setState({ resto: rest })
+
+                        }} */}
+
+                        <span class="uk-label uk-label-success .uk-position-right">Vencimento<br></br>
+                          {/* {() => {
+                            let v = moment((Oferta.dataVencimento).split('T')[0]).format('DD-MM-YYYY')
+                            let o = moment((Oferta.dataOferta).split('T')[0]).format('DD-MM-YYYY')
+                            let rests = v.diff(o, 'days')
+                            this.setState({rest : rests})
+                          } */}
+
+                          {moment((Oferta.dataVencimento).split('T')[0]).format('DD-MM-YYYY').replace("-", "/").replace("-", "/")}
+
+
+                        </span>
+
+
+
+
                         <img src={"http://localhost:5000/Images/" + Oferta.imagem} alt="" />
                         <div class="avaliacao">
                           <span class="fa fa-star checked"></span>

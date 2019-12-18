@@ -14,6 +14,19 @@ export default class Reserva extends Component {
     this.state = {
       listarReserva: [],
       listarEndereco: [],
+
+      listarEnderecos: {
+        idEndereco: "",
+        idUsuario: "",
+        rua: "",
+        numero: "",
+        bairro: "",
+        cidade: "",
+        uf: "",
+        cep: ""
+      },
+
+
       idUsuario: parseJwt().idUsuario,
 
       mensagemErro: "",
@@ -62,10 +75,15 @@ export default class Reserva extends Component {
   }
 
   getEndereco = (a) => {
-    api.get('Endereco/'+a)
-      .then(response => {
-        this.setState({ listarEndereco: response.data })
-      })
+
+    api.post('Endereco/a/', a)
+    .then(response => {
+      this.setState({ listarEndereco: response.data })
+    })
+
+    // this.setState({listarEnderecos.rua : this.listarEndereco})
+
+    console.log("aaaaaaaaaaaaaaa",this.state.listarEndereco)
   }
 
 
@@ -76,70 +94,81 @@ export default class Reserva extends Component {
     return (
       <div>
 
-      <Header />
+        <Header />
 
-      {
-        this.state.mensagemErro &&
-        <Alert variant="danger">
-          <Alert.Heading>Opss, parece que houve um problema!</Alert.Heading>
-          <p>
-            {this.state.mensagemErro}
-          </p>
-        </Alert>
-      }
+        {
+          this.state.mensagemErro &&
+          <Alert variant="danger">
+            <Alert.Heading>Opss, parece que houve um problema!</Alert.Heading>
+            <p>
+              {this.state.mensagemErro}
+            </p>
+          </Alert>
+        }
 
-      {
-        this.state.mensagemSucesso &&
-        <Alert variant="success">
-          <Alert.Heading>Que bom, sua operação foi realizada com sucesso!</Alert.Heading>
-          <p>
-            {this.state.mensagemSucesso}
-          </p>
-        </Alert>
-      }
+        {
+          this.state.mensagemSucesso &&
+          <Alert variant="success">
+            <Alert.Heading>Que bom, sua operação foi realizada com sucesso!</Alert.Heading>
+            <p>
+              {this.state.mensagemSucesso}
+            </p>
+          </Alert>
+        }
 
 
-      <div className="container">
-      <p id="title_reserva_fornecedores">Veja quem reservou seus produtos!!</p>
-                      <MDBTable striped bordered>
-                          <MDBTableHead>
-                              <tr>
-                                  <th>Oferta Reservada</th>
-                                  <th>Mercado</th>
-                                  <th>Quantidade</th>
-                                  <th>Tempo restante</th>
-                                  <th>Status</th>
-                                  <th>Ações</th>
-                              </tr>
-                          </MDBTableHead>
+        <div className="container">
+          <p id="title_reserva_fornecedores">Veja quem reservou seus produtos!!</p>
+          <MDBTable striped bordered>
+            <MDBTableHead>
+              <tr>
+                <th>Produto</th>
+                <th>Oferta Reservada</th>
+                <th>Mercado</th>
+                <th>Localização</th>
+                <th>Quantidade</th>
+                <th>Valor Unitario</th>
+                <th>Valor Total</th>
+                <th>Tempo restante</th>
+                <th>Status</th>
+                <th>Ações</th>
+              </tr>
+            </MDBTableHead>
 
-                          <MDBTableBody>
-                              {
-                                  this.state.listarReserva.map(
-                                      function (r) {
-                                          return (
-                                              <tr key={r.idReserva}>
-                                                  <td>{r.idOfertaNavigation.titulo}</td>
-                                                  <td>{r.idOfertaNavigation.idProdutoNavigation.idUsuarioNavigation.nomeRazaoSocial}</td>
-                                                  <td>{r.quantidadeReserva}</td>
-                                                  <td>{r.cronometro}</td>
-                                                  <td>{r.statusReserva == 0 && "Fechada" || "Aberta"}</td>
-                                                  <td>
-                                                      <button onClick={() => this.abrirModal(Reserva)}>Alterar</button>
-                                                      <button onClick={() => this.deletarReserva(r.idReserva)}>Deletar</button>
-                                                  </td>
-                                              </tr>
-                                          )
-                                      }.bind(this)
-                                  )
-                              }
-                          </MDBTableBody>
+            <MDBTableBody>
+              {
+                this.state.listarReserva.map(
+                  function (r) {
+                    return (
+                      <tr key={r.idReserva}>
+                        <td>{r.idOfertaNavigation.idProdutoNavigation.nomeProduto}</td>
+                        <td>{r.idOfertaNavigation.titulo}</td>
+                        <td>{r.idOfertaNavigation.idProdutoNavigation.idUsuarioNavigation.nomeRazaoSocial}</td>
+                        <td>
+                          {this.getEndereco(r.idOfertaNavigation.idProdutoNavigation.idUsuarioNavigation.idUsuario)}
+                          {/* {this.state.listarEndereco} */}
+                        </td>
+                        <td>{r.quantidadeReserva}</td>
+                        <td>R$  {r.idOfertaNavigation.preco}</td>
+                        <td>R$  {r.idOfertaNavigation.preco * r.quantidadeReserva}</td>
+                        <td>{r.cronometro}</td>
+                        <td>{r.statusReserva == 0 && "Fechada" || "Aberta"}</td>
+                        <td>
+                          <button onClick={() => this.abrirModal(Reserva)}>Alterar</button>
+                          <button onClick={() => this.deletarReserva(r.idReserva)}>Deletar</button>
+                        </td>
+                      </tr>
+                    )
+                  }.bind(this)
+                )
+              }
+            </MDBTableBody>
 
-                      </MDBTable>
+          </MDBTable>
 
-                  </div>
+        </div>
 
-    </div>
+      </div>
     );
   }
 }

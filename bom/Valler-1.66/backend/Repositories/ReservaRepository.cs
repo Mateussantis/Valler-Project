@@ -56,16 +56,16 @@ namespace backend.Repositories
 
                                 IdUsuarioNavigation = new Usuario() {
                                     IdUsuario = r.IdOfertaNavigation.IdProdutoNavigation.IdUsuarioNavigation.IdUsuario,
-                                    NomeRazaoSocial = r.IdOfertaNavigation.IdProdutoNavigation.IdUsuarioNavigation.NomeRazaoSocial, 
+                                    NomeRazaoSocial = r.IdOfertaNavigation.IdProdutoNavigation.IdUsuarioNavigation.NomeRazaoSocial 
                                 }                       
                             } 
                         },
-                    
 
                         IdUsuarioNavigation = new Usuario()
                         {
-                            NomeRazaoSocial = r.IdUsuarioNavigation.NomeRazaoSocial,
                             IdUsuario = r.IdUsuarioNavigation.IdUsuario,
+                            NomeRazaoSocial = r.IdUsuarioNavigation.NomeRazaoSocial,
+                            Documento = r.IdUsuarioNavigation.Documento
                         }
                     }
 
@@ -125,8 +125,9 @@ namespace backend.Repositories
                         },
                         IdUsuarioNavigation = new Usuario()
                         {
-                            NomeRazaoSocial = r.IdUsuarioNavigation.NomeRazaoSocial,
                             IdUsuario = r.IdUsuarioNavigation.IdUsuario,
+                            NomeRazaoSocial = r.IdUsuarioNavigation.NomeRazaoSocial,
+                            Documento = r.IdUsuarioNavigation.Documento
                         }
                     }
                 ).ToListAsync();
@@ -193,23 +194,15 @@ namespace backend.Repositories
                         },
                         IdUsuarioNavigation = new Usuario()
                         {
-                            NomeRazaoSocial = r.IdUsuarioNavigation.NomeRazaoSocial,
                             IdUsuario = r.IdUsuarioNavigation.IdUsuario,
+                            IdTipoUsuario = r.IdUsuarioNavigation.IdTipoUsuario,
+                            NomeRazaoSocial = r.IdUsuarioNavigation.NomeRazaoSocial,
+                            Documento = r.IdUsuarioNavigation.Documento
                         }
                     }
                 ).Where(r => r.IdUsuario == IdUsuario).ToListAsync();
             }
         }
-
-
-
-
-
-
-
-
-
-
 
 
         public async Task<List<Reserva>> ListarOnlyIdFornecedor(int IdUsuario)
@@ -256,6 +249,7 @@ namespace backend.Repositories
                         {
                             NomeRazaoSocial = r.IdUsuarioNavigation.NomeRazaoSocial,
                             IdUsuario = r.IdUsuarioNavigation.IdUsuario,
+                            Documento = r.IdUsuarioNavigation.Documento
                         }
                     }
                 ).Where(r => r.IdOfertaNavigation.IdProdutoNavigation.IdUsuarioNavigation.IdUsuario == IdUsuario).ToListAsync();
