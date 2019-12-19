@@ -3,8 +3,8 @@ values                   ('ADM'),
                          ('Comum'),
                          ('Fornecedor');
 
-insert into Usuario      (id_tipo_usuario,nome_razao_social, email,senha,documento) 
-values                   (1,'Valler-adm','adm@valler.com','23751923','232312342124'),
+insert into Usuario      (id_tipo_usuario,nome_razao_social , email,senha,documento, imagem_usuario) 
+values                   (3,'Opa','Opa','123','232312342124', 'Rua dos Alves | Numero 300 '),
                          (2,'Mateus Santis','mateussantiss@gmail.com','123','435625463243'),
 						 (3,'Extra','extra','123','32434343325'),
                          (3,'Carrefur','carrefur','123','32434343325');
@@ -24,7 +24,4 @@ VALUES                   (1, 'Getulio', 731, 'Jardim Belval', 'Barueri', 'SP', '
                          (2, 'Papagaio', 32, 'America', 'Jandira', 'RJ', '543'), 
                          (1, 'Franca', 81, 'Auvorada', 'Quero', 'PQ', '10');
 
-
-
-
-select * from tipo_usuario;
+						 select * from Usuario
