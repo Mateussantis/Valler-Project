@@ -14,6 +14,7 @@ create table Usuario (
     id_usuario int identity primary key,
     id_tipo_usuario int foreign key references Tipo_Usuario (id_tipo_usuario),
     nome_razao_social varchar (255) not null,
+	endereco varchar (255),
     email varchar (255) not null,
     senha varchar (255) not null,
     documento  varchar (255) not null,
@@ -79,4 +80,3 @@ CREATE TABLE Reserva (
 	cronometro time(3) NOT NULL,
 	status_reserva bit NOT NULL
 );
-
