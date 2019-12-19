@@ -44,7 +44,7 @@ export default class gerenciamento_produtos extends Component {
                 nomeProduto: "",
                 descricao: ""
             },
-
+            
             postSetStateOferta: {
                 idProduto: "",
                 idUsuario: token,
@@ -171,7 +171,7 @@ export default class gerenciamento_produtos extends Component {
             this.listaOfertaAtualizada()
             this.setState({ mensagemSucesso: "" })
             this.setState({ mensagemErro: "" })
-        }, 2500)
+        }, 4000)
     }
 
 
@@ -212,7 +212,7 @@ export default class gerenciamento_produtos extends Component {
         setTimeout(() => {
             this.setState({ mensagemSucesso: "" })
             this.setState({ mensagemErro: "" })
-        }, 1300);
+        }, 4000);
     }
 
 
@@ -301,7 +301,7 @@ export default class gerenciamento_produtos extends Component {
         setTimeout(() => {
             this.setState({ mensagemSucesso: "" })
             this.setState({ mensagemErro: "" })
-        }, 3500);
+        }, 4000);
     }
 
     //#endregion
@@ -334,7 +334,7 @@ export default class gerenciamento_produtos extends Component {
             this.listaAtualizada();
             this.setState({ mensagemSucesso: "" })
             this.setState({ mensagemErro: "" })
-        }, 1200);
+        }, 4000);
     }
 
     deleteProduto(id) {
@@ -355,7 +355,7 @@ export default class gerenciamento_produtos extends Component {
         setTimeout(() => {
             this.setState({ mensagemSucesso: "" })
             this.setState({ mensagemErro: "" })
-        }, 3000);
+        }, 4000);
     }
 
 
@@ -391,7 +391,7 @@ export default class gerenciamento_produtos extends Component {
             this.listaAtualizada();
             this.setState({ mensagemSucesso: "" })
             this.setState({ mensagemErro: "" })
-        }, 1500);
+        }, 4000);
     }
 
 
@@ -463,7 +463,7 @@ export default class gerenciamento_produtos extends Component {
         setTimeout(() => {
             this.setState({ mensagemSucesso: "" })
             this.setState({ mensagemErro: "" })
-        }, 3000);
+        }, 4000);
     }
 
     abrirModalReserva = (id) => {
@@ -547,7 +547,7 @@ export default class gerenciamento_produtos extends Component {
                                             return (
                                                 <tr key={Produto.idProduto}>
                                                     <td>{Produto.nomeProduto}</td>
-                                                    <td>{Produto.idCategoria}</td>
+                                                    <td>{Produto.idCategoriaNavigation.categoria1}</td>
                                                     <td>{Produto.descricao}</td>
                                                     <td className="acoes">
                                                         <button className="uk-button uk-button-primary uk-width-1-1 uk-margin-small-bottom btn_50 btn-edit" onClick={() => this.abrirModal(Produto)}>Alterar</button>
@@ -692,7 +692,7 @@ export default class gerenciamento_produtos extends Component {
                                             </select>
 
                                             <MDBInput label="Produtos" name="titulo" value={this.state.postSetStateOferta.titulo} onChange={this.postSetStateOferta.bind(this)} />
-                                            <MDBInput type="date" label="Data Oferta" name="dataOferta" value={this.state.postSetStateOferta.dataOferta} onChange={this.postSetStateOferta.bind(this)} />
+                                            {/* <MDBInput type="date" label="Data Oferta" name="dataOferta" value={this.state.postSetStateOferta.dataOferta} onChange={this.postSetStateOferta.bind(this)} /> */}
                                             <MDBInput type="date" label="Data Vencimento" name="dataVencimento" value={this.state.postSetStateOferta.dataVencimento} onChange={this.postSetStateOferta.bind(this)} />
                                             <MDBInput type="numeric" label="Preço" name="preco" value={this.state.postSetStateOferta.preco} onChange={this.postSetStateOferta.bind(this)} />
                                             <MDBInput type="numeric" label="Quantidade" name="quantidade" value={this.state.postSetStateOferta.quantidade} onChange={this.postSetStateOferta.bind(this)} />

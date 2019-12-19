@@ -308,12 +308,16 @@ export default class App extends Component {
       this.setState({ mensagemErro: "Usuarios fornecedores não podem efetuar uma reserva!" })
       setTimeout(() => {
         this.setState({ mensagemErro: "" })
-      }, 8000)
+      }, 4000)
     }
     else {
+      
       api.post('/reserva', this.state.postReserva)
-        .then(() => {
+      
+      .then(() => {
+        setTimeout(() => {
           this.setState({ mensagemSucesso: "Você acabou de fazer uma Reserva, pode encontrar ela no carrinho de reservas!" });
+        }, 600)
         })
         .catch(() => {
           this.setState({ mensagemErro: "Não foi possível fazer a Reserva, por favor verifique se escolheu um numero!" });
@@ -323,7 +327,7 @@ export default class App extends Component {
         this.listaOfertaAtualizada();
         this.setState({ mensagemSucesso: "" })
         this.setState({ mensagemErro: "" })
-      }, 1200);
+      }, 4000);
     }
   }
 

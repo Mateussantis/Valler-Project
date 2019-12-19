@@ -47,7 +47,7 @@ export default class ReservaFornecedor extends Component {
     setTimeout(() => {
       this.setState({ mensagemSucesso: "" })
       this.setState({ mensagemErro: "" })
-    }, 1000)
+    }, 4000)
   }
 
   getReserva = () => {

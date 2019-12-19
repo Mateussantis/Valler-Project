@@ -62,7 +62,7 @@ export default class Reserva extends Component {
       this.getReserva()
       this.setState({ mensagemSucesso: "" })
       this.setState({ mensagemErro: "" })
-    }, 1500)
+    }, 4000)
   }
 
   getReserva = () => {

@@ -32,6 +32,7 @@ namespace backend.Repositories
                         IdCategoria = p.IdCategoria,
                         IdUsuario = p.IdUsuario,
                         NomeProduto = p.NomeProduto,
+
                         IdCategoriaNavigation = new Categoria() {
                             IdCategoria = p.IdCategoriaNavigation.IdCategoria,
                             Categoria1 = p.IdCategoriaNavigation.Categoria1,
@@ -109,7 +110,8 @@ namespace backend.Repositories
                         Descricao = p.Descricao,
                         IdCategoria = p.IdCategoria,
                         IdUsuario = p.IdUsuario,
-                        NomeProduto = p.NomeProduto
+                        NomeProduto = p.NomeProduto,
+                        IdCategoriaNavigation = p.IdCategoriaNavigation
                         }
                 ).Where(o => o.IdUsuario == IdUsuario).ToListAsync();
             }
