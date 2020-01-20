@@ -692,7 +692,7 @@ export default class gerenciamento_produtos extends Component {
                                             </select>
 
                                             <MDBInput label="Produtos" name="titulo" value={this.state.postSetStateOferta.titulo} onChange={this.postSetStateOferta.bind(this)} />
-                                            {/* <MDBInput type="date" label="Data Oferta" name="dataOferta" value={this.state.postSetStateOferta.dataOferta} onChange={this.postSetStateOferta.bind(this)} /> */}
+                                            <MDBInput type="date" label="Data Oferta" name="dataOferta" value={this.state.postSetStateOferta.dataOferta} onChange={this.postSetStateOferta.bind(this)} />
                                             <MDBInput type="date" label="Data Vencimento" name="dataVencimento" value={this.state.postSetStateOferta.dataVencimento} onChange={this.postSetStateOferta.bind(this)} />
                                             <MDBInput type="numeric" label="Preço" name="preco" value={this.state.postSetStateOferta.preco} onChange={this.postSetStateOferta.bind(this)} />
                                             <MDBInput type="numeric" label="Quantidade" name="quantidade" value={this.state.postSetStateOferta.quantidade} onChange={this.postSetStateOferta.bind(this)} />
