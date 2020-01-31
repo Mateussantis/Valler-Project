@@ -56,7 +56,8 @@ namespace backend.Repositories
 
                                 IdUsuarioNavigation = new Usuario() {
                                     IdUsuario = r.IdOfertaNavigation.IdProdutoNavigation.IdUsuarioNavigation.IdUsuario,
-                                    NomeRazaoSocial = r.IdOfertaNavigation.IdProdutoNavigation.IdUsuarioNavigation.NomeRazaoSocial 
+                                    NomeRazaoSocial = r.IdOfertaNavigation.IdProdutoNavigation.IdUsuarioNavigation.NomeRazaoSocial,
+                                    ImagemUsuario = r.IdOfertaNavigation.IdProdutoNavigation.IdUsuarioNavigation.ImagemUsuario 
                                 }                       
                             } 
                         },
@@ -188,7 +189,7 @@ namespace backend.Repositories
                                 {
                                     IdUsuario = r.IdOfertaNavigation.IdProdutoNavigation.IdUsuarioNavigation.IdUsuario,
                                     NomeRazaoSocial = r.IdOfertaNavigation.IdProdutoNavigation.IdUsuarioNavigation.NomeRazaoSocial,
-                                    
+                                    ImagemUsuario = r.IdOfertaNavigation.IdProdutoNavigation.IdUsuarioNavigation.ImagemUsuario 
                                 }
                             }
                         },
