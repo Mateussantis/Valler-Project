@@ -652,7 +652,13 @@ dl, ol, ul {
     text-align: center;
     font-size: 40px;
     margin-top: 80px;
+}
 
+#title_reserva_fornecedores{
+    color: orange;
+    text-align: center;
+    font-size: 40px;
+    margin-top: 80px;
 }
 
 .text-align{
@@ -660,6 +666,10 @@ dl, ol, ul {
 }
 
 .titulo_gerenciamento{
+    margin: 100px 100px;
+}
+
+.titulo_reservas{
     margin: 100px 100px;
 }
 

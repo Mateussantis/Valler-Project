@@ -118,10 +118,14 @@ export default class Reserva extends Component {
 
 
         <div className="container">
+
+          <div className="titulo_reservas">
           <p id="title_reserva_fornecedores">Veja quem reservou seus produtos!!</p>
-          <MDBTable striped bordered>
-            <MDBTableHead>
-              <tr>
+          </div>
+
+          <MDBTable striped className="tabela-body">
+            <MDBTableHead className="table-head">
+              <tr className="table-head">
                 <th>Produto</th>
                 <th>Oferta Reservada</th>
                 <th>Mercado</th>
