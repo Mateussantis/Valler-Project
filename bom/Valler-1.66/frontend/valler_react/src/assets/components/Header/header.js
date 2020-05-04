@@ -304,7 +304,7 @@ class Header extends Component {
                                         size="lg"
                                         label="Digite sua senha:"
                                         placeholder="Senha"
-                                        type="number"
+                                        type="password"
                                         name="senha"
                                         value={this.state.senha}
                                         onChange={this.atualizaEstado}
