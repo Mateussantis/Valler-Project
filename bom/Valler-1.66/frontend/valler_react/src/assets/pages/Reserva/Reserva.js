@@ -150,7 +150,7 @@ export default class Reserva extends Component {
                         <td>{r.idOfertaNavigation.idProdutoNavigation.idUsuarioNavigation.nomeRazaoSocial}</td>
                         <td>
                           {
-                            <a  href= {"https://www.google.com/maps/search/"+r.idOfertaNavigation.idProdutoNavigation.idUsuarioNavigation.imagemUsuario}>{r.idOfertaNavigation.idProdutoNavigation.idUsuarioNavigation.imagemUsuario}</a>
+                            <a href= {"https://www.google.com/maps/search/"+r.idOfertaNavigation.idProdutoNavigation.idUsuarioNavigation.imagemUsuario} target="_blank">{r.idOfertaNavigation.idProdutoNavigation.idUsuarioNavigation.imagemUsuario}</a>
                             
                           }
                           {/* {this.getEndereco(r.idOfertaNavigation.idProdutoNavigation.idUsuarioNavigation.idUsuario)} */}
